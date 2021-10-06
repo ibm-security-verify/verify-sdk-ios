@@ -1,0 +1,18 @@
+{
+    "rpId":"milano.dev.verify.ibmcloudsecurity.com",
+    "timeout":240000,
+    "challenge":"icd6PT2UHyfKYnFXCcyWhex7il4Ah77_bkC0sFYH-P8",
+    "allowCredentials": [
+        {
+            "id":"elCCP4Jyjl3SBsHxjLFyb_688sUuLmZuZM41w8UScYw",
+            "type":"public-key",
+            "transports":["internal"]
+        },
+        {
+            "id":"UYJYV-1VCnjK07ImqadtPKT5rLHTbTxWN6Oo0_dTG1A",
+            "type":"public-key",
+            "transports":["internal"]
+        }],
+    "extensions": {},
+    "userVerification":"required"
+}

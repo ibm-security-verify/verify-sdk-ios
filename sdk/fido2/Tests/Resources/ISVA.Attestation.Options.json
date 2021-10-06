@@ -1,0 +1,60 @@
+{
+    "rp": {
+        "id": "fidointerop.securitypoc.com",
+        "name": "fidointerop.securitypoc.com"
+    },
+    "user": {
+        "id": "Hl2lr6ViSjyMWWFFByzcjA",
+        "name": "https://login.ibm.com/oidc/endpoint/default/2700033WG8",
+        "displayName": "craigaps@au1.ibm.com"
+    },
+    "timeout": 60000,
+    "challenge": "j9rOOtjL-VuNdLsFd5Y3qtJ5V0Y9GMqQOqRKLtxVBtg",
+    "excludeCredentials": [
+        {
+            "id": "v8foXYZXa8gezUVXIH3WgxF6qatuwhQXaAkHhadZI7Q",
+            "type": "public-key"
+        },
+        {
+            "id": "Z3-0Y2ddwhZlpBu3Eo6sea5hG4gNBGSzOdBA5uatuCQ",
+            "type": "public-key"
+        }
+    ],
+    "extensions": {},
+    "authenticatorSelection": {
+        "requireResidentKey": false
+    },
+    "attestation": "direct",
+    "pubKeyCredParams": [
+        {
+            "alg": -7,
+            "type": "public-key"
+        },
+        {
+            "alg": -257,
+            "type": "public-key"
+        },
+        {
+            "alg": -35,
+            "type": "public-key"
+        },
+        {
+            "alg": -36,
+            "type": "public-key"
+        },
+        {
+            "alg": -65535,
+            "type": "public-key"
+        },
+        {
+            "alg": -258,
+            "type": "public-key"
+        },
+        {
+            "alg": -259,
+            "type": "public-key"
+        }
+    ],
+    "status": "ok",
+    "errorMessage": ""
+}

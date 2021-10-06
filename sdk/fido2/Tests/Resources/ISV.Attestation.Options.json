@@ -1,0 +1,33 @@
+{
+   "rp":{
+      "id":"milano.dev.verify.ibmcloudsecurity.com",
+      "name":"FIDO Native Mobile Test"
+   },
+   "user":{
+      "id":"NjA2MDAwMFVVQw",
+      "name":"fido_tester",
+      "displayName":"fido_tester"
+   },
+   "timeout":240000,
+   "challenge":"OXMcb81qy5LOMJMmLhpwdqWBGoS4ODSkXneCrdiSpgo",
+   "excludeCredentials":[
+      
+   ],
+   "extensions":{
+      
+   },
+   "authenticatorSelection":{
+      
+   },
+   "attestation":"direct",
+   "pubKeyCredParams":[
+      {
+         "alg":-7,
+         "type":"public-key"
+      },
+      {
+         "alg":-257,
+         "type":"public-key"
+      }
+   ]
+}
