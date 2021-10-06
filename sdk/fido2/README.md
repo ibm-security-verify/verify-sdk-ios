@@ -1,11 +1,11 @@
 # IBM Security Verify FIDO2™ SDK for iOS
 
-The FIDO2 component is a native implementation of attestation and assertion ceremonies.  Essentially providing the equivalent
-of WebAuthn's `navigator.credentials.create()` and `navigator.credentials.get()` for native mobile apps.  The FIDO2 component supports custom certificate attestation and authenticator extensions.
+The Verify FIDO2 SDK is a native implementation of attestation and assertion ceremonies.  Essentially providing the equivalent
+of WebAuthn's `navigator.credentials.create()` and `navigator.credentials.get()` for native mobile apps.  The Verify FIDO2 SDK supports custom certificate attestation and authenticator extensions.
 
 
 ## Example
-An [example](../../examples/fido2) application is available for the FIDO2 component.
+An [example](../../examples/fido2) application is available for the Verify FIDO2 SDK.
 
 
 ## Getting started
@@ -37,11 +37,11 @@ Alternatively, you can add the package manually.
 5. Enter `https://github.com/ibm-security-verify/verify-sdk-ios.git` as the respository URL and follow the remaining steps selecting the components to add to your project.
 
 ### API documentation
-The FIDO2 component API can be reviewed [here](https://ibm-security-verify.github.io/ios/fido2/docs/).
+The Verify FIDO2 SDK API can be reviewed [here](https://ibm-security-verify.github.io/ios/fido2/docs/).
 
 ### Importing the SDK
 
-Add the following import statement to the `.swift` files you wish to reference the component.
+Add the following import statement to the `.swift` files you wish to reference the Verify FIDO2 SDK.
 
 ```swift
 import FIDO2
