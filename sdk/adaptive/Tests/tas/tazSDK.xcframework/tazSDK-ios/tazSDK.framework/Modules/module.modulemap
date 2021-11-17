@@ -1,0 +1,6 @@
+framework module tazSDK {
+  umbrella header "tazSDK.h"
+
+  export *
+  module * { export * }
+}
