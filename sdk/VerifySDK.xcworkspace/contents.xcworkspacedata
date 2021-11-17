@@ -8,6 +8,9 @@
       location = "container:"
       name = "sdk">
       <FileRef
+         location = "group:adaptive/Adaptive.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:fido2/FIDO2.xcodeproj">
       </FileRef>
    </Group>

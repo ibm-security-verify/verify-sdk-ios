@@ -4,7 +4,7 @@ This repository is for active development of the IBM Security Verify SDK for iOS
 
 ## Getting started
 
-For your convenience, each component is seperate for you to choose from instead of one large IBM Security Verify package.  To get started with a specific component, see the **README.md** file located in each of components project folder.
+For your convenience, each component is separate for you to choose from instead of one large IBM Security Verify package.  To get started with a specific component, see the **README.md** file located in each components project folder.
 
 ### Prerequisites
 
@@ -19,6 +19,8 @@ The following components are currently offered in the package.
 | Component | Description |
 | ----------- | ----------- |
 | [FIDO2](sdk/fido2) | The FIDO2™ component is a native implementation of attestation and assertion ceremonies.  Essentially providing the equivalent of WebAuthn's `navigator.credentials.create()` and `navigator.credentials.get()` for native mobile apps.|
+| [Adaptive](sdk/adaptive) | The adaptive component provides device assessment. Based on cloud risk policies, authentication and authorization challenges can be evaluated.|
+
 
 
 ### Installation
@@ -31,7 +33,7 @@ dependencies: [
 ]
 ```
 
-then in the `targets` section of the application/library, add one or more components to your `dependencies`, for example:
+then in the `targets` section of the application/library, add one or more components to your `dependencies`. For example:
 
 ```switft
 // Target for Swift 5.2
@@ -45,4 +47,4 @@ Alternatively, you can add the package manually.
 2. Select your application project under the **PROJECT** heading
 3. Select the **Swift Packages** tab.
 4. Click on the `+` button.
-5. Enter `https://github.com/ibm-security-verify/verify-sdk-ios.git` as the respository URL and follow the remaining steps selecting the components to add to your project.
+5. Enter `https://github.com/ibm-security-verify/verify-sdk-ios.git` as the respository URL and follow the remaining steps for selecting the components to add to your project.
