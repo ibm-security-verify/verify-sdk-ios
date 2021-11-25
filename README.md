@@ -1,6 +1,6 @@
 # IBM Security Verify SDK for iOS
 
-This repository is for active development of the IBM Security Verify SDK for iOS.
+This repository is for active development of the IBM Security Verify SDK ("Software Development Kit") for iOS.
 
 ## Getting started
 
@@ -20,6 +20,7 @@ The following components are currently offered in the package.
 | ----------- | ----------- |
 | [FIDO2](sdk/fido2) | The FIDO2™ component is a native implementation of attestation and assertion ceremonies.  Essentially providing the equivalent of WebAuthn's `navigator.credentials.create()` and `navigator.credentials.get()` for native mobile apps.|
 | [Adaptive](sdk/adaptive) | The adaptive component provides device assessment. Based on cloud risk policies, authentication and authorization challenges can be evaluated.|
+| [Core](sdk/core) | The adaptive component provides device assessment. Based on cloud risk policies, authentication and authorization challenges can be evaluated.|
 
 
 

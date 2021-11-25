@@ -16,7 +16,7 @@ An [example](../../examples/fido2) application is available for the Verify FIDO2
 
 ```swift
 dependencies: [
-    .package(name: "IBM Security Verify", url: "https://github.com/ibm-security-verify/verify-sdk-ios.git", from: "3.0.1")
+    .package(name: "IBM Security Verify", url: "https://github.com/ibm-security-verify/verify-sdk-ios.git", from: "3.0.2")
 ]
 ```
 

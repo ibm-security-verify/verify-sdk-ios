@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="l9G-bJ-S1B">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="l9G-bJ-S1B">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -40,7 +41,7 @@
                                                                 <rect key="frame" x="16" y="16" width="350" height="194.5"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UWD-qN-CWp">
-                                                                        <rect key="frame" x="0.0" y="1" width="350" height="18"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="350" height="19"/>
                                                                         <imageReference key="image" image="cloud.fill" catalog="system" symbolScale="large"/>
                                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                                                     </imageView>
@@ -219,7 +220,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="4VW-OG-RBx">
-                                        <rect key="frame" x="0.0" y="184.5" width="272" height="80.5"/>
+                                        <rect key="frame" x="0.0" y="184.5" width="272" height="82.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tenant URL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4XA-3z-fFr">
                                                 <rect key="frame" x="0.0" y="0.0" width="272" height="18"/>
@@ -228,14 +229,14 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Cloud tenant URL" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="abx-Wp-XZf">
-                                                <rect key="frame" x="0.0" y="30" width="272" height="50.5"/>
+                                                <rect key="frame" x="0.0" y="30" width="272" height="52.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="done" textContentType="url"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" id="U0x-vc-Eot">
-                                        <rect key="frame" x="0.0" y="297" width="272" height="52"/>
+                                        <rect key="frame" x="0.0" y="299" width="272" height="51"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Client ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eBg-CW-IaG">
@@ -245,7 +246,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Client id" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="B6s-th-HdS">
-                                                <rect key="frame" x="0.0" y="30" width="272" height="22"/>
+                                                <rect key="frame" x="0.0" y="30" width="272" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
                                             </textField>
@@ -253,7 +254,7 @@
                                         <viewLayoutGuide key="safeArea" id="z7X-GD-g5k"/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="TYq-uf-nZl">
-                                        <rect key="frame" x="0.0" y="381" width="272" height="52"/>
+                                        <rect key="frame" x="0.0" y="382" width="272" height="51"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lna-8Y-EI5">
                                                 <rect key="frame" x="0.0" y="0.0" width="272" height="18"/>
@@ -262,7 +263,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="No5-vb-KyS">
-                                                <rect key="frame" x="0.0" y="30" width="272" height="22"/>
+                                                <rect key="frame" x="0.0" y="30" width="272" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
                                             </textField>
@@ -356,7 +357,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Yz4-5q-1bv">
-                                        <rect key="frame" x="0.0" y="167" width="272" height="133.5"/>
+                                        <rect key="frame" x="0.0" y="167" width="272" height="134.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Relying party URL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sec-S6-QWB">
                                                 <rect key="frame" x="0.0" y="0.0" width="272" height="18"/>
@@ -365,14 +366,14 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Cloud tenant URL" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="p5U-Q0-loq">
-                                                <rect key="frame" x="0.0" y="30" width="272" height="103.5"/>
+                                                <rect key="frame" x="0.0" y="30" width="272" height="104.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="done" textContentType="url"/>
                                             </textField>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" id="AGr-Hg-5hK">
-                                        <rect key="frame" x="0.0" y="332.5" width="272" height="52"/>
+                                        <rect key="frame" x="0.0" y="333.5" width="272" height="51"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Access token" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dJL-Ci-Zys">
@@ -382,7 +383,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Client id" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KfB-3k-q1h">
-                                                <rect key="frame" x="0.0" y="30" width="272" height="22"/>
+                                                <rect key="frame" x="0.0" y="30" width="272" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
                                             </textField>
@@ -539,7 +540,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="EMT-h8-q7T">
-                                <rect key="frame" x="24" y="48" width="366" height="165"/>
+                                <rect key="frame" x="24" y="48" width="366" height="164"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="qGs-4e-dGc" userLabel="Stack Title">
                                         <rect key="frame" x="0.0" y="0.0" width="366" height="81"/>
@@ -558,7 +559,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="zkr-1M-8NO" userLabel="Stack Nichname">
-                                        <rect key="frame" x="0.0" y="113" width="366" height="52"/>
+                                        <rect key="frame" x="0.0" y="113" width="366" height="51"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Credential nickname (optional)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sQN-s6-Hwk">
                                                 <rect key="frame" x="0.0" y="0.0" width="366" height="18"/>
@@ -567,7 +568,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="A name to identify the authenticator." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="SG2-jE-Nny">
-                                                <rect key="frame" x="0.0" y="30" width="366" height="22"/>
+                                                <rect key="frame" x="0.0" y="30" width="366" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="done" textContentType="url"/>
                                             </textField>
@@ -919,7 +920,7 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="building.2.fill" catalog="system" width="128" height="106"/>
-        <image name="cloud.fill" catalog="system" width="128" height="84"/>
+        <image name="cloud.fill" catalog="system" width="128" height="88"/>
         <image name="lock.shield" catalog="system" width="128" height="118"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
