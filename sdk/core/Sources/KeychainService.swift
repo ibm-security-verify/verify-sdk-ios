@@ -337,7 +337,7 @@ public final class KeychainService: NSObject {
     public func itemExists(_ forKey: String) -> Bool {
         // Construct a LAContext to surpress any biometry enable key.
         let context = LAContext()
-        context.interactionNotAllowed = false
+        context.interactionNotAllowed = true
         
         // Construct the dictionary to query the Keychain.
         let query: [String: Any] = [
