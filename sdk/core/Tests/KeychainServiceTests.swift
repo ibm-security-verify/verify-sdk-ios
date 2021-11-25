@@ -380,4 +380,35 @@ class KeychainServiceTests: XCTestCase {
         // Then
         XCTAssertTrue(result)
     }
+    
+    // MARK: - Exists Test
+    /// Adds a `String`, queries for the key, then delete.
+    func testAddExistsThenDelete() throws {
+        // Given
+        var result = true
+
+        // When
+        do {
+            try KeychainService.default.addItem("greeting", value: "Hello World")
+            result = KeychainService.default.itemExists("greeting")
+        }
+        catch {
+            result = false
+        }
+        
+        // Then
+        try KeychainService.default.deleteItem("greeting")
+        
+        // Then
+        XCTAssertTrue(result)
+    }
+    
+    /// Queries for the key which doesn't exist.
+    func testNoKeyExists() throws {
+        // Given, When
+        let result = KeychainService.default.itemExists("nokey")
+        
+        // Then
+        XCTAssertFalse(result)
+    }
 }

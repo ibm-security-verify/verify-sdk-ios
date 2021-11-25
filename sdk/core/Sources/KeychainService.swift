@@ -31,12 +31,18 @@ public enum SecAccessControl: RawRepresentable {
     case devicePasscode
     
     /// Constraint to access an item with Touch ID for any enrolled fingers, or Face ID.
+    ///
+    /// The app's Info.plist must contain an `NSFaceIDUsageDescription` key with a string value explaining to the user how the app uses this data.
     case biometryAny
     
     /// Constraint to access an item with Touch ID for currently enrolled fingers, or from Face ID with the currently enrolled user.
+    ///
+    /// The app's Info.plist must contain an `NSFaceIDUsageDescription` key with a string value explaining to the user how the app uses this data.
     case biometryCurrentSet
     
     /// Constraint to access an item with either biometry or passcode.
+    ///
+    /// The app's Info.plist must contain an `NSFaceIDUsageDescription` key with a string value explaining to the user how the app uses this data.
     case userPresence
     
     /// Creates a new instance with the specified raw value.
@@ -149,8 +155,8 @@ public final class KeychainService: NSObject {
     // MARK: Keychain methods
     
     /// Adds an item to a keychain.
-    /// - parameter value: The value to store in the keychain.
     /// - parameter forKey: The key with which to associate the value.
+    /// - parameter value: The value to store in the keychain.
     /// - parameter accessControl: One or more flags that determine how the value can be accessed. See [SecAccessControlCreateFlags](https://developer.apple.com/documentation/security/secaccesscontrolcreateflags).
     /// - parameter accessibility: A key whose value indicates when a keychain item is accessible. Default is `SecAccessible.afterFirstUnlock`.
     /// - throws: A `KeychainError` representing the error.
@@ -317,5 +323,28 @@ public final class KeychainService: NSObject {
         }
 
         return result
+    }
+    
+    /// Query the keychain for a matching key.
+    /// - parameter forKey: The key with which to query.
+    /// - returns:`true` if the key exists, otherwise `false`.
+    ///
+    /// If the key has been generated requiring authentication for access, the UI has been surpressed.  Therefore the function will return `true` under the following conditions:
+    /// - `errSecSuccess` The item was found, no error.
+    /// - `errSecInteractionNotAllowed` The item was found, the user interaction is not allowed.
+    /// - `errSecAuthFailed` The item was found, but invalidated due to a change to biometry or passphrase.
+    public func itemExists(_ forKey: String) -> Bool {
+        // Construct the dictionary to query the Keychain.
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: serviceName,
+            kSecAttrAccount as String: forKey,
+            kSecUseAuthenticationUI as String: false]
+        
+        let status = SecItemCopyMatching(query as CFDictionary, nil)
+
+        logger.info("Item '\(forKey, privacy: .public)' exists in keychain: \(status == errSecSuccess || status == errSecInteractionNotAllowed || status == errSecAuthFailed, privacy: .public)")
+
+        return status == errSecSuccess || status == errSecInteractionNotAllowed || status == errSecAuthFailed
     }
 }
