@@ -5,6 +5,7 @@
 import Foundation
 import Security
 import OSLog
+import LocalAuthentication
 
 // MARK: Enum
 
@@ -334,12 +335,16 @@ public final class KeychainService: NSObject {
     /// - `errSecInteractionNotAllowed` The item was found, the user interaction is not allowed.
     /// - `errSecAuthFailed` The item was found, but invalidated due to a change to biometry or passphrase.
     public func itemExists(_ forKey: String) -> Bool {
+        // Construct a LAContext to surpress any biometry enable key.
+        let context = LAContext()
+        context.interactionNotAllowed = false
+        
         // Construct the dictionary to query the Keychain.
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: serviceName,
             kSecAttrAccount as String: forKey,
-            kSecUseAuthenticationUI as String: false]
+            kSecUseAuthenticationContext as String: context]
         
         let status = SecItemCopyMatching(query as CFDictionary, nil)
 
