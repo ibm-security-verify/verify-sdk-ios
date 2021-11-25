@@ -1,0 +1,321 @@
+//
+// Copyright contributors to the IBM Security Verify Core SDK for iOS project
+//
+
+import Foundation
+import Security
+import OSLog
+
+// MARK: Enum
+
+/// An error that occurs during keychain operations.
+public enum KeychainError: Error, Equatable {
+    /// The name of the key is empty or is considered invalid.
+    case invalidKey
+    
+    /// A key with the same name already exists.
+    case duplicateKey
+    
+    /// Unexpected data was being written to or read from the keychain.
+    case unexpectedData
+    
+    /// An unhandled error occurred perform the keychain operation.
+    case unhandledError(message: String)
+}
+
+/// Access control constants that dictate how a keychain item may be used.
+public enum SecAccessControl: RawRepresentable {
+    public typealias RawValue = SecAccessControlCreateFlags
+    
+    /// Constraint to access an item with a passcode.
+    case devicePasscode
+    
+    /// Constraint to access an item with Touch ID for any enrolled fingers, or Face ID.
+    case biometryAny
+    
+    /// Constraint to access an item with Touch ID for currently enrolled fingers, or from Face ID with the currently enrolled user.
+    case biometryCurrentSet
+    
+    /// Constraint to access an item with either biometry or passcode.
+    case userPresence
+    
+    /// Creates a new instance with the specified raw value.
+    ///
+    /// If there is no value of the type that corresponds with the specified raw
+    /// value, this initializer returns `nil`. For example:
+    ///
+    /// - parameter rawValue: The raw value to use for the new instance.
+    public init?(rawValue: SecAccessControlCreateFlags) {
+        switch rawValue {
+        case SecAccessControlCreateFlags.devicePasscode:
+            self = .devicePasscode
+        case SecAccessControlCreateFlags.biometryAny:
+            self = .biometryAny
+        case SecAccessControlCreateFlags.biometryCurrentSet:
+            self = .biometryCurrentSet
+        case SecAccessControlCreateFlags.userPresence:
+            self = .userPresence
+        default:
+            return nil
+        }
+    }
+    
+    public var rawValue: RawValue {
+        switch self {
+        case .devicePasscode:
+            return SecAccessControlCreateFlags.devicePasscode
+        case .biometryAny:
+            return SecAccessControlCreateFlags.biometryAny
+        case .biometryCurrentSet:
+            return SecAccessControlCreateFlags.biometryCurrentSet
+        case .userPresence:
+            return SecAccessControlCreateFlags.userPresence
+        }
+    }
+}
+
+/// Set the conditions under which an app can access a keychain item.
+public enum SecAccessible: RawRepresentable {
+    public typealias RawValue = CFString
+    
+    /// The data in the keychain item can be accessed only while the device is unlocked by the user.
+    case whenUnlockedThisDeviceOnly
+    
+    /// The data in the keychain item can be accessed only while the device is unlocked by the user.
+    case whenUnlocked
+    
+    /// The data in the keychain item cannot be accessed after a restart until the device has been unlocked once by the user.
+    case afterFirstUnlockThisDeviceOnly
+    
+    /// The data in the keychain item cannot be accessed after a restart until the device has been unlocked once by the user.
+    case afterFirstUnlock
+    
+    /// Creates a new instance with the specified raw value.
+    ///
+    /// If there is no value of the type that corresponds with the specified raw
+    /// value, this initializer returns `nil`. For example:
+    ///
+    /// - parameter rawValue: The raw value to use for the new instance.
+    public init?(rawValue: CFString) {
+        switch rawValue {
+        case kSecAttrAccessibleWhenUnlockedThisDeviceOnly:
+            self = .whenUnlockedThisDeviceOnly
+        case kSecAttrAccessibleWhenUnlocked:
+            self = .whenUnlocked
+        case kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly:
+            self = .afterFirstUnlockThisDeviceOnly
+        case kSecAttrAccessibleAfterFirstUnlock:
+            self = .afterFirstUnlock
+        default:
+            return nil
+        }
+    }
+    
+    public var rawValue: RawValue {
+        switch self {
+        case .whenUnlockedThisDeviceOnly:
+            return kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+        case .whenUnlocked:
+            return kSecAttrAccessibleWhenUnlocked
+        case .afterFirstUnlockThisDeviceOnly:
+            return kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
+        case .afterFirstUnlock:
+            return kSecAttrAccessibleAfterFirstUnlock
+        }
+    }
+}
+
+/// The keychain is the best place to store small secrets, like passwords and cryptographic keys. Use the functions of the keychain services API to add, retrieve, delete, or modify keychain items.
+/// - note: The keychain service is specific to the IBM Security Verify in that, the keychain is not synchronized with Apple iCloud and access to the items in the keychain occurs after the first device unlock operation.
+public final class KeychainService: NSObject {
+    // MARK: Variables
+    private let logger: Logger
+    private let serviceName = Bundle.main.bundleIdentifier!
+    
+    private static let _default = KeychainService()
+    
+    /// Returns the default singleton instance.
+    public class var `default`: KeychainService {
+        get {
+            return _default
+        }
+    }
+    
+    /// Initializes the `KeychainService`.
+    public override init() {
+        logger = Logger(subsystem: serviceName, category: "keychain")
+    }
+    
+    // MARK: Keychain methods
+    
+    /// Adds an item to a keychain.
+    /// - parameter value: The value to store in the keychain.
+    /// - parameter forKey: The key with which to associate the value.
+    /// - parameter accessControl: One or more flags that determine how the value can be accessed. See [SecAccessControlCreateFlags](https://developer.apple.com/documentation/security/secaccesscontrolcreateflags).
+    /// - parameter accessibility: A key whose value indicates when a keychain item is accessible. Default is `SecAccessible.afterFirstUnlock`.
+    /// - throws: A `KeychainError` representing the error.
+    ///
+    /// ```swift
+    /// struct Person: Codable {
+    ///     var name: String
+    ///     var age: Int
+    /// }
+    ///
+    /// let person = Person(name: "John Doe", age: 42)
+    /// try? KeychainService.default.addItem("account", value: person)
+    /// ```
+    public func addItem<T: Codable>(_ forKey: String, value: T, accessControl: SecAccessControl? = nil, accessibility: SecAccessible = .afterFirstUnlock) throws {
+        guard let data = try? JSONEncoder().encode(value) else {
+            throw KeychainError.unexpectedData
+        }
+        
+        try addItem(forKey, value: data, accessControl: accessControl, accessibility: accessibility)
+    }
+    
+    /// Adds an item to a keychain.
+    /// - parameter forKey: The key with which to associate the value.
+    /// - parameter value: The `Data` value to store in the keychain.
+    /// - parameter accessControl: One or more flags that determine how the value can be accessed. See [SecAccessControlCreateFlags](https://developer.apple.com/documentation/security/secaccesscontrolcreateflags).
+    /// - parameter accessibility: A key whose value indicates when a keychain item is accessible. Default is `SecAccessible.afterFirstUnlock`.
+    /// - throws: A `KeychainError` representing the error.
+    /// 
+    /// ```swift
+    /// struct Person: Codable {
+    ///     var name: String
+    ///     var age: Int
+    /// }
+    ///
+    /// let person = Person(name: "John Doe", age: 42)
+    /// try? KeychainService.default.addItem("account", value: person)
+    /// ```
+    public func addItem(_ forKey: String, value: Data, accessControl: SecAccessControl? = nil, accessibility: SecAccessible = .afterFirstUnlock) throws {
+        guard !forKey.isEmpty else {
+            logger.error("The forKey argument is invalid.")
+            throw KeychainError.invalidKey
+        }
+        
+        // Prepare the query to be writtern to the keychain.
+        var query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
+                                    kSecAttrService as String: serviceName,
+                                    kSecAttrAccount as String: forKey,
+                                    kSecValueData as String: value]
+        
+        // Check if any access control is to be applied. Otherwise apply just the accessible item.
+        if let accessControl = accessControl {
+            var error: Unmanaged<CFError>?
+            
+            guard let accessControlFlags = SecAccessControlCreateWithFlags(kCFAllocatorDefault, accessibility.rawValue, accessControl.rawValue, &error) else {
+                let message = error!.takeRetainedValue().localizedDescription
+                logger.error("Error occurred applying access control. \(message, privacy: .public)")
+                
+                throw KeychainError.unhandledError(message: message)
+            }
+            
+            query[kSecAttrAccessControl as String] = accessControlFlags
+        }
+        else {
+            query[kSecAttrAccessible as String] = accessibility.rawValue
+        }
+
+        let status = SecItemAdd(query as CFDictionary, nil)
+        logger.info("Item '\(forKey, privacy: .public)' added to keychain: \(status == errSecSuccess, privacy: .public)")
+        
+        guard status != errSecDuplicateItem else {
+            throw KeychainError.duplicateKey
+        }
+        
+        guard status == errSecSuccess else {
+            let message = SecCopyErrorMessageString(status, nil) as String? ?? "Unknown error"
+            logger.error("Error occured performing the operation. \(message, privacy: .public)")
+            throw KeychainError.unhandledError(message: message)
+        }
+    }
+    
+    /// Delete an item from the keychain.
+    /// - parameter forKey: The key with which to associate the value.
+    /// - throws: A `KeychainError` representing the error.
+    /// ```swift
+    /// try? KeychainService.default.deleteItem("account")
+    /// ```
+    /// - note: No error is thrown when the key is not found.
+    public func deleteItem(_ forKey: String) throws {
+        guard !forKey.isEmpty else {
+            logger.error("The forKey argument is invalid.")
+            throw KeychainError.invalidKey
+        }
+        
+        // Construct the dictionary to query the keychain.
+        let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
+                                    kSecAttrService as String: serviceName,
+                                    kSecAttrAccount as String: forKey]
+        
+        let status = SecItemDelete(query as CFDictionary)
+        logger.info("Item '\(forKey, privacy: .public)' deleted from keychain: \(status == errSecSuccess, privacy: .public)")
+        
+        guard status == errSecSuccess || status == errSecItemNotFound else {
+            let message = SecCopyErrorMessageString(status, nil) as String? ?? "Unknown error"
+            logger.error("Error occured performing the operation. \(message, privacy: .public)")
+            throw KeychainError.unhandledError(message: message)
+        }
+    }
+    
+    /// Reads a value from the keychain.
+    /// - parameter forKey: The key with which to associate the value.
+    /// - parameter typeof: The type to decode the Keychain value.
+    /// - returns: The value of type `T`.
+    /// - throws: A `KeychainError` representing the error.
+    ///
+    /// ```swift
+    /// struct Person {
+    ///     var name: String
+    ///     var age: Int
+    /// }
+    ///
+    /// guard let person = try? KeychainService.default.readItem("account", type: Person.self) else {
+    ///     return
+    /// }
+    ///
+    /// print(person)
+    /// ```
+    public func readItem<T: Codable>(_ forKey: String, typeof: T.Type) throws -> T {
+        guard !forKey.isEmpty else {
+            logger.error("The forKey argument is invalid.")
+            throw KeychainError.invalidKey
+        }
+
+        // Construct the dictionary to query the Keychain.
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: serviceName,
+            kSecAttrAccount as String: forKey,
+            kSecReturnData as String: true]
+
+        var item: CFTypeRef?
+        let status = SecItemCopyMatching(query as CFDictionary, &item)
+
+        // Check the status for an error.
+        guard status == errSecSuccess else {
+            let message = SecCopyErrorMessageString(status, nil) as String? ?? "Unknown error"
+            
+            switch status {
+            case errSecUserCanceled:
+                logger.warning("The user cancelled the operation. Status: \(status, privacy: .public)")
+                throw KeychainError.unhandledError(message: message)
+            case errSecItemNotFound, errSecInvalidItemRef:
+                logger.warning("The specified item not found in Keychain. Status: \(status, privacy: .public)")
+                throw KeychainError.invalidKey
+            default:
+                logger.warning("An error occured accessing the Keychain. Status: \(status, privacy: .public)")
+                throw KeychainError.unhandledError(message: message)
+            }
+        }
+
+        // Attempt to decode the value back to it's type.
+        guard let data = item as? Data, let result = try? JSONDecoder().decode(T.self, from: data) else {
+            logger.warning("Invalid data associated with key '\(forKey, privacy: .public)'")
+            throw KeychainError.unexpectedData
+        }
+
+        return result
+    }
+}
