@@ -164,8 +164,8 @@ public final class KeychainService: NSObject {
     ///
     /// ```swift
     /// struct Person: Codable {
-    ///     var name: String
-    ///     var age: Int
+    ///    var name: String
+    ///    var age: Int
     /// }
     ///
     /// let person = Person(name: "John Doe", age: 42)
@@ -188,8 +188,8 @@ public final class KeychainService: NSObject {
     /// 
     /// ```swift
     /// struct Person: Codable {
-    ///     var name: String
-    ///     var age: Int
+    ///    var name: String
+    ///    var age: Int
     /// }
     ///
     /// let person = Person(name: "John Doe", age: 42)
@@ -274,12 +274,12 @@ public final class KeychainService: NSObject {
     ///
     /// ```swift
     /// struct Person {
-    ///     var name: String
-    ///     var age: Int
+    ///    var name: String
+    ///    var age: Int
     /// }
     ///
     /// guard let person = try? KeychainService.default.readItem("account", type: Person.self) else {
-    ///     return
+    ///    return
     /// }
     ///
     /// print(person)
@@ -335,7 +335,7 @@ public final class KeychainService: NSObject {
     /// - `errSecInteractionNotAllowed` The item was found, the user interaction is not allowed.
     /// - `errSecAuthFailed` The item was found, but invalidated due to a change to biometry or passphrase.
     public func itemExists(_ forKey: String) -> Bool {
-        // Construct a LAContext to surpress any biometry enable key.
+        // Construct a LAContext to surpress any biometry to access the key.
         let context = LAContext()
         context.interactionNotAllowed = true
         
@@ -351,5 +351,75 @@ public final class KeychainService: NSObject {
         logger.info("Item '\(forKey, privacy: .public)' exists in keychain: \(status == errSecSuccess || status == errSecInteractionNotAllowed || status == errSecAuthFailed, privacy: .public)")
 
         return status == errSecSuccess || status == errSecInteractionNotAllowed || status == errSecAuthFailed
+    }
+    
+    /// Evaluates if the `LocalAuthentication` policy has changed from an initial domain state.
+    /// - parameter evaluatedPolicyDomainState: The initial policy domain state.  Default value is `nil`.
+    /// - returns: `true` if the current domain state has changed, otherwise `false`.
+    ///
+    /// ```
+    /// if let initialDomainStateData = LAContext().evaluatedPolicyDomainState {
+    ///    // Persist the initialDomainStateData for future use.
+    /// }
+    /// ...
+    ///
+    /// // Get the initialDomainStateData from persistence, check to see if it has changed against the current domain state.
+    /// if KeychainService.default.hasAuthenticationSettingsChanged(initialDomainStateData) {
+    ///    print("User has changed their biometry enrollment.")
+    /// }
+    /// ```
+    public func hasPolicyDomainStateChanged(_ evaluatedPolicyDomainState: Data? = nil) -> Bool {
+        // If biometry is not available, then the keys haven't changed.
+        let context = LAContext()
+        guard context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) else {
+            return false
+        }
+
+        // If a new fingerprint has been enrolled, this will change the current evaluated domain state.
+        guard let domainState = context.evaluatedPolicyDomainState, domainState == evaluatedPolicyDomainState else {
+            return true
+        }
+
+        return false
+    }
+    
+    /// Renames an item in the Keychain.
+    /// - parameter forKey: The unique identifer of the key.
+    /// - parameter newKey: The new unique identifier of the key.
+    /// - throws: A `KeychainError` representing the error.
+    ///
+    /// ```
+    /// do {
+    ///    try KeychainHelper.default.rename("oldKey", newKey: "newKey")
+    /// }
+    /// catch let error {
+    ///    print(error.localizedDescription)
+    /// }
+    /// ```
+    public func renameItem(_ forKey: String, newKey: String) throws {
+        // Construct a LAContext to surpress any biometry to access the key.
+        let context = LAContext()
+        context.interactionNotAllowed = true
+        
+        // Construct the dictionary to query the Keychain.
+        let findQuery: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: serviceName,
+            kSecAttrAccount as String: forKey,
+            kSecUseAuthenticationContext as String: context]
+
+        let updateQuery: [String: Any] = [
+            kSecAttrAccount as String: newKey
+        ]
+
+        let status = SecItemUpdate(findQuery as CFDictionary, updateQuery as CFDictionary)
+        logger.info("Rename key from '\(forKey, privacy: .public)' to '\(newKey, privacy: .public)': \(status == errSecSuccess, privacy: .public)")
+      
+        
+        guard status == errSecSuccess else {
+            let message = SecCopyErrorMessageString(status, nil) as String? ?? "Unknown error"
+            logger.error("Error occured performing the operation. \(message, privacy: .public)")
+            throw KeychainError.unhandledError(message: message)
+        }
     }
 }
