@@ -131,7 +131,7 @@ class URLSessionExtensionTests: XCTestCase {
                 let value = try JSONDecoder().decode([Post].self, from: data!)
                 return Result.success(value)
             }
-            catch(let error) {
+            catch let error {
                 return Result.failure(error)
             }
         })

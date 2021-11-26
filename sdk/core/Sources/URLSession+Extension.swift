@@ -9,7 +9,7 @@ import FoundationNetworking
 
 // MARK: Enums
 
-// An error that occurs during URLSession operations.
+/// An error that occurs during URLSession operations.
 public enum URLSessionError: Error, Equatable {
     /// Returns a Boolean value indicating whether two values are equal.
     /// - parameter lhs: A value to compare.
@@ -43,7 +43,9 @@ public enum URLSessionError: Error, Equatable {
     case invalidResponse(Int)
 }
 
+/// Extension to `URLSessionError` for Localizing the error.
 extension URLSessionError: LocalizedError {
+    /// The localized error description.
     public var errorDescription: String? {
         switch self {
         case .noData:
