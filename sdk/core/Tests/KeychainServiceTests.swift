@@ -422,6 +422,32 @@ class KeychainServiceTests: XCTestCase {
         XCTAssertEqual(value.name, result!.name)
     }
     
+    /// Adds, read then deletes a `Struct`.
+    func testAddReadAndDeleteItemStruct2() throws {
+        // Given
+        let value = Person(name: "John Doe", age: 32, acive: true, createdDate: Date())
+       
+        // When
+        do {
+            try KeychainService.default.addItem("account", value: value)
+        }
+        catch let error {
+            XCTFail(error.localizedDescription)
+        }
+        
+        // Then
+        guard let result = try? KeychainService.default.readItem("account", typeof: Person.self) else {
+            XCTFail("Invalid item")
+            return
+        }
+                
+        // Then
+        try KeychainService.default.deleteItem("account")
+        
+        // Then
+        XCTAssertEqual(value.name, result.name)
+    }
+    
     /// Adds, read then deletes failig on the decoding.
     func testAddReadDeleateDecodeFail() throws {
         // Given

@@ -160,7 +160,6 @@ public final class KeychainService: NSObject {
     /// - parameter value: The value to store in the keychain.
     /// - parameter accessControl: One or more flags that determine how the value can be accessed. See [SecAccessControlCreateFlags](https://developer.apple.com/documentation/security/secaccesscontrolcreateflags).
     /// - parameter accessibility: A key whose value indicates when a keychain item is accessible. Default is `SecAccessible.afterFirstUnlock`.
-    /// - throws: A `KeychainError` representing the error.
     ///
     /// ```swift
     /// struct Person: Codable {
@@ -171,6 +170,8 @@ public final class KeychainService: NSObject {
     /// let person = Person(name: "John Doe", age: 42)
     /// try? KeychainService.default.addItem("account", value: person)
     /// ```
+    ///
+    /// - throws: A `KeychainError` representing the error.
     public func addItem<T: Codable>(_ forKey: String, value: T, accessControl: SecAccessControl? = nil, accessibility: SecAccessible = .afterFirstUnlock) throws {
         guard let data = try? JSONEncoder().encode(value) else {
             throw KeychainError.unexpectedData
@@ -184,7 +185,6 @@ public final class KeychainService: NSObject {
     /// - parameter value: The `Data` value to store in the keychain.
     /// - parameter accessControl: One or more flags that determine how the value can be accessed. See [SecAccessControlCreateFlags](https://developer.apple.com/documentation/security/secaccesscontrolcreateflags).
     /// - parameter accessibility: A key whose value indicates when a keychain item is accessible. Default is `SecAccessible.afterFirstUnlock`.
-    /// - throws: A `KeychainError` representing the error.
     /// 
     /// ```swift
     /// struct Person: Codable {
@@ -195,6 +195,8 @@ public final class KeychainService: NSObject {
     /// let person = Person(name: "John Doe", age: 42)
     /// try? KeychainService.default.addItem("account", value: person)
     /// ```
+    ///
+    /// - throws: A `KeychainError` representing the error.
     public func addItem(_ forKey: String, value: Data, accessControl: SecAccessControl? = nil, accessibility: SecAccessible = .afterFirstUnlock) throws {
         guard !forKey.isEmpty else {
             logger.error("The forKey argument is invalid.")
@@ -240,11 +242,13 @@ public final class KeychainService: NSObject {
     
     /// Delete an item from the keychain.
     /// - parameter forKey: The key with which to associate the value.
-    /// - throws: A `KeychainError` representing the error.
+    ///
     /// ```swift
     /// try? KeychainService.default.deleteItem("account")
     /// ```
-    /// - note: No error is thrown when the key is not found.
+    ///
+    /// - throws: A `KeychainError` representing the error.
+    /// - remark: No error is thrown when the key is not found.
     public func deleteItem(_ forKey: String) throws {
         guard !forKey.isEmpty else {
             logger.error("The forKey argument is invalid.")
@@ -270,7 +274,6 @@ public final class KeychainService: NSObject {
     /// - parameter forKey: The key with which to associate the value.
     /// - parameter typeof: The type to decode the Keychain value.
     /// - returns: The value of type `T`.
-    /// - throws: A `KeychainError` representing the error.
     ///
     /// ```swift
     /// struct Person {
@@ -284,6 +287,8 @@ public final class KeychainService: NSObject {
     ///
     /// print(person)
     /// ```
+    ///
+    /// - throws: A `KeychainError` representing the error.
     public func readItem<T: Codable>(_ forKey: String, typeof: T.Type) throws -> T {
         guard !forKey.isEmpty else {
             logger.error("The forKey argument is invalid.")
@@ -334,6 +339,10 @@ public final class KeychainService: NSObject {
     /// - `errSecSuccess` The item was found, no error.
     /// - `errSecInteractionNotAllowed` The item was found, the user interaction is not allowed.
     /// - `errSecAuthFailed` The item was found, but invalidated due to a change to biometry or passphrase.
+    ///
+    /// ```
+    /// let result = KeychainService.default.itemExists("greeting")
+    /// print(result)
     public func itemExists(_ forKey: String) -> Bool {
         // Construct a LAContext to surpress any biometry to access the key.
         let context = LAContext()
@@ -386,7 +395,6 @@ public final class KeychainService: NSObject {
     /// Renames an item in the Keychain.
     /// - parameter forKey: The unique identifer of the key.
     /// - parameter newKey: The new unique identifier of the key.
-    /// - throws: A `KeychainError` representing the error.
     ///
     /// ```
     /// do {
@@ -396,6 +404,8 @@ public final class KeychainService: NSObject {
     ///    print(error.localizedDescription)
     /// }
     /// ```
+    ///
+    /// - throws: A `KeychainError` representing the error.
     public func renameItem(_ forKey: String, newKey: String) throws {
         // Construct a LAContext to surpress any biometry to access the key.
         let context = LAContext()
