@@ -43,6 +43,181 @@ import Core
 
 ## Usage
 
+### Interacting with the Keychain
+
+Perform an add operation against the Keychain.  The `addItem` works with native types, such as `Date` and `Double`.
+```swift
+do {
+   try KeychainService.default.addItem("createdDate", value: Date())
+}
+catch let error {
+   print(error.localizedDescription)
+}
+```
+
+Custom types that support `Codable` can be added to the Keychain.
+```swift
+
+// Create a struct supporting Codable.
+struct Person: Codable {
+   var name: String
+   var age: Int
+}
+
+let person = Person(name: "John Doe", age: 42)
+
+do {
+   try KeychainService.default.addItem("account", value: person)
+}
+catch let error {
+   print(error.localizedDescription)
+}
+```
+
+Read a `Codable` item from the Keychain.
+
+```swift
+guard let person = try? KeychainService.default.readItem("account", typeof: Person.self) {
+    return
+}
+   
+print(person))
+```
+
+Perform an delete operation against the Keychain.
+
+```swift
+try KeychainService.default.deleteItem("createdDate")
+```
+
+Rename an item in the Keychain.
+```swift
+do {
+   try KeychainService.default.addItem("greeting", value: "Hello World")
+   try KeychainService.default.renameItem("greeting", newKey: "welcome")
+}
+catch let error {
+   print(error.localizedDescription)
+}
+```
+
+Check if an item exists in the Keychain.
+```swift
+if let result = KeychainService.default.itemExists("greeting") {
+   print(result)
+}
+```
+
+### Making network requests
+
+By extending `URLSession` you control the session configuration and how the data is parsed.
+
+A simply JSON GET request
+```swift
+struct Post: Codable {
+   var userId: Int
+   var id: Int
+   var title: String
+   var body: String
+}
+
+let url = URL(string: "https://jsonplaceholder.typicode.com/posts")!
+let resource = HttpResource<[Post]>(json: .get, url: url)
+        
+URLSession.shared.dataTask(for: resource) { result in
+   switch result {
+      case .success(let value):
+         print(value)
+      case .failure(let error):
+         print(error.localizedDescription)
+   }
+}
+```
+
+Appendinng a query string parameters to a request.
+```swift
+struct Post: Codable {
+   var userId: Int
+   var id: Int
+   var title: String
+   var body: String
+}
+
+let url = URL(string: "https://jsonplaceholder.typicode.com/posts")!
+let resource = HttpResource<[Post]>(json: .get, url: url, queryParams: ["userId": "1"])
+        
+URLSession.shared.dataTask(for: resource) { result in
+   switch result {
+      case .success(let value):
+         print(value)
+      case .failure(let error):
+         print(error.localizedDescription)
+    }
+}
+```
+
+Custom parsing the JSON response.
+```swift
+let url = URL(string: "https://jsonplaceholder.typicode.com/posts")!
+let request = URLRequest(url: url)
+let resource = HttpResource<[Post]>(request: request, parse: { data, response in
+   do {
+      let value = try JSONDecoder().decode([Post].self, from: data!)
+      return Result.success(value)
+   }
+   catch let error {
+      return Result.failure(error)
+   }
+})
+
+URLSession.shared.dataTask(for: resource) { result in
+   switch result {
+      case .success(let value):
+         print(value)
+      case .failure(let error):
+         print(error.localizedDescription)
+    }
+}
+```
+
+Custom parsing of data, for example a `UIImage`.
+```swift
+let url = URL(string: "https://picsum.photos/id/0/5616/3744")!
+let resource = HttpResource<UIImage>(.get, url: url, accept: .jpeg) { data, response in
+   return Result {
+      guard let data = data, let image = UIImage(data: data) else {
+         throw URLSessionError.noData
+      }
+      
+      return image
+   }
+}
+        
+URLSession.shared.dataTask(for: resource) { result in
+   switch result {
+   case .success(let image):
+      // Do something with the image.
+   case .failure(let error):
+      print(error.localizedDescription)
+   }
+}
+```
+
+Perform a `map` operation over an array of items using a filter.
+```swift
+let url = URL(string: "https://jsonplaceholder.typicode.com/posts")!
+let posts = HttpResource<[Post]>(json: .get, url: url)
+let firstPost = posts.map{ $0.first }
+        
+URLSession.shared.dataTask(for: firstPost) { result in
+   switch result {
+      case .success(let value):
+         print(value)
+      case .failure(let error):
+         print(error.localizedDescription)
+    }
+}
+```
 
 ## License
 This package contains code licensed under the MIT License (the "License"). You may view the License in the [LICENSE](https://github.com/ibm-security-verify/verify-sdk-ios/LICENSE) file within this package.
