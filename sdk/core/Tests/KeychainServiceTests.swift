@@ -4,6 +4,7 @@
 
 import XCTest
 @testable import Core
+import LocalAuthentication
 
 class KeychainServiceTests: XCTestCase {
     
@@ -32,11 +33,13 @@ class KeychainServiceTests: XCTestCase {
         // When
         do {
             try KeychainService.default.addItem("greeting", value: "Hello World".data(using: .utf8)!)
-            try KeychainService.default.deleteItem("greeting")
         }
         catch {
             result = false
         }
+        
+        // Then
+        try KeychainService.default.deleteItem("greeting")
         
         // Then
         XCTAssertTrue(result)
@@ -50,17 +53,20 @@ class KeychainServiceTests: XCTestCase {
         // When
         do {
             try KeychainService.default.addItem("greeting", value: "Hello World")
-            try KeychainService.default.deleteItem("greeting")
         }
         catch {
             result = false
         }
         
         // Then
+        try KeychainService.default.deleteItem("greeting")
+        
+        // Then
         XCTAssertTrue(result)
     }
     
     /// Adds a `String` with access control of `.userPresence`.
+    /// - note: Will fail tracked againt [https://feedbackassistant.apple.com/feedback/82890873](https://feedbackassistant.apple.com/feedback/82890873)
     func testAddAndDeleteItemStringWithUserPresense() throws {
         // Given
         var result = true
@@ -81,6 +87,7 @@ class KeychainServiceTests: XCTestCase {
     }
     
     /// Adds a `String` with access control of `.biometryCurrentSet`.
+    /// - note: Will fail tracked againt [https://feedbackassistant.apple.com/feedback/82890873](https://feedbackassistant.apple.com/feedback/82890873)
     func testAddAndDeleteItemStringWithBiometryCurrentSet() throws {
         // Given
         var result = true
@@ -101,6 +108,7 @@ class KeychainServiceTests: XCTestCase {
     }
     
     /// Adds a `String` with access control of `.biometryAny`.
+    /// - note: Will fail tracked againt [https://feedbackassistant.apple.com/feedback/82890873](https://feedbackassistant.apple.com/feedback/82890873)
     func testAddAndDeleteItemStringWithBiometryAny() throws {
         // Given
         var result = true
@@ -121,6 +129,7 @@ class KeychainServiceTests: XCTestCase {
     }
     
     /// Adds a `String` with access control of `.devicePasscode`.
+    /// - note: Will fail tracked againt [https://feedbackassistant.apple.com/feedback/82890873](https://feedbackassistant.apple.com/feedback/82890873)
     func testAddAndDeleteItemStringWithDevicePasscode() throws {
         // Given
         var result = true
@@ -128,6 +137,86 @@ class KeychainServiceTests: XCTestCase {
         // When
         do {
             try KeychainService.default.addItem("greeting", value: "Hello World", accessControl: .devicePasscode)
+        }
+        catch {
+            result = false
+        }
+        
+        // Then
+        try KeychainService.default.deleteItem("greeting")
+        
+        // Then
+        XCTAssertTrue(result)
+    }
+    
+    /// Adds a `String` with accessibility control of `.unlock`.
+    func testAddAndDeleteItemStringWithUnlock() throws {
+        // Given
+        var result = true
+
+        // When
+        do {
+            try KeychainService.default.addItem("greeting", value: "Hello World", accessibility: .whenUnlocked)
+        }
+        catch {
+            result = false
+        }
+        
+        // Then
+        try KeychainService.default.deleteItem("greeting")
+        
+        // Then
+        XCTAssertTrue(result)
+    }
+    
+    /// Adds a `String` with accessibility control of `.whenUnlockedThisDeviceOnly`.
+    func testAddAndDeleteItemStringWithUnlockThisDeviceOnly() throws {
+        // Given
+        var result = true
+
+        // When
+        do {
+            try KeychainService.default.addItem("greeting", value: "Hello World", accessibility: .whenUnlockedThisDeviceOnly)
+        }
+        catch {
+            result = false
+        }
+        
+        // Then
+        try KeychainService.default.deleteItem("greeting")
+        
+        // Then
+        XCTAssertTrue(result)
+    }
+    
+    /// Adds a `String` with accessibility control of `.afterFirstUnlock`.
+    func testAddAndDeleteItemStringWithFirstUnlock() throws {
+        // Given
+        var result = true
+
+        // When
+        do {
+            try KeychainService.default.addItem("greeting", value: "Hello World", accessibility: .afterFirstUnlock)
+        }
+        catch {
+            result = false
+        }
+        
+        // Then
+        try KeychainService.default.deleteItem("greeting")
+        
+        // Then
+        XCTAssertTrue(result)
+    }
+    
+    /// Adds a `String` with accessibility control of `.afterFirstUnlockThisDeviceOnly`.
+    func testAddAndDeleteItemStringWithFirstUnlockThisDevice() throws {
+        // Given
+        var result = true
+
+        // When
+        do {
+            try KeychainService.default.addItem("greeting", value: "Hello World", accessibility: .afterFirstUnlockThisDeviceOnly)
         }
         catch {
             result = false
@@ -150,11 +239,13 @@ class KeychainServiceTests: XCTestCase {
         // When
         do {
             try KeychainService.default.addItem("account", value: person)
-            try KeychainService.default.deleteItem("account")
         }
         catch {
             result = false
         }
+        
+        // Then
+        try KeychainService.default.deleteItem("account")
         
         // Then
         XCTAssertTrue(result)
@@ -168,11 +259,13 @@ class KeychainServiceTests: XCTestCase {
         // When
         do {
             try KeychainService.default.addItem("active", value: false)
-            try KeychainService.default.deleteItem("active")
         }
         catch {
             result = false
         }
+        
+        // Then
+        try KeychainService.default.deleteItem("active")
         
         // Then
         XCTAssertTrue(result)
@@ -186,11 +279,13 @@ class KeychainServiceTests: XCTestCase {
         // When
         do {
             try KeychainService.default.addItem("amount", value: 123.456)
-            try KeychainService.default.deleteItem("amount")
         }
         catch {
             result = false
         }
+        
+        // Then
+        try KeychainService.default.deleteItem("amount")
         
         // Then
         XCTAssertTrue(result)
@@ -204,11 +299,13 @@ class KeychainServiceTests: XCTestCase {
         // When
         do {
             try KeychainService.default.addItem("createdDate", value: Date())
-            try KeychainService.default.deleteItem("createdDate")
         }
         catch {
             result = false
         }
+        
+        // Then
+        try KeychainService.default.deleteItem("createdDate")
         
         // Then
         XCTAssertTrue(result)
@@ -243,6 +340,9 @@ class KeychainServiceTests: XCTestCase {
         XCTAssertThrowsError(try KeychainService.default.addItem("greeting", value: "Hello World")) {
             thrownError = $0
         }
+        
+        // Then
+        try KeychainService.default.deleteItem("greeting")
 
         // Then
         XCTAssertTrue(thrownError is KeychainError, "Unexpected error type: \(type(of: thrownError))")
@@ -265,12 +365,13 @@ class KeychainServiceTests: XCTestCase {
             try KeychainService.default.addItem("amount", value: value)
             
             result = try KeychainService.default.readItem("amount", typeof: Double.self)
-            
-            try KeychainService.default.deleteItem("amount")
         }
         catch let error {
             XCTFail(error.localizedDescription)
         }
+        
+        // Then
+        try KeychainService.default.deleteItem("amount")
         
         // Then
         XCTAssertEqual(value, result)
@@ -287,12 +388,13 @@ class KeychainServiceTests: XCTestCase {
             try KeychainService.default.addItem("greeting", value: value)
             
             result = try KeychainService.default.readItem("greeting", typeof: String.self)
-            
-            try KeychainService.default.deleteItem("greeting")
         }
         catch let error {
             XCTFail(error.localizedDescription)
         }
+        
+        // Then
+        try KeychainService.default.deleteItem("greeting")
         
         // Then
         XCTAssertEqual(value, result)
@@ -307,14 +409,14 @@ class KeychainServiceTests: XCTestCase {
         // When
         do {
             try KeychainService.default.addItem("account", value: value)
-            
             result = try KeychainService.default.readItem("account", typeof: Person.self)
-            
-            try KeychainService.default.deleteItem("account")
         }
         catch let error {
             XCTFail(error.localizedDescription)
         }
+        
+        // Then
+        try KeychainService.default.deleteItem("account")
         
         // Then
         XCTAssertEqual(value.name, result!.name)
@@ -335,13 +437,30 @@ class KeychainServiceTests: XCTestCase {
         }
      
         // Then
+        try KeychainService.default.deleteItem("account")
+        
+        // Then
         XCTAssertTrue(thrownError is KeychainError, "Unexpected error type: \(type(of: thrownError))")
 
         // Then
         XCTAssertEqual(thrownError as? KeychainError, .unexpectedData)
+    }
+    
+    /// Attempts to read an item that doesn't exist
+    func testReadNoKeyFail() throws {
+        // Given
+        var thrownError: Error?
         
+        // When
+        XCTAssertThrowsError(try KeychainService.default.readItem("nokey", typeof: String.self)) {
+            thrownError = $0
+        }
+     
         // Then
-        try KeychainService.default.deleteItem("account")
+        XCTAssertTrue(thrownError is KeychainError, "Unexpected error type: \(type(of: thrownError))")
+
+        // Then
+        XCTAssertEqual(thrownError as? KeychainError, .invalidKey)
     }
     
     
@@ -410,5 +529,220 @@ class KeychainServiceTests: XCTestCase {
         
         // Then
         XCTAssertFalse(result)
+    }
+    
+    // MARK: - Rename Test
+    /// Creates a new item, then rename, then delete.
+    func testAddKeyRenameDelete() throws {
+        // Given
+        var result = true
+
+        // When
+        do {
+            try KeychainService.default.addItem("greeting", value: "Hello World")
+        
+            try KeychainService.default.renameItem("greeting", newKey: "welcome")
+        }
+        catch {
+            result = false
+        }
+        
+        // Then
+        try KeychainService.default.deleteItem("welcome")
+        
+        // Then
+        XCTAssertTrue(result)
+    }
+    
+    /// Creates a new item, then rename.
+    func testAddKeyRenameFail() throws {
+        // Given
+        var result = true
+
+        // When
+        do {
+            try KeychainService.default.addItem("greeting", value: "Hello World")
+        
+            try KeychainService.default.renameItem("greeting", newKey: "welcome")
+        }
+        catch {
+            result = false
+        }
+        
+        // Then
+        try KeychainService.default.deleteItem("welcome")
+        
+        // Then
+        XCTAssertTrue(result)
+    }
+    
+    // MARK: - Accessibility Tests
+    
+    /// Initializes a new SecAccessible.whenUnlockedThisDeviceOnly
+    func testInitAccessibilityUnlock() throws {
+        // Given, When
+        guard let result = SecAccessible(rawValue: kSecAttrAccessibleWhenUnlockedThisDeviceOnly) else {
+            XCTFail("Invalid kSecAttrAccessible type.")
+            return
+        }
+        
+        // Then
+        XCTAssertEqual(result, .whenUnlockedThisDeviceOnly)
+    }
+    
+    /// Initializes a new SecAccessible.afterFirstUnlockThisDeviceOnly
+    func testInitAccessibilityFirstUnlockDevice() throws {
+        // Given, When
+        guard let result = SecAccessible(rawValue: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly) else {
+            XCTFail("Invalid kSecAttrAccessible type.")
+            return
+        }
+        
+        // Then
+        XCTAssertEqual(result, .afterFirstUnlockThisDeviceOnly)
+    }
+    
+    /// Initializes a new SecAccessible.afterFirstUnlock
+    func testInitAccessibilityAfterFirstUnlockDevice() throws {
+        // Given, When
+        guard let result = SecAccessible(rawValue: kSecAttrAccessibleAfterFirstUnlock) else {
+            XCTFail("Invalid kSecAttrAccessible type.")
+            return
+        }
+        
+        // Then
+        XCTAssertEqual(result, .afterFirstUnlock)
+    }
+    
+    /// Initializes a new SecAccessible.whenUnlocked
+    func testInitAccessibilityUnlockDevice() throws {
+        // Given, When
+        guard let result = SecAccessible(rawValue: kSecAttrAccessibleWhenUnlocked) else {
+            XCTFail("Invalid kSecAttrAccessible type.")
+            return
+        }
+        
+        // Then
+        XCTAssertEqual(result, .whenUnlocked)
+    }
+    
+    /// Initializes a new SecAccessible but invalid
+    func testInitAccessibilityInvalid() throws {
+        // Given, When
+        let result = SecAccessible(rawValue: kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly)
+        
+        // Then
+        XCTAssertNil(result)
+    }
+    
+    /// Confirms the kSecAttrAccessible against the enum values.
+    func testAccessibilityRawValues() throws {
+        // Given, When, Then
+        XCTAssertEqual(SecAccessible.whenUnlockedThisDeviceOnly.rawValue, kSecAttrAccessibleWhenUnlockedThisDeviceOnly)
+        
+        XCTAssertEqual(SecAccessible.whenUnlocked.rawValue, kSecAttrAccessibleWhenUnlocked)
+        
+        XCTAssertEqual(SecAccessible.afterFirstUnlockThisDeviceOnly.rawValue, kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly)
+        
+        XCTAssertEqual(SecAccessible.afterFirstUnlock.rawValue, kSecAttrAccessibleAfterFirstUnlock)
+    }
+    
+    // MARK: - Access Control Tests
+    
+    /// Initializes a new SecAccessControl.devicePasscode
+    func testInitAccessControlDevicePasscode() throws {
+        // Given, When
+        guard let result = SecAccessControl(rawValue: SecAccessControlCreateFlags.devicePasscode) else {
+            XCTFail("Invalid SecAccessControlCreateFlags.")
+            return
+        }
+        
+        // Then
+        XCTAssertEqual(result, .devicePasscode)
+    }
+    
+    /// Initializes a new SecAccessControl.biometryAny
+    func testInitAccessControlAnyBiometry() throws {
+        // Given, When
+        guard let result = SecAccessControl(rawValue: SecAccessControlCreateFlags.biometryAny) else {
+            XCTFail("Invalid SecAccessControlCreateFlags.")
+            return
+        }
+        
+        // Then
+        XCTAssertEqual(result, .biometryAny)
+    }
+    
+    /// Initializes a new SecAccessControl.biometryCurrentSet
+    func testInitAccessControlBiometryCurrentSet() throws {
+        // Given, When
+        guard let result = SecAccessControl(rawValue: SecAccessControlCreateFlags.biometryCurrentSet) else {
+            XCTFail("Invalid SecAccessControlCreateFlags.")
+            return
+        }
+        
+        // Then
+        XCTAssertEqual(result, .biometryCurrentSet)
+    }
+    
+    /// Initializes a new SecAccessControl.userPresence
+    func testInitAccessControlUserPresence() throws {
+        // Given, When
+        guard let result = SecAccessControl(rawValue: SecAccessControlCreateFlags.userPresence) else {
+            XCTFail("Invalid SecAccessControlCreateFlags.")
+            return
+        }
+        
+        // Then
+        XCTAssertEqual(result, .userPresence)
+    }
+    
+    /// Initializes a new SecAccessControl but invalid
+    func testInitAccessControlInvalid() throws {
+        // Given, When
+        let result = SecAccessControl(rawValue: SecAccessControlCreateFlags.applicationPassword)
+        
+        // Then
+        XCTAssertNil(result)
+    }
+    
+    /// Confirms the SecAccessControlCreateFlags against the enum values.
+    func testAccessControlRawValues() throws {
+        // Given, When, Then
+        XCTAssertEqual(SecAccessible.whenUnlockedThisDeviceOnly.rawValue, kSecAttrAccessibleWhenUnlockedThisDeviceOnly)
+        
+        XCTAssertEqual(SecAccessible.whenUnlocked.rawValue, kSecAttrAccessibleWhenUnlocked)
+        
+        XCTAssertEqual(SecAccessible.afterFirstUnlockThisDeviceOnly.rawValue, kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly)
+        
+        XCTAssertEqual(SecAccessible.afterFirstUnlock.rawValue, kSecAttrAccessibleAfterFirstUnlock)
+    }
+    
+    // MARK: - PolicyDomainStateChanged Tests
+    
+    /// No biometry domain state has changed.
+    /// - note: Will fail tracked againt [https://feedbackassistant.apple.com/feedback/82890873](https://feedbackassistant.apple.com/feedback/82890873)
+    func testHasPolicyDomainStateChangedValid() throws {
+        // Given
+        let context = LAContext()
+        guard let initialState = context.evaluatedPolicyDomainState else {
+            XCTFail("No biometry to evaluate.")
+            return
+        }
+        
+        // When
+        let result = KeychainService.default.hasPolicyDomainStateChanged(initialState)
+        
+        // Then
+        XCTAssertFalse(result)
+    }
+    
+    /// Biometry domain state has changed.
+    func testHasPolicyDomainStateChangedInvalid() throws {
+        // Given, When
+        let result = KeychainService.default.hasPolicyDomainStateChanged(nil)
+        
+        // Then
+        XCTAssertTrue(result)
     }
 }
