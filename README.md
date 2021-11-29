@@ -4,7 +4,7 @@ This repository is for active development of the IBM Security Verify SDK ("Softw
 
 ## Getting started
 
-For your convenience, each component is separate for you to choose from instead of one large IBM Security Verify package.  To get started with a specific component, see the **README.md** file located in each components project folder.
+For your convenience, each component is separate for you to choose from instead of one large IBM Security Verify SDK package.  To get started with a specific component, see the **README.md** file located in each component's project folder.
 
 ### Prerequisites
 
@@ -19,8 +19,8 @@ The following components are currently offered in the package.
 | Component | Description |
 | ----------- | ----------- |
 | [FIDO2](sdk/fido2) | The FIDO2™ component is a native implementation of attestation and assertion ceremonies.  Essentially providing the equivalent of WebAuthn's `navigator.credentials.create()` and `navigator.credentials.get()` for native mobile apps.|
-| [Adaptive](sdk/adaptive) | The adaptive component provides device assessment. Based on cloud risk policies, authentication and authorization challenges can be evaluated.|
-| [Core](sdk/core) | The adaptive component provides device assessment. Based on cloud risk policies, authentication and authorization challenges can be evaluated.|
+| [Adaptive](sdk/adaptive) | The IBM Security Verify Adaptive SDK provides device assessment. Based on cloud risk policies, authentication and authorization challenges can be evaluated.|
+| [Core](sdk/core) | The IBM Security Verify Core SDK provides common functionality across the other components in the IBM Security Verify SDK offering.|
 
 
 
