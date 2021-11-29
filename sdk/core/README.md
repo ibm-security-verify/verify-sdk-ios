@@ -1,6 +1,6 @@
 # IBM Security Verify Core SDK for iOS
 
-The core component provides common functionality across the other components in the IBM Security Verify SDK offering.  The core component will evolve over time and currently offers a extensions and helpers for `URLSession` and the Keychain.
+The Core SDK provides common functionality across the other components in the IBM Security Verify SDK offering.  The core component will evolve over time and currently offers extensions and helpers for `URLSession` and the Keychain.
 
 ## Getting started
 
@@ -31,11 +31,11 @@ Alternatively, you can add the package manually.
 5. Enter `https://github.com/ibm-security-verify/verify-sdk-ios.git` as the respository URL and follow the remaining steps selecting the components to add to your project.
 
 ### API documentation
-The Core component API can be reviewed [here](https://ibm-security-verify.github.io/ios/core/docs/).
+The Core SDK API can be reviewed [here](https://ibm-security-verify.github.io/ios/core/docs/).
 
 ### Importing the SDK
 
-Add the following import statement to the `.swift` files you wish to reference the component.
+Add the following import statement to the `.swift` files you want to reference the Core SDK.
 
 ```swift
 import Core
@@ -55,7 +55,7 @@ catch let error {
 }
 ```
 
-Custom types that support `Codable` can be added to the Keychain.
+You can add custom types that support `Codable` to the Keychain.
 ```swift
 
 // Create a struct supporting Codable.
