@@ -272,7 +272,7 @@ public final class KeychainService: NSObject {
     
     /// Reads a value from the keychain.
     /// - parameter forKey: The key with which to associate the value.
-    /// - parameter typeof: The type to decode the Keychain value.
+    /// - parameter type: The type of the value to decode from the Keychain value.
     /// - returns: The value of type `T`.
     ///
     /// ```swift
@@ -289,12 +289,12 @@ public final class KeychainService: NSObject {
     /// ```
     ///
     /// - throws: A `KeychainError` representing the error.
-    public func readItem<T: Codable>(_ forKey: String, typeof: T.Type) throws -> T {
+    public func readItem<T: Codable>(_ forKey: String, type: T.Type) throws -> T {
         guard !forKey.isEmpty else {
             logger.error("The forKey argument is invalid.")
             throw KeychainError.invalidKey
         }
-
+        
         // Construct the dictionary to query the Keychain.
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,

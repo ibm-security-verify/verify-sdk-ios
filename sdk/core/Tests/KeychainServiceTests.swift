@@ -364,7 +364,7 @@ class KeychainServiceTests: XCTestCase {
         do {
             try KeychainService.default.addItem("amount", value: value)
             
-            result = try KeychainService.default.readItem("amount", typeof: Double.self)
+            result = try KeychainService.default.readItem("amount", type: Double.self)
         }
         catch let error {
             XCTFail(error.localizedDescription)
@@ -387,7 +387,7 @@ class KeychainServiceTests: XCTestCase {
         do {
             try KeychainService.default.addItem("greeting", value: value)
             
-            result = try KeychainService.default.readItem("greeting", typeof: String.self)
+            result = try KeychainService.default.readItem("greeting", type: String.self)
         }
         catch let error {
             XCTFail(error.localizedDescription)
@@ -409,7 +409,7 @@ class KeychainServiceTests: XCTestCase {
         // When
         do {
             try KeychainService.default.addItem("account", value: value)
-            result = try KeychainService.default.readItem("account", typeof: Person.self)
+            result = try KeychainService.default.readItem("account", type: Person.self)
         }
         catch let error {
             XCTFail(error.localizedDescription)
@@ -436,7 +436,7 @@ class KeychainServiceTests: XCTestCase {
         }
         
         // Then
-        guard let result = try? KeychainService.default.readItem("account", typeof: Person.self) else {
+        guard let result = try? KeychainService.default.readItem("account", type: Person.self) else {
             XCTFail("Invalid item")
             return
         }
@@ -458,7 +458,7 @@ class KeychainServiceTests: XCTestCase {
         try KeychainService.default.addItem("account", value: value)
         
         // When
-        XCTAssertThrowsError(try KeychainService.default.readItem("account", typeof: String.self)) {
+        XCTAssertThrowsError(try KeychainService.default.readItem("account", type: String.self)) {
             thrownError = $0
         }
      
@@ -478,7 +478,7 @@ class KeychainServiceTests: XCTestCase {
         var thrownError: Error?
         
         // When
-        XCTAssertThrowsError(try KeychainService.default.readItem("nokey", typeof: String.self)) {
+        XCTAssertThrowsError(try KeychainService.default.readItem("nokey", type: String.self)) {
             thrownError = $0
         }
      
