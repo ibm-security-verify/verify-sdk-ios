@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "IBM Security Verify",
     platforms: [
-        .macOS(.v11), .iOS(.v14)
+        .iOS(.v14)
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
@@ -16,6 +16,9 @@ let package = Package(
         .library(
             name: "Adaptive",
             targets: ["Adaptive"]),
+        .library(
+            name: "Core",
+            targets: ["Core"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -40,5 +43,13 @@ let package = Package(
             name: "Adaptive Tests",
             dependencies: ["Adaptive"],
             path: "sdk/adaptive/Tests"),
+        .target(
+            name: "Core",
+            path: "sdk/core/Sources",
+            exclude: ["Info.plist"]),
+        .testTarget(
+            name: "Core Tests",
+            dependencies: ["Core"],
+            path: "sdk/core/Tests"),
     ]
 )
