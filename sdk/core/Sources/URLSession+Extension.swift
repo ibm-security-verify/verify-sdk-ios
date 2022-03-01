@@ -91,10 +91,62 @@ extension URLSessionError: LocalizedError {
 /// HTTP response status codes that are acceptable.
 var acceptableStatusCodes: Range<Int> { 200..<300 }
 
-// MARK: Structures
+// MARK: Helper Functions
+
+/// Creates a URL encoded string for a query string or request body.
+/// - parameter params: The parameters to apply.
+/// - returns: The encoded string..
+public func urlEncode(from params: [String: Any]) -> String {
+    var components: [(String, String)] = []
+
+    for key in params.keys.sorted(by: <) {
+        let value = params[key]!
+        components += queryComponents(fromKey: key, value: value)
+    }
+
+    return components.map { "\($0)=\($1)" }.joined(separator: "&")
+}
+
+/// Returns a percent-escaped, URL encoded query string components from a key-value pair.
+/// - parameter key: The key of the query component.
+/// - parameter value: The value of the query component.
+/// - returns: The percent-escaped, URL encoded query string components.
+private func queryComponents(fromKey key: String, value: Any) -> [(String, String)] {
+    var components: [(String, String)] = []
+
+    if let dictionary = value as? [String: Any] {
+        for (nestedKey, value) in dictionary {
+            components += queryComponents(fromKey: "\(key)[\(nestedKey)]", value: value)
+        }
+    }
+    else if let array = value as? [Any] {
+        for value in array {
+            components += queryComponents(fromKey: "\(key)[]", value: value)
+        }
+    }
+    else if let value = value as? NSNumber {
+        if value.isBool {
+            components.append((key.urlFormEncodedString, value.boolValue ? "1" : "0"))
+        }
+        else {
+            components.append((key.urlFormEncodedString, "\(value)".urlFormEncodedString))
+        }
+    }
+    else if let bool = value as? Bool {
+        components.append((key.urlFormEncodedString, bool ? "1" : "0"))
+    }
+    else {
+        components.append((key.urlFormEncodedString, "\(value)".urlFormEncodedString))
+    }
+
+    return components
+}
+
+
+// MARK: - Structures
 
 /// A HTTP resource contains a `URLRequest` and the ability to parse the response as a generic type.
-public struct HttpResource<T> {
+public struct HTTPResource<T> {
     /// Represents information about the request.
     var request: URLRequest
     
@@ -150,9 +202,9 @@ public struct HttpResource<T> {
     /// - parameter queryParams: A dictionary of query items to append to the URL.
     /// - parameter parse: A function type  to transforms `T`.
     /// - returns: A `Result` value that represents either a success or a failure, including an associated value in each case.
-    public init(_ method: method = .get, url: URL, accept: ContentType? = nil, contentType: ContentType? = nil, body: Data? = nil, headers: [String: String] = [:],  timeOutInterval: TimeInterval = 60, queryParams: [String: String] = [:], parse: @escaping (Data?, URLResponse?) -> Result<T, Error>) {
+    public init(_ method: method = .get, url: URL, accept: ContentType? = nil, contentType: ContentType? = nil, body: Data? = nil, headers: [String: String] = [:], timeOutInterval: TimeInterval = 60, queryParams: [String: String] = [:], parse: @escaping (Data?, URLResponse?) -> Result<T, Error>) {
         
-        var requestUrl : URL
+        var requestUrl: URL
         
         // Add the dictionary of query parameters to the URL.
         if queryParams.isEmpty {
@@ -161,7 +213,7 @@ public struct HttpResource<T> {
         else {
             var component = URLComponents(url: url, resolvingAgainstBaseURL: true)!
             component.queryItems = component.queryItems ?? []
-            component.queryItems!.append(contentsOf: queryParams.map { URLQueryItem(name: $0.0, value: $0.1) })
+            component.queryItems!.append(contentsOf: queryParams.map { URLQueryItem(name: $0.key, value: $0.value) })
             requestUrl = component.url!
         }
         
@@ -184,7 +236,7 @@ public struct HttpResource<T> {
         
         request.timeoutInterval = timeOutInterval
         request.httpMethod = method.rawValue
-
+        
         // Body property set last because of this issue: https://bugs.swift.org/browse/SR-6687
         request.httpBody = body
 
@@ -204,8 +256,8 @@ public struct HttpResource<T> {
     /// Returns an HttpResource containing the results of mapping the given closure over the sequence’s elements.
     /// - parameter transform: A mapping closure. `transform` accepts an element of this sequence as its parameter and returns a transformed value of the same or of a different type.
     /// - returns: A `HttpResource` containing the transformed elements of this sequence.
-    public func map<V>(_ transform: @escaping (T) -> V) -> HttpResource<V> {
-        return HttpResource<V>(request: request) { data, response in
+    public func map<V>(_ transform: @escaping (T) -> V) -> HTTPResource<V> {
+        return HTTPResource<V>(request: request) { data, response in
             self.parse(data, response).map(transform)
         }
     }
@@ -213,7 +265,7 @@ public struct HttpResource<T> {
 
 // MARK: Extensions
 
-extension HttpResource where T == () {
+extension HTTPResource where T == () {
     /// Creates a new `HttpResource` without a parse transformation function.
     /// - parameter method: The HTTP request method.
     /// - parameter url: The URL of the request.
@@ -228,7 +280,7 @@ extension HttpResource where T == () {
     }
 }
 
-extension HttpResource where T: Decodable {
+extension HTTPResource where T: Decodable {
     /// Creates a new `HttpResource` for JSON operations that have no request body.
     /// - parameter method: The HTTP request method.
     /// - parameter url: The URL of the request.
@@ -281,7 +333,7 @@ extension URLSession {
     /// - parameter completionHandler: The completion handler to call when the load request is complete.
     /// - Returns: The new session data task.
     @discardableResult
-    func dataTask<T>(for resource: HttpResource<T>, completionHandler: @escaping (Result<T, Error>) -> ()) -> URLSessionDataTask {
+    public func dataTask<T>(for resource: HTTPResource<T>, completionHandler: @escaping (Result<T, Error>) -> ()) -> URLSessionDataTask {
         
         let task = dataTask(with: resource.request, completionHandler: { data, response, error in
             if let error = error {
