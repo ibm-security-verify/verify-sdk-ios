@@ -1,0 +1,29 @@
+//
+// Copyright contributors to the IBM Security Verify Authentication SDK for iOS project
+//
+
+import Foundation
+import CryptoKit
+
+/// Proof Key for Code Exchange (PKCE) by OAuth 2.0 public clients,
+enum PKCE {
+    /// Generates a cryptographically random string that is used to correlate the authorization request to the token request.
+    /// - returns: A cryptographically random string.
+    static func generateCodeVerifier() -> String {
+        var buffer = [UInt8](repeating: 0, count: 32)
+        _ = SecRandomCopyBytes(kSecRandomDefault, buffer.count, &buffer)
+        return Data(buffer).base64UrlEncodedString()
+    }
+
+    /// A challenge derived from the code verifier that is sent in the authorization request, to be verified against later.
+    /// - parameter codeVerifier: A cryptographically random string.
+    /// - returns: Returns a Base-64 URL encoded string
+    static func generateCodeChallenge(from codeVerifier: String) -> String? {
+        guard let data = codeVerifier.data(using: .utf8) else {
+            return nil
+        }
+        
+        let digest = SHA256.hash(data: data)
+        return Data(digest).base64UrlEncodedString()
+    }
+}
