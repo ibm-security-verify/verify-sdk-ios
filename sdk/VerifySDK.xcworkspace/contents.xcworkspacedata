@@ -8,6 +8,9 @@
       location = "container:"
       name = "sdk">
       <FileRef
+         location = "group:authentication/Authentication.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:core/Core.xcodeproj">
       </FileRef>
       <FileRef
