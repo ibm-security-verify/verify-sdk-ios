@@ -13,6 +13,7 @@ Note: This is in reverse chronological order, so newer entries are added to the 
 * Added Data extension
 * Added String extension
 * Added NSNumber extension
+* Added KeyedDecodingContainer extension
 * Added JSON codable helpers
 * Updated URLSession extension
 

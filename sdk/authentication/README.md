@@ -2,6 +2,10 @@
 
 The Authentication SDK enables applications to obtain limited access to an HTTP service by orchestrating an approval interaction between the resource owner and the HTTP service.
 
+
+## Example
+An [example](../../examples/authentication) application is available for the Verify Authentication SDK
+
 ## Getting started
 
 ### Installation
