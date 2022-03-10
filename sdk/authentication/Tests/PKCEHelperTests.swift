@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import Authentication
 
 class PKCEHelperTests: XCTestCase {
 

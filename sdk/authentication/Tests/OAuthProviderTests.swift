@@ -4,15 +4,16 @@
 
 import XCTest
 import Foundation
-import AuthenticationServices
 @testable import Authentication
 @testable import Core
 
 class OAuthProviderTest: XCTestCase {
-    let clientId = "38cdeff8-9693-4f0b-99c9-563d5c20d6a7"
-    let clientSecret = "MFbkXzPBpE"
-    let username = "testuser"
-    let password = "Passw0rd"
+    // TODO: Replace these credential parameters with valid values.
+    let clientId = ""
+    let clientSecret = ""
+    let username = ""
+    let password = ""
+    let urlBase = "https:sdk.verify.ibm.com/v1.0/endpoint/default"
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -27,9 +28,9 @@ class OAuthProviderTest: XCTestCase {
     /// Tests the disovery endpoint against a publically OAuth 2 endpoint.
     func testDiscover() throws {
         // Given
-        let expectation = XCTestExpectation(description: "Testing https://sdk.verify.ibm.com/v1.0/endpoint/default/.well-known/openid-configuration")
+        let expectation = XCTestExpectation(description: "Testing \(urlBase)/.well-known/openid-configuration")
         
-        let url = URL(string: "https://sdk.verify.ibm.com/v1.0/endpoint/default/.well-known/openid-configuration")!
+        let url = URL(string: "\(urlBase)/.well-known/openid-configuration")!
         
         // Where
         OAuthProvider.discover(issuer: url) { result in
@@ -51,9 +52,9 @@ class OAuthProviderTest: XCTestCase {
     
     func testInvalidDiscover() throws {
         // Given
-        let expectation = XCTestExpectation(description: "Testing https://sdk.verify.ibm.com/v1.0/endpoint/default/.well-known")
+        let expectation = XCTestExpectation(description: "Testing \(urlBase)/.well-known")
         
-        let url = URL(string: "https://sdk.verify.ibm.com/v1.0/endpoint/default/.well-known")!
+        let url = URL(string: "\(urlBase)/.well-known")!
         
         // Where
         OAuthProvider.discover(issuer: url) { result in
@@ -77,9 +78,9 @@ class OAuthProviderTest: XCTestCase {
     /// Tests the token endpoint for obtaining an access token using ROPC.
     func testAuthorizeROPC() throws {
         // Given
-        let expectation = XCTestExpectation(description: "Testing https://sdk.verify.ibm.com/v1.0/endpoint/default/token")
+        let expectation = XCTestExpectation(description: "Testing \(urlBase)/token")
         
-        let url = URL(string: "https://sdk.verify.ibm.com/v1.0/endpoint/default/token")!
+        let url = URL(string: "\(urlBase)/token")!
         
         // Where
         let provider = OAuthProvider(clientId: self.clientId, clientSecret: self.clientSecret, additionalParameters: ["pet": "dog", "food": "pizza"])
@@ -102,12 +103,76 @@ class OAuthProviderTest: XCTestCase {
         wait(for: [expectation], timeout: 30.0)
     }
     
+    /// Tests the token endpoint for obtaining an access token and ID token using ROPC.
+    func testAuthorizeROPCIDToken() throws {
+        // Given
+        let expectation = XCTestExpectation(description: "Testing \(urlBase)/token")
+        
+        let url = URL(string: "\(urlBase)/token")!
+        
+        // Where
+        let provider = OAuthProvider(clientId: self.clientId, clientSecret: self.clientSecret, additionalParameters: ["pet": "dog", "food": "pizza"])
+        provider.timeoutInterval = 10
+       
+        provider.authorize(issuer: url, username: self.username, password: self.password, scope: ["openid", "name", "age"]) { result in
+            switch result {
+            case .success(let value):
+                print(value)
+                XCTAssertNotNil(value)
+                XCTAssertNotNil(value.idToken)
+            case .failure(let error):
+                print(error)
+                XCTFail(error.localizedDescription)
+            }
+            
+            expectation.fulfill()
+        }
+        
+        // Then
+        wait(for: [expectation], timeout: 30.0)
+    }
+    
+    /// Tests the id token to be parsed into a dictionary.
+    func testAuthorizeROPCIDTokenParse() throws {
+        // Given
+        let expectation = XCTestExpectation(description: "Testing \(urlBase)/token")
+        
+        let url = URL(string: "\(urlBase)/token")!
+        var idToken: String!
+        
+        // Where
+        let provider = OAuthProvider(clientId: self.clientId, clientSecret: self.clientSecret, additionalParameters: ["pet": "dog", "food": "pizza"])
+        provider.timeoutInterval = 10
+       
+        provider.authorize(issuer: url, username: self.username, password: self.password, scope: ["openid", "name", "age"]) { result in
+            switch result {
+            case .success(let value):
+                print(value)
+                XCTAssertNotNil(value)
+                XCTAssertNotNil(value.idToken)
+                idToken = value.idToken
+            case .failure(let error):
+                print(error)
+                XCTFail(error.localizedDescription)
+            }
+            
+            expectation.fulfill()
+        }
+        
+        // Then
+        wait(for: [expectation], timeout: 30.0)
+        
+        // Then
+        // Parse the string into 3 seperate dictionaries.
+        print(idToken)
+    }
+    
     /// Tests the token endpoint for obtaining an access token using ROPC which generates a grant_id
     func testAuthorizeWithParametersResponse() throws {
         // Given
-        let expectation = XCTestExpectation(description: "Testing https://sdk.verify.ibm.com/v1.0/endpoint/default/token")
+        let expectation = XCTestExpectation(description: "Testing \(urlBase)/token")
         
-        let url = URL(string: "https://sdk.verify.ibm.com/v1.0/endpoint/default/token")!
+        let url = URL(string: "\(urlBase)/token")!
         
         // Where
         let provider = OAuthProvider(clientId: self.clientId, clientSecret: self.clientSecret)
@@ -135,9 +200,9 @@ class OAuthProviderTest: XCTestCase {
     /// Tests the token endpoint for obtaining an access token using ROPC.
     func testAuthorizeWithScope() throws {
         // Given
-        let expectation = XCTestExpectation(description: "Testing https://sdk.verify.ibm.com/v1.0/endpoint/default/token")
+        let expectation = XCTestExpectation(description: "Testing \(urlBase)/token")
         
-        let url = URL(string: "https://sdk.verify.ibm.com/v1.0/endpoint/default/token")!
+        let url = URL(string: "\(urlBase)/token")!
         
         // Where
         let provider = OAuthProvider(clientId: self.clientId, clientSecret: self.clientSecret)
@@ -159,42 +224,98 @@ class OAuthProviderTest: XCTestCase {
         // Then
         wait(for: [expectation], timeout: 30.0)
     }
-}
-
-
-import Authentication           // IBM Verify Authentication SDK
-import AuthenticationServices   // Apple Authentication SDK
-
-class AuthenticateViewController: UIViewController {
-    func onLoginClick() {
-        let provider = OAuthProvider(clientId: "abc123")
-        provider.delegate = self
+    
+    /// Tests the token endpoint for obtaining refresh of an access token.
+    func testAuthorizeRefresh() throws {
+        // Given
+        let expectationToken = XCTestExpectation(description: "Testing \(urlBase)/token")
+        let expectationRefresh = XCTestExpectation(description: "Testing refresh \(urlBase)/token")
         
-        provider.authorizeWithBrowser(issuer: URL(string: "https://myidp.com/authorize")!, redirectUrl: URL(string: "myapp://callback")!, presentingViewController: self)   // The redirect is registered with the IDP.
-    }
-}
+        let url = URL(string: "\(urlBase)/token")!
+        
+        // Where
+        var token: TokenInfo!
+        let scopes = ["name", "age"]
+        let provider = OAuthProvider(clientId: self.clientId, clientSecret: self.clientSecret, additionalParameters: ["pet": "dog", "food": "pizza"])
+        provider.timeoutInterval = 10
 
-extension AuthenticateViewController: ASWebAuthenticationPresentationContextProviding {
-    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-        return ASPresentationAnchor()
-    }
-}
-
-extension AuthenticateViewController: OAuthProviderDelegate {
-    func oauthProvider(provider: OAuthProvider, didCompleteWithError error: Error) {
-        print(error.localizedDescription)
+        provider.authorize(issuer: url, username: self.username, password: self.password, scope: scopes) { result in
+            switch result {
+            case .success(let value):
+                print(value)
+                token = value
+                XCTAssertNotNil(value)
+            case .failure(let error):
+                print(error)
+                XCTFail(error.localizedDescription)
+            }
+            
+            expectationToken.fulfill()
+        }
+        
+        // Then
+        wait(for: [expectationToken], timeout: 30.0)
+        
+        // Then
+        provider.refresh(issuer: url, refreshToken: token.refreshToken ?? "", scope: scopes) { result in
+            switch result {
+            case .success(let value):
+                print(value)
+                XCTAssertNotEqual(value, token)
+            case .failure(let error):
+                print(error)
+                XCTFail(error.localizedDescription)
+            }
+            
+            expectationRefresh.fulfill()
+        }
+        // Then
+        wait(for: [expectationRefresh], timeout: 30.0)
     }
     
-    func oauthProvider(provider: OAuthProvider, didCompleteWithCode result: (code: String, state: String?)) {
-        provider.authorize(issuer: URL(string: "https://myidp.com/token")!, authorizationCode: result.code, codeVerifier: nil, scope: nil) { result in
-         
+    /// Tests the token endpoint for obtaining refresh using an invalid refresh token.
+    func testAuthorizeInValidRefreshToken() throws {
+        // Given
+        let expectationToken = XCTestExpectation(description: "Testing \(urlBase)t/token")
+        let expectationRefresh = XCTestExpectation(description: "Testing refresh \(urlBase)/token")
+        
+        let url = URL(string: "\(urlBase)/token")!
+        
+        // Where
+        let scopes = ["name", "age"]
+        let provider = OAuthProvider(clientId: self.clientId, clientSecret: self.clientSecret, additionalParameters: ["pet": "dog", "food": "pizza"])
+        provider.timeoutInterval = 10
+
+        provider.authorize(issuer: url, username: self.username, password: self.password, scope: scopes) { result in
             switch result {
-            case .success(let token):
-                print("save \(token)")
+            case .success(let value):
+                XCTAssertNotNil(value)
             case .failure(let error):
-                print("error \(error.localizedDescription)")
+                print(error)
+                XCTFail(error.localizedDescription)
             }
+            
+            expectationToken.fulfill()
         }
+        
+        // Then
+        wait(for: [expectationToken], timeout: 30.0)
+        
+        // Then
+        provider.refresh(issuer: url, refreshToken: "A1b2C3d4", scope: scopes) { result in
+            switch result {
+            case .success(let value):
+                print(value)
+                XCTFail()
+            case .failure(let error):
+                print(error)
+                XCTAssertNotNil(error, error.localizedDescription)
+            }
+            
+            expectationRefresh.fulfill()
+        }
+        // Then
+        wait(for: [expectationRefresh], timeout: 30.0)
     }
 }
 

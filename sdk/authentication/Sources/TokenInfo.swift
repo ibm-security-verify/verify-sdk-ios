@@ -119,3 +119,15 @@ public struct TokenInfo: Codable {
         try rootContainer.encodeIfPresent(scope, forKey: .scope)
     }
 }
+
+extension TokenInfo: Equatable {
+    /// Returns a Boolean value indicating whether two values are equal.
+    ///  - parameter lhs: A value to compare.
+    ///  - parameter rhs: Another value to compare.
+    public static func == (lhs: TokenInfo, rhs: TokenInfo) -> Bool {
+        return lhs.refreshToken == rhs.refreshToken &&
+        lhs.accessToken == rhs.accessToken &&
+        lhs.expiresIn == rhs.expiresIn &&
+        lhs.tokenType == rhs.tokenType
+    }
+}

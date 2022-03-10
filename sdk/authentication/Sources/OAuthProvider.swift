@@ -8,6 +8,29 @@ import OSLog
 import AuthenticationServices
 import CryptoKit
 
+/// A type that indicates when OAuth operartion encounters an error.
+public enum OAuthProviderError: Error, LocalizedError, Equatable {
+    /// The authorization request received an invalid response.
+    case invalidResponse
+    
+    /// The authorization attempt failed.
+    case failed
+    
+    /// The authorization attempt failed for an unknown reason.
+    case general(message: String)
+    
+    public var errorDescription: String? {
+       switch self {
+       case .invalidResponse:
+            return NSLocalizedString("The authorization request received an invalid response.", comment: "Invalid response")
+       case .failed:
+            return NSLocalizedString("The authorization attempt failed.", comment: "Failed")
+       case .general(message: let message):
+           return NSLocalizedString(message, comment: "General error")
+       }
+   }
+}
+
 /// A method used to derive code challenge.
 public enum CodeChallengeMethod: String {
     /// The plain transformation is for compatibility with existing deployments and for constrained environments that can't use the S256 transformation.
@@ -42,7 +65,7 @@ public class OAuthProvider {
     /// The client's additional authorization parameters.
     var additionalParameters: [String: String]
     
-    /// A delegate that the OAuth provider informs about the success or failure of `authoizeWithBrowserCallback`.
+    /// A delegate that the OAuth provider informs about the success or failure of  an authorization request via the browser.
     public weak var delegate: OAuthProviderDelegate?
     
     
@@ -93,10 +116,10 @@ public class OAuthProvider {
     /// - parameter method: The hash method used to derive code challenge.
     /// - parameter scope: The scope of the access request. Default is **openid**.
     /// - parameter state: An opaque value used by the client to maintain state between the request and callback.  The authorization server includes this value when redirecting back to the client.
-    /// - parameter completion: The closure to invoke when the pre-authorization code challenge completes.
-    func authorizeWithBrowser(issuer url: URL, redirectUrl: URL, presentingViewController: ASWebAuthenticationPresentationContextProviding, codeChallenge: String? = nil, method: CodeChallengeMethod? = .plain, scope: [String]? = ["openid"], state: String? = nil) {
+    /// - parameter shareSession: A Boolean value that indicates whether the session should ask the browser for a private authentication session.
+    public func authorizeWithBrowser(issuer url: URL, redirectUrl: URL, presentingViewController: ASWebAuthenticationPresentationContextProviding, codeChallenge: String? = nil, method: CodeChallengeMethod? = .plain, scope: [String]? = ["openid"], state: String? = nil, shareSession: Bool = false) {
         // Create the parameters to encode into the body.
-        var parameters = ["grant_type": "code",
+        var parameters = ["response_type": "code",
                           "client_id": self.clientId,
                           "redirect_uri": redirectUrl.absoluteString]
         
@@ -109,7 +132,8 @@ public class OAuthProvider {
             parameters.updateValue(method.rawValue, forKey: "code_challenge_method")
         }
         
-        if let scope = scope {
+        if var scope = scope {
+            scope.append("oidc")    // Add oidc if custom scopes are passed.
             parameters.updateValue(scope.joined(separator: " "), forKey: "scope")
         }
         
@@ -129,11 +153,15 @@ public class OAuthProvider {
         // Launch browser
         if let url = component.url {
             let session = ASWebAuthenticationSession(url: url, callbackURLScheme: redirectUrl.scheme, completionHandler: webAuthenticationSessionCallback)
+            session.prefersEphemeralWebBrowserSession = !shareSession
             session.presentationContextProvider = presentingViewController
             session.start()
         }
     }
 
+    /// A completion handler the `ASWebAuthenticationSession` calls when it completes successfully, or when the user cancels the session.
+    /// - parameters redirect: The value that identifies the location of a resource from the OpenID Connect service provider
+    /// - parameters error: A type representing an error value that was thrown.
     private func webAuthenticationSessionCallback(redirect url: URL?, error: Error?) {
         // Handle the redirect response.
         guard error == nil, let url = url else {
@@ -148,7 +176,7 @@ public class OAuthProvider {
         components.queryItems?.forEach { parameters[$0.name] = $0.value }
         
         guard let code = parameters["code"] as? String else {
-            delegate?.oauthProvider(provider: self, didCompleteWithError: error!)
+            delegate?.oauthProvider(provider: self, didCompleteWithError: OAuthProviderError.invalidResponse)
             return
         }
         
@@ -158,18 +186,22 @@ public class OAuthProvider {
     
     // MARK: - Authorization
     
-    /// The resource owner password credentials (i.e., username and password) can be used directly as an authorization grant to obtain an access token.
+    /// The authorization code is obtained by using an authorization server as an intermediary between the client and resource owner.
     /// - parameter url: The `URL` for the OpenID Connect service provider issuer.
-    /// - parameter userName: The resource owner username.
-    /// - parameter password: The resource owner password.
+    /// - parameter redirectUrl: The redirect `URL` that is registered with the OpenID Connect service provider. This parameter is requirred when the code was obtained through `authorizeWithBrowser`.
+    /// - parameter authorizationCode: The authorization code received from the authorization server.
+    /// - parameter codeVerifier: The PKCE code verifier used to redeem the authorization code.
     /// - parameter scope: The scope of the access request.
-    /// - parameter completion: The closure to invoke when the username password authorization completes.
-    func authorize(issuer url: URL, username: String, password: String, scope: [String]? = nil, completion: @escaping (Result<TokenInfo, Error>) -> Void) {
+    /// - parameter completion: The closure to invoke when the code authorize completes.
+    public func authorize(issuer url: URL, redirectUrl: URL?, authorizationCode: String, codeVerifier: String?, scope: [String]? = nil, completion: @escaping (Result<TokenInfo, Error>) -> Void) {
         // Create the parameters to encode into the body.
-        var parameters = ["grant_type":"password",
+        var parameters = ["grant_type": "authorization_code",
                           "client_id": self.clientId,
-                          "username": username,
-                          "password": password]
+                          "code": authorizationCode]
+        
+        if let redirectUrl = redirectUrl {
+            parameters.updateValue(redirectUrl.absoluteString, forKey: "redirect_uri")
+        }
         
         if let clientSecret = self.clientSecret {
             parameters.updateValue(clientSecret, forKey: "client_secret")
@@ -179,12 +211,15 @@ public class OAuthProvider {
             parameters.updateValue(scope.joined(separator: " "), forKey: "scope")
         }
         
+        if let codeVerifier = codeVerifier {
+            parameters.updateValue(codeVerifier, forKey: "code_verifier")
+        }
+        
         self.additionalParameters.forEach { param in
             parameters.updateValue(param.value, forKey: param.key)
         }
         
         // Generate the URL encoded body.
-        print("** ENCODED **\n\(urlEncode(from: parameters))")
         let body = urlEncode(from: parameters).data(using: .utf8)!
         
         // Create the Http resource
@@ -219,18 +254,18 @@ public class OAuthProvider {
         }
     }
     
-    
-    /// The authorization code is obtained by using an authorization server as an intermediary between the client and resource owner.
+    /// The resource owner password credentials (i.e., username and password) can be used directly as an authorization grant to obtain an access token.
     /// - parameter url: The `URL` for the OpenID Connect service provider issuer.
-    /// - parameter authorizationCode: The authorization code received from the authorization server.
-    /// - parameter codeVerifier: The PKCE code verifier used to redeem the authorization code.
+    /// - parameter userName: The resource owner username.
+    /// - parameter password: The resource owner password.
     /// - parameter scope: The scope of the access request.
-    /// - parameter completion: The closure to invoke when the code authorize completes.
-    func authorize(issuer url: URL, authorizationCode: String, codeVerifier: String?, scope: [String]? = nil, completion: @escaping (Result<TokenInfo, Error>) -> Void) {
+    /// - parameter completion: The closure to invoke when the username password authorization completes.
+    public func authorize(issuer url: URL, username: String, password: String, scope: [String]? = nil, completion: @escaping (Result<TokenInfo, Error>) -> Void) {
         // Create the parameters to encode into the body.
-        var parameters = ["grant_type": "authorization_code",
+        var parameters = ["grant_type":"password",
                           "client_id": self.clientId,
-                          "code": authorizationCode]
+                          "username": username,
+                          "password": password]
         
         if let clientSecret = self.clientSecret {
             parameters.updateValue(clientSecret, forKey: "client_secret")
@@ -240,16 +275,11 @@ public class OAuthProvider {
             parameters.updateValue(scope.joined(separator: " "), forKey: "scope")
         }
         
-        if let codeVerifier = codeVerifier {
-            parameters.updateValue(codeVerifier, forKey: "code_verifier")
-        }
-        
         self.additionalParameters.forEach { param in
             parameters.updateValue(param.value, forKey: param.key)
         }
         
         // Generate the URL encoded body.
-        print("** ENCODED **\n\(urlEncode(from: parameters))")
         let body = urlEncode(from: parameters).data(using: .utf8)!
         
         // Create the Http resource
@@ -293,10 +323,11 @@ public class OAuthProvider {
     /// - parameter clientSecret: The client secret.
     /// - parameter scope: The scope of the access request.  The requested scope must not include any scope not originally granted by the resource owner, and if omitted is treated as equal to the scope originally granted by the resource owner.
     /// - parameter completion: The closure to invoke when the discovery completes.
-    func refresh(issuer url: URL, refreshToken: String, scope: [String]? = nil, completion: @escaping (Result<TokenInfo, Error>) -> Void) {
+    public func refresh(issuer url: URL, refreshToken: String, scope: [String]? = nil, completion: @escaping (Result<TokenInfo, Error>) -> Void) {
         // Create the parameters to encode into the body.
-        var parameters = ["grant_type":"refresh",
-                          "client_id": self.clientId]
+        var parameters = ["grant_type": "refresh_token",
+                          "client_id": self.clientId,
+                          "refresh_token": refreshToken]
         
         if let clientSecret = self.clientSecret {
             parameters.updateValue(clientSecret, forKey: "client_secret")
@@ -311,7 +342,6 @@ public class OAuthProvider {
         }
         
         // Generate the URL encoded body.
-        print("** ENCODED **\n\(urlEncode(from: parameters))")
         let body = urlEncode(from: parameters).data(using: .utf8)!
         
         // Create the Http resource
@@ -347,24 +377,17 @@ public class OAuthProvider {
     }
 }
 
+// MARK: Protocols
 
-/// An interface for providing information about the outcome of an attestation or assertion attempt.
+/// An interface for providing information about the outcome of an authorization code flow request initiated via the browser.
 public protocol OAuthProviderDelegate: AnyObject {
-    /// Tells the delegate when an attestion or assertion attempt fails, and provides an error explaining why.
-    /// - parameter provider: The provider that performs the attestation or assertion attempt.
+    /// Tells the delegate when the initial authorization flow fails, and provides an error explaining why.
+    /// - parameter provider: The provider that performs the authorization attempt.
     /// - parameter error: An error that explains the failure.
     func oauthProvider(provider: OAuthProvider, didCompleteWithError error: Error)
     
-    /// Tells the delegate when attestation attempt completes successfully.
-    /// - parameter provider: The provider that performs the attestation attempt.
-    /// - parameter result: The authenticator attestation response.
+    /// Tells the delegate when the initial authorization flow completes successfully.
+    /// - parameter provider: The provider that performs the authorization attempt.
+    /// - parameter result: The response containing the a authorization code and the state if provided in the initiating request.
     func oauthProvider(provider: OAuthProvider, didCompleteWithCode result: (code: String, state: String?))
-}
-
-public extension OAuthProviderDelegate {
-    /// Tells the delegate when attestation attempt completes successfully.
-    /// - parameter provider: The provider that performs the assertion attempt.
-    /// - parameter result: The authenticator assertion response.
-    func oauthProvider(provider: OAuthProvider, didCompleteWithCode result: (code: String, state: String?)) {
-    }
 }
