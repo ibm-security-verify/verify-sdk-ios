@@ -40,4 +40,16 @@ class StringExtensionTests: XCTestCase {
         // Then
         XCTAssertEqual(result, "V_%40H2tsWDT4PwKEAjb%2AC")
     }
+    
+    /// Tests a string can be url encoded with padding.
+    func testUrlEncodedPadding() throws {
+        // Given"
+        let value = "eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ"
+        
+        // Where
+        let result = value.base64UrlEncodedStringWithPadding
+        
+        // Then
+        XCTAssertEqual(result, "eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ==")
+    }
 }

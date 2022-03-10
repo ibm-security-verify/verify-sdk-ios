@@ -20,6 +20,7 @@
 		44647CD32744E82100BBCDE4 /* URLSession+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44647CD12744E82100BBCDE4 /* URLSession+Extension.swift */; };
 		44647CD52744E84400BBCDE4 /* URLSessionDelegateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44647CD42744E84400BBCDE4 /* URLSessionDelegateHelper.swift */; };
 		44647CD62744E84400BBCDE4 /* URLSessionDelegateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44647CD42744E84400BBCDE4 /* URLSessionDelegateHelper.swift */; };
+		4466E4D227D97CCD0014B423 /* KeyedDecodingContainerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4466E4D127D97CCD0014B423 /* KeyedDecodingContainerTest.swift */; };
 		44784E7A27BF4A13005793FC /* KeyedDecodingContainer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44784E7927BF4A13005793FC /* KeyedDecodingContainer+Extension.swift */; };
 		44AA9961269D43D40037F051 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44AA9957269D43D40037F051 /* Core.framework */; };
 		44AA9966269D43D40037F051 /* Thread+ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AA9965269D43D40037F051 /* Thread+ExtensionTests.swift */; };
@@ -67,6 +68,7 @@
 		443F573126F5857D00F3B7CF /* KeychainServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceTests.swift; sourceTree = "<group>"; };
 		44647CD12744E82100BBCDE4 /* URLSession+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Extension.swift"; sourceTree = "<group>"; };
 		44647CD42744E84400BBCDE4 /* URLSessionDelegateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionDelegateHelper.swift; sourceTree = "<group>"; };
+		4466E4D127D97CCD0014B423 /* KeyedDecodingContainerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyedDecodingContainerTest.swift; sourceTree = "<group>"; };
 		44784E7927BF4A13005793FC /* KeyedDecodingContainer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyedDecodingContainer+Extension.swift"; sourceTree = "<group>"; };
 		44AA9957269D43D40037F051 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44AA995B269D43D40037F051 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 		44AA9964269D43D40037F051 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				4466E4D127D97CCD0014B423 /* KeyedDecodingContainerTest.swift */,
 				44C88F31279D0F7F000CA10E /* DefaultValueTests.swift */,
 				443F573126F5857D00F3B7CF /* KeychainServiceTests.swift */,
 				44FEF81427A299CD00D39103 /* String+ExtensionTests.swift */,
@@ -360,6 +363,7 @@
 				44D783FB2744E93600762C5C /* KeychainService.swift in Sources */,
 				44C88F32279D0F7F000CA10E /* DefaultValueTests.swift in Sources */,
 				44FEF80827A1388C00D39103 /* Data+Extension.swift in Sources */,
+				4466E4D227D97CCD0014B423 /* KeyedDecodingContainerTest.swift in Sources */,
 				44FEF81527A299CD00D39103 /* String+ExtensionTests.swift in Sources */,
 				443F573026F2F39000F3B7CF /* Thread+Extension.swift in Sources */,
 				4432C8802737AAFE00FCF75F /* URLSession+ExtensionTests.swift in Sources */,
@@ -635,6 +639,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = PETKK2G752;
 				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -655,6 +660,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = PETKK2G752;
 				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -40,7 +40,9 @@ public enum URLSessionError: Error, Equatable {
     case invalidResource
     
     /// The response returned an error.
-    case invalidResponse(Int)
+    /// - parameters statusCode: The `HTTPURLResponse.statusCode` value.
+    /// - parameters description: The response description of the error.
+    case invalidResponse(statusCode: Int, description: String)
 }
 
 /// Extension to `URLSessionError` for Localizing the error.
@@ -79,9 +81,9 @@ extension URLSessionError: LocalizedError {
                 "The resource returned an error.",
                 comment: "Invalid Resource"
             )
-        case .invalidResponse(let statusCode):
+        case .invalidResponse(let statusCode, let description):
             return NSLocalizedString(
-                "The response returned an error with status code \(statusCode).",
+                "The response returned an error with status code \(statusCode). \(description)",
                 comment: "Invalid Response"
             )
         }
@@ -352,7 +354,10 @@ extension URLSession {
                     return
                 }
                 
-                completionHandler(.failure(URLSessionError.invalidResponse(httpResponse.statusCode)))
+                if let data = data, let description = String(data: data, encoding: .utf8)  {
+                    completionHandler(.failure(URLSessionError.invalidResponse(statusCode: httpResponse.statusCode, description: description)))
+                }
+                
                 return
             }
 

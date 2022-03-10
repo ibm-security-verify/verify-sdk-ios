@@ -10,10 +10,11 @@ Note: This is in reverse chronological order, so newer entries are added to the 
 * Increment version
 * Increment deployment info to iOS 14.6 
 * Added @propertyWrapper for decoding default JSON values
-* Added extension functions for Data
-* Added extension function for String
-* Added extension function for NSNumber
+* Added Data extension
+* Added String extension
+* Added NSNumber extension
 * Added JSON codable helpers
+* Updated URLSession extension
 
 ### IBM Security Verify Adaptive SDK for iOS
 * Increment version

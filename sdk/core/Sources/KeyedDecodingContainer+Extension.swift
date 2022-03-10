@@ -81,13 +81,13 @@ public struct UnknownCodingKeys: CodingKey {
 /// Extends a container that provides a view into an decoder’s storage, making the encoded properties of an decodable type accessible by keys.
 extension KeyedDecodingContainer where Key == UnknownCodingKeys {
     /// Returns the data stored for `AdditionalDataCodingKey` as represented in an dictionary of `[String: Any]`.
-    /// - parameter keyedBy: The `CodingKey` type to exclude from the decoding.
+    /// - parameter forKey: The `CodingKey` type to exclude from the decoding.
     /// - returns: A dictionary of `[String: Any]`.
-    public func decode<T: CodingKey>(exclude keyedBy: T.Type) -> [String: Any] {
+    public func decode<T: CodingKey>(exclude forKey: T.Type) -> [String: Any] {
         var data = [String: Any]()
 
         for key in allKeys {
-            if keyedBy.init(stringValue: key.stringValue) == nil {
+            if forKey.init(stringValue: key.stringValue) == nil {
                 if let value = try? decode(String.self, forKey: key) {
                     data[key.stringValue] = value
                 }

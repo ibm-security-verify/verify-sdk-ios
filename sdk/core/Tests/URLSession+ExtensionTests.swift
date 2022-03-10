@@ -483,7 +483,7 @@ class URLSessionExtensionTests: XCTestCase {
         var thrownError: Error?
 
         // When
-        XCTAssertThrowsError(try URLSessionExtensionTests.throwError(.invalidResponse(404))) {
+        XCTAssertThrowsError(try URLSessionExtensionTests.throwError(.invalidResponse(statusCode: 404, description: "Resource not found"))) {
             thrownError = $0
         }
 
@@ -491,10 +491,10 @@ class URLSessionExtensionTests: XCTestCase {
         XCTAssertTrue(thrownError is URLSessionError, "Unexpected error type: \(type(of: thrownError))")
 
         // Then
-        XCTAssertEqual(thrownError as? URLSessionError, .invalidResponse(404))
+        XCTAssertEqual(thrownError as? URLSessionError, .invalidResponse(statusCode: 404, description: "Resource not found"))
         
         // Then
-        XCTAssertEqual(thrownError?.localizedDescription, URLSessionError.invalidResponse(404).localizedDescription)
+        XCTAssertEqual(thrownError?.localizedDescription, URLSessionError.invalidResponse(statusCode: 404, description: "Resource not found").localizedDescription)
     }
     
     /// Tests unauthenticated error responses
@@ -533,7 +533,7 @@ class URLSessionExtensionTests: XCTestCase {
             case .success(_):
                 XCTFail("A response in the 200 range was not expected.")
             case .failure(let error):
-                XCTAssertEqual(error as? URLSessionError, URLSessionError.invalidResponse(404))
+                XCTAssertEqual(error as? URLSessionError, URLSessionError.invalidResponse(statusCode: 404, description: "Resource not found"))
             }
             
             expectation.fulfill()
