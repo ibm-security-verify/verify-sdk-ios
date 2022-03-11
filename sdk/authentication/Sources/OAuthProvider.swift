@@ -111,7 +111,7 @@ public class OAuthProvider {
     /// Launches the browser to initiate the authorization code (AZN) flow using optional Proof Key for Code Exchange (PKCE).
     /// - parameter url: The `URL` to the authorize endpoint for the OpenID Connect service provider issuer.
     /// - parameter redirectUrl: The redirect `URL` that is registered with the OpenID Connect service provider.
-    /// - parameters presentingViewController: Provides a display context in which the system can present an authentication session to the user.
+    /// - parameter presentingViewController: Provides a display context in which the system can present an authentication session to the user.
     /// - parameter codeChallenge: The scope of the access request.
     /// - parameter method: The hash method used to derive code challenge.
     /// - parameter scope: The scope of the access request. Default is **openid**.
@@ -160,8 +160,8 @@ public class OAuthProvider {
     }
 
     /// A completion handler the `ASWebAuthenticationSession` calls when it completes successfully, or when the user cancels the session.
-    /// - parameters redirect: The value that identifies the location of a resource from the OpenID Connect service provider
-    /// - parameters error: A type representing an error value that was thrown.
+    /// - parameter redirect: The value that identifies the location of a resource from the OpenID Connect service provider
+    /// - parameter error: A type representing an error value that was thrown.
     private func webAuthenticationSessionCallback(redirect url: URL?, error: Error?) {
         // Handle the redirect response.
         guard error == nil, let url = url else {

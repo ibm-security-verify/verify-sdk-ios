@@ -233,7 +233,7 @@ The ID token is represented as a sequence of URL-safe parts separated by period 
 
 `{header}.{claims}.{signature}`
 
-```Swift
+```swift
 extension String {
     public var base64UrlEncodedStringWithPadding: String {
         var value = replacingOccurrences(of: "-", with: "+")

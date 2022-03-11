@@ -40,9 +40,7 @@ public protocol DefaultValue {
     }
 }
 
-public enum Default {}
-
-/// A wrapper that allows for default values to be used when `JSONDecoder`.
+/// A wrapper that allows for default values to be used supporting `JSONDecoder`.
 ///
 /// The `@Default` attribute allows for properties to contain a default value if the JSON element does not exist in the container.
 /// ```
@@ -68,11 +66,12 @@ public enum Default {}
 ///   print(result.alias)               // prints []
 /// }
 /// ```
+public enum Default {}
 
+/// A wrapper that allows for default values to be used supporting `JSONDecoder`.
 extension Default {
-    @propertyWrapper
     /// A wrapper of the underlying object that can create a default value for a decodable element.
-    public struct Wrapper<T: DefaultValue> {
+    @propertyWrapper public struct Wrapper<T: DefaultValue> {
         /// The default to use when an element is not defined or the value is missing.
         public var wrappedValue: T.Value
         
@@ -83,6 +82,7 @@ extension Default {
     }
 }
 
+/// A wrapper that allows for default values to be used supporting `Decodable`.
 extension Default.Wrapper: Decodable where T.Value: Decodable {
     /// Creates a new instance by decoding from the given decoder.
     /// - parameter decoder: The decoder to read data from.
@@ -92,6 +92,7 @@ extension Default.Wrapper: Decodable where T.Value: Decodable {
     }
 }
 
+/// A wrapper that allows for default values to be used supporting `Encodable`.
 extension Default.Wrapper: Encodable where T.Value: Encodable {
     /// Encodes this value into the given encoder.
     /// - parameter encoder: The encoder to write data to.
@@ -101,5 +102,8 @@ extension Default.Wrapper: Encodable where T.Value: Encodable {
     }
 }
 
+/// A wrapper that allows for default values to be used supporting `Equatable`.
 extension Default.Wrapper: Equatable where T.Value: Equatable {}
-extension Default.Wrapper: Hashable where T.Value: Hashable{}
+
+/// A wrapper that allows for default values to be used supporting `Hashable`.
+extension Default.Wrapper: Hashable where T.Value: Hashable {}

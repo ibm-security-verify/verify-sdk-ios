@@ -40,8 +40,8 @@ public enum URLSessionError: Error, Equatable {
     case invalidResource
     
     /// The response returned an error.
-    /// - parameters statusCode: The `HTTPURLResponse.statusCode` value.
-    /// - parameters description: The response description of the error.
+    /// - parameter statusCode: The `HTTPURLResponse.statusCode` value.
+    /// - parameter description: The response description of the error.
     case invalidResponse(statusCode: Int, description: String)
 }
 

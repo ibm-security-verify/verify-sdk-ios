@@ -123,7 +123,7 @@ public enum TrusteerOperationError : Error {
     case certificateError
     
     /// Initializes the `AdaptiveOperationError`  enum type from a `TAS_RESULT`.
-    /// - parameters value: The name of a factor.
+    /// - parameter value: The name of a factor.
     internal init(value: TAS_RESULT) {
         switch value {
         case TAS_RESULT_GENERAL_ERROR:

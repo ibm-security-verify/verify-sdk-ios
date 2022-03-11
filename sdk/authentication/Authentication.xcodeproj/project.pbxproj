@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4443281927DAFDA8007566D7 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4443281827DAFDA8007566D7 /* Core.framework */; platformFilter = ios; };
+		4443281A27DAFDA8007566D7 /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4443281827DAFDA8007566D7 /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		448C618327576FED001153C6 /* Authentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 448C617A27576FED001153C6 /* Authentication.framework */; };
 		448C618827576FED001153C6 /* OAuthProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448C618727576FED001153C6 /* OAuthProviderTests.swift */; };
 		448C619327577A9B001153C6 /* OAuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448C619227577A9B001153C6 /* OAuthProvider.swift */; };
@@ -15,8 +17,6 @@
 		448C619727577ABF001153C6 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 448C619527577ABF001153C6 /* README.md */; };
 		44C88F1E27991C47000CA10E /* OIDCMetadataInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C88F1D27991C47000CA10E /* OIDCMetadataInfo.swift */; };
 		44C88F1F27991C47000CA10E /* OIDCMetadataInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C88F1D27991C47000CA10E /* OIDCMetadataInfo.swift */; };
-		44C88F4E279EA036000CA10E /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44C88F4D279EA036000CA10E /* Core.framework */; };
-		44C88F4F279EA036000CA10E /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44C88F4D279EA036000CA10E /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		44FEF80427A1327700D39103 /* PKCEHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEF80327A1327600D39103 /* PKCEHelper.swift */; };
 		44FEF80527A1327700D39103 /* PKCEHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEF80327A1327600D39103 /* PKCEHelper.swift */; };
 		44FEF80C27A153D200D39103 /* PKCEHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FEF80B27A153D200D39103 /* PKCEHelperTests.swift */; };
@@ -35,13 +35,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		44C88F44279E6077000CA10E /* Embed Frameworks */ = {
+		4443281B27DAFDA8007566D7 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				44C88F4F279EA036000CA10E /* Core.framework in Embed Frameworks */,
+				4443281A27DAFDA8007566D7 /* Core.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -49,13 +49,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4443281827DAFDA8007566D7 /* Core.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Core.framework; path = Frameworks/Core.framework; sourceTree = "<group>"; };
 		448C617A27576FED001153C6 /* Authentication.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Authentication.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		448C618227576FED001153C6 /* Authentication Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Authentication Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		448C618727576FED001153C6 /* OAuthProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthProviderTests.swift; sourceTree = "<group>"; };
 		448C619227577A9B001153C6 /* OAuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthProvider.swift; sourceTree = "<group>"; };
 		448C619527577ABF001153C6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		44C88F1D27991C47000CA10E /* OIDCMetadataInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OIDCMetadataInfo.swift; sourceTree = "<group>"; };
-		44C88F4D279EA036000CA10E /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44FEF80327A1327600D39103 /* PKCEHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKCEHelper.swift; sourceTree = "<group>"; };
 		44FEF80B27A153D200D39103 /* PKCEHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKCEHelperTests.swift; sourceTree = "<group>"; };
 		44FEF80D27A2462800D39103 /* TokenInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenInfo.swift; sourceTree = "<group>"; };
@@ -66,7 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44C88F4E279EA036000CA10E /* Core.framework in Frameworks */,
+				4443281927DAFDA8007566D7 /* Core.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,7 +124,7 @@
 		44C88F26279CBEBA000CA10E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				44C88F4D279EA036000CA10E /* Core.framework */,
+				4443281827DAFDA8007566D7 /* Core.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -150,7 +150,7 @@
 				448C617627576FED001153C6 /* Sources */,
 				448C617727576FED001153C6 /* Frameworks */,
 				448C617827576FED001153C6 /* Resources */,
-				44C88F44279E6077000CA10E /* Embed Frameworks */,
+				4443281B27DAFDA8007566D7 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -409,6 +409,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -441,6 +445,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

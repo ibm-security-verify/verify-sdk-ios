@@ -142,7 +142,7 @@ final public class AdaptiveContext {
 
 extension AdaptiveContext {
     /// Handles the `UIApplication.willTerminateNotification` notification.
-    /// - parameters notification: Posted when the app is about to terminate.
+    /// - parameter notification: Posted when the app is about to terminate.
     @objc internal func applicationWillTerminate(notification: Notification) {
         os_log("applicationWillTerminate - entry", log: .default, type: .info)
         
@@ -160,7 +160,7 @@ extension AdaptiveContext {
     }
     
     /// Handles the `UIApplication.willEnterForegroundNotification` notification.
-    /// - parameters notification: Posted when the app is about to enter the foreground.
+    /// - parameter notification: Posted when the app is about to enter the foreground.
     @objc internal func applicationWillEnterForeground(notification: Notification) {
         // Check is the session timestamp plus the renew session interval is less than the current time.  If so, create a new sessionId
         if Date(timeInterval: TimeInterval(renewSessionIdInterval), since: renewSessionIdTimestamp) < Date() {

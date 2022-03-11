@@ -39,7 +39,6 @@
 		444327EA27D9A00F007566D7 = {
 			isa = PBXGroup;
 			children = (
-				4443280827D9DE6D007566D7 /* Packages */,
 				444327F527D9A00F007566D7 /* Sources */,
 				444327F427D9A00F007566D7 /* Products */,
 			);
@@ -72,13 +71,6 @@
 				444327FD27D9A012007566D7 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		4443280827D9DE6D007566D7 /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Packages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
