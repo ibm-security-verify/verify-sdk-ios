@@ -23,7 +23,7 @@ class URLSessionDelegateHelperTests: XCTestCase {
         // Where
         let session = URLSession(configuration: .default, delegate: SelfSignedCertificateDelegate(), delegateQueue: nil)
         
-        let resource = HttpResource<()>(.get, url: url)
+        let resource = HTTPResource<()>(.get, url: url)
         
         // Then
         session.dataTask(for: resource) { result in
@@ -53,7 +53,7 @@ class URLSessionDelegateHelperTests: XCTestCase {
         // Where
         let session = URLSession(configuration: .default, delegate: pinnedCertificate, delegateQueue: nil)
         
-        let resource = HttpResource<()>(.get, url: url)
+        let resource = HTTPResource<()>(.get, url: url)
         
         // Then
         session.dataTask(for: resource) { result in
@@ -83,7 +83,7 @@ class URLSessionDelegateHelperTests: XCTestCase {
         // Where
         let session = URLSession(configuration: .default, delegate: pinnedCertificate, delegateQueue: nil)
         
-        let resource = HttpResource<()>(.get, url: url)
+        let resource = HTTPResource<()>(.get, url: url)
         
         // Then
         session.dataTask(for: resource) { result in

@@ -33,8 +33,8 @@ public struct UserDefault<T> {
     var value: T
     
     /// Initializes the property wrapper.
-    /// - parameters key: The key that identifies the value.
-    /// - parameters defaultValue: The default value to register for the specified key.
+    /// - parameter key: The key that identifies the value.
+    /// - parameter defaultValue: The default value to register for the specified key.
     public init(key: String, value: T) {
         self.key = key
         self.value = value
