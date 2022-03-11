@@ -13,6 +13,7 @@
 		444327FE27D9A012007566D7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 444327FD27D9A012007566D7 /* Preview Assets.xcassets */; };
 		4443280527D9CBD8007566D7 /* SigninViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4443280427D9CBD8007566D7 /* SigninViewModel.swift */; };
 		4443280727D9D4A0007566D7 /* TokenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4443280627D9D4A0007566D7 /* TokenView.swift */; };
+		4443281E27DB03EA007566D7 /* Authentication in Frameworks */ = {isa = PBXBuildFile; productRef = 4443281D27DB03EA007566D7 /* Authentication */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4443281E27DB03EA007566D7 /* Authentication in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +91,9 @@
 			dependencies = (
 			);
 			name = AuthenticationApp;
+			packageProductDependencies = (
+				4443281D27DB03EA007566D7 /* Authentication */,
+			);
 			productName = authentication;
 			productReference = 444327F327D9A00F007566D7 /* Authentication Example.app */;
 			productType = "com.apple.product-type.application";
@@ -117,6 +122,9 @@
 				Base,
 			);
 			mainGroup = 444327EA27D9A00F007566D7;
+			packageReferences = (
+				4443281C27DB03EA007566D7 /* XCRemoteSwiftPackageReference "verify-sdk-ios" */,
+			);
 			productRefGroup = 444327F427D9A00F007566D7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -274,6 +282,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Sources/Preview Content\"";
@@ -303,6 +312,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Sources/Preview Content\"";
@@ -349,6 +359,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4443281C27DB03EA007566D7 /* XCRemoteSwiftPackageReference "verify-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ibm-security-verify/verify-sdk-ios.git";
+			requirement = {
+				branch = staging;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4443281D27DB03EA007566D7 /* Authentication */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4443281C27DB03EA007566D7 /* XCRemoteSwiftPackageReference "verify-sdk-ios" */;
+			productName = Authentication;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 444327EB27D9A00F007566D7 /* Project object */;
 }

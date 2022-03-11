@@ -31,12 +31,13 @@ class SignInViewModel: NSObject, ObservableObject {
         provider.delegate = self
         
         provider.authorizeWithBrowser(issuer: issuerURL,
-                redirectUrl: self.redirectURL!,
-                presentingViewController: self,
-                codeChallenge: codeChallenge,
-                method: .S256,
-                scope: ["age"],
-                state: includeState ? UUID().uuidString : nil)
+                                      redirectUrl: self.redirectURL!,
+                                      presentingViewController: self,
+                                      codeChallenge: codeChallenge,
+                                      method: .S256,
+                                      scope: ["age"],
+                                      state: includeState ? UUID().uuidString : nil,
+                                      shareSession: shareSession)
     }
 }
 
@@ -57,11 +58,13 @@ extension SignInViewModel: OAuthProviderDelegate {
         
         provider.authorize(issuer: tokenURL!, redirectUrl: self.redirectURL, authorizationCode: result.code, codeVerifier: self.codeVerifier) { result in
          
-            switch result {
-            case .success(let token):
-                self.token = token
-            case .failure(let error):
-                print("error \(error.localizedDescription)")
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let token):
+                    self.token = token
+                case .failure(let error):
+                    print("error \(error.localizedDescription)")
+                }
             }
         }
     }
