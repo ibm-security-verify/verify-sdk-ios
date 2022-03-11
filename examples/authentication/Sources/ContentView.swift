@@ -74,11 +74,17 @@ struct ContentView: View {
                                 .background(.blue)
                                 .cornerRadius(8)
                         }
+                        
+                        
                     }.frame(maxWidth:.infinity)
                     .padding(16)
+                    
+                    NavigationLink(destination: TokenView()) {
+                        Text("Display token")
+                    }
                 }
             }
-        }.environment(viewModel)
+        }.environmentObject(viewModel)
     }
 }
 
