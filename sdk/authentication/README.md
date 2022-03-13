@@ -39,10 +39,9 @@ The Authentication SDK API can be reviewed [here](https://ibm-security-verify.gi
 
 ### Importing the SDK
 
-Add the following import statement to the `.swift` files you want to reference the Core SDK.
+Add the following import statement to the `.swift` files you want to reference the Verify Authentication SDK.
 
 ```swift
-import Core
 import Authentication
 ```
 

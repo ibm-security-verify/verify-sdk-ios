@@ -49,7 +49,7 @@ The Adaptive component API can be reviewed [here](https://ibm-security-verify.gi
 
 ### Importing the SDK
 
-Add the following import statement to the `.swift` files you wish to reference the component.
+Add the following import statement to the `.swift` files you wish to reference the Verify Adaptive SDK.
 
 ```swift
 import Adaptive

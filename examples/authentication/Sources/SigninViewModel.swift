@@ -13,7 +13,8 @@ class SignInViewModel: NSObject, ObservableObject {
     var tokenURL: URL?
     var redirectURL: URL?
     
-    let clientSecret = "iWEN1g7NMs"
+    // TODO: Update this value if your tenant application is configured as a non-public client.
+    let clientSecret = ""
     
     func performSignin(_ authorizationUrl: String, tokenUrl: String, redriectUrl: String, clientId: String, usePKCE: Bool, shareSession: Bool, includeState: Bool) {
         // Create the code verifier for PKCE
@@ -35,7 +36,6 @@ class SignInViewModel: NSObject, ObservableObject {
                                       presentingViewController: self,
                                       codeChallenge: codeChallenge,
                                       method: .S256,
-                                      scope: ["age"],
                                       state: includeState ? UUID().uuidString : nil,
                                       shareSession: shareSession)
     }
