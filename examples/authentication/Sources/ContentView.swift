@@ -6,9 +6,9 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var viewModel = SignInViewModel()
-    @State private var authorizationURL: String = "https://sdk.verify.ibm.com/v1.0/endpoint/default/authorize"
-    @State private var tokenURL: String = "https://sdk.verify.ibm.com/v1.0/endpoint/default/token"
-    @State private var clientId: String = "38cdeff8-9693-4f0b-99c9-563d5c20d6a7"
+    @State private var authorizationURL: String = ""
+    @State private var tokenURL: String = ""
+    @State private var clientId: String = ""
     @State private var redirectURL: String = "verifysdk://auth/callback"
     @State private var usePKCE: Bool = true
     @State private var shareSession: Bool = true

@@ -20,13 +20,14 @@ The Verify Authentication sample app is an end-to-end mobile app which uses an O
 1. After opening the project in Xcode, change the **Team** selection under **Signing & Capabilities** in the **Target** list
 2. Connect your iOS mobile device or use the Xcode simulator
 3. Press ⌘R to run the project
-4. Enter your **Tenant URL** to the token endpoint  i.e `https://sdk.verify.ibm.com/v1.0/endpoint/default/token`
-5. Enter the **Redirect Callback**  i.e `verifysdk://auth/callback`
-6. Enter the **Client ID** obtained from the tenant application configuration 
-7. Tap **Use PKCE** if you configured the tenant application to use Proof Key for Code Exchange verification
-8. Tap **Share session** if the sample authentication application will persist the session across authentication attemps
-9. Tap **Include state** to send a random string in the request.  The authorization server will return this value when the authorization code is generated.
-10. Tap **Get Started**
+4. Enter your tenant **Authorize Endpoint** i.e `https://sdk.verify.ibm.com/v1.0/endpoint/default/authorize`
+5. Enter your tenant **Token Endpoint**  i.e `https://sdk.verify.ibm.com/v1.0/endpoint/default/token`
+6. Enter the **Redirect Callback**  i.e `verifysdk://auth/callback`
+7. Enter the **Client ID** obtained from the tenant application configuration 
+8. Tap **Use PKCE** if you configured the tenant application to use Proof Key for Code Exchange verification
+9. Tap **Share session** if the sample authentication application will persist the session across authentication attemps
+10. Tap **Include state** to send a random string in the request.  The authorization server will return this value when the authorization code is generated.
+11. Tap **Get Started**
 
 
 > NOTE: If you configured your tenant application to use a client secret, add this value to the `clientSecret` variable in **SigninViewModel.swift**.
