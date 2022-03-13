@@ -157,6 +157,8 @@ public class OAuthProvider {
             session.presentationContextProvider = presentingViewController
             session.start()
         }
+        
+        os_log("Failed to initiate browser.", log: .default, type: .info)
     }
 
     /// A completion handler the `ASWebAuthenticationSession` calls when it completes successfully, or when the user cancels the session.

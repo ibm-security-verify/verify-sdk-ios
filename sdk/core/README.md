@@ -35,7 +35,7 @@ The Core SDK API can be reviewed [here](https://ibm-security-verify.github.io/io
 
 ### Importing the SDK
 
-Add the following import statement to the `.swift` files you want to reference the Core SDK.
+Add the following import statement to the `.swift` files you want to reference the Verify Core SDK.
 
 ```swift
 import Core
