@@ -1,6 +1,6 @@
 # IBM Security Verify Authentication SDK for iOS
 
-The Authentication SDK enables applications to obtain limited access to an HTTP service by orchestrating an approval interaction between the resource owner and the HTTP service.
+The Verify Authentication SDK enables applications to obtain limited access to an HTTP service by orchestrating an approval interaction between the resource owner and the HTTP service.
 
 
 ## Example
@@ -75,7 +75,7 @@ import AuthenticationServices
 // The view controller to start user authentication.
 class SigninViewController: UIViewController {
     let issuerUrl = URL(string: "https://www.example.com/authorize")!
-    let tokenURL: URL(string: "https://www.example.com/token")!
+    let tokenURL = URL(string: "https://www.example.com/token")!
     let redirectUrl = URL(string: "verifysdk://auth/callback")!
 
     func onSigninClick() {
@@ -129,7 +129,7 @@ import AuthenticationServices
 // The view controller to start user authentication.
 class SigninViewController: UIViewController {
     let issuerUrl = URL(string: "https://www.example.com/authorize")!
-    let tokenURL: URL(string: "https://www.example.com/token")!
+    let tokenURL = URL(string: "https://www.example.com/token")!
     let redirectUrl = URL(string: "verifysdk://auth/callback")!
     var codeVerifier: String? = nil
     var codeChallenge: String? = nil
