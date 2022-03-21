@@ -1,10 +1,10 @@
 # IBM Security Verify Authentication SDK for iOS
 
-The Verify Authentication SDK enables applications to obtain limited access to an HTTP service by orchestrating an approval interaction between the resource owner and the HTTP service.
+The Authentication software development kit (SDK) enables applications to obtain limited access to an HTTP service by orchestrating an approval interaction between the resource owner and the HTTP service.
 
 
 ## Example
-An [example](../../examples/authentication) application is available for the Verify Authentication SDK
+An [example](../../examples/authentication) application is available for the Authentication SDK
 
 ## Getting started
 
@@ -39,7 +39,7 @@ The Authentication SDK API can be reviewed [here](https://ibm-security-verify.gi
 
 ### Importing the SDK
 
-Add the following import statement to the `.swift` files you want to reference the Verify Authentication SDK.
+Add the following import statement to the `.swift` files you want to reference the Authentication SDK.
 
 ```swift
 import Authentication

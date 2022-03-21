@@ -1,6 +1,6 @@
 # IBM Security Verify Authentication Sample App for iOS
 
-The Verify Authentication sample app is an end-to-end mobile app which uses an OAuth and OIDC features in [IBM Security Verify Access](https://www.ibm.com/au-en/products/verify-access) (on-premises) and [IBM Security Verify](https://www.ibm.com/verify/verify-identity) (cloud).
+The Authentication sample app is an end-to-end mobile app which uses an OAuth and OIDC features in [IBM Security Verify Access](https://www.ibm.com/au-en/products/verify-access) (on-premises) and [IBM Security Verify](https://www.ibm.com/verify/verify-identity) (cloud).
 
 ## Getting started
 
