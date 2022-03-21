@@ -1,6 +1,6 @@
 # IBM Security Verify FIDO2™ Sample App for iOS
 
-The Verify FIDO2 sample app is an end-to-end mobile app which uses the FIDO2 server features in IBM Security Verify Access (on-premises) and IBM Security Verify (cloud).
+The FIDO2 sample app is an end-to-end mobile app which uses the FIDO2 server features in IBM Security Verify Access (on-premises) and IBM Security Verify (cloud).
 
 ## Getting started
 

@@ -1,10 +1,10 @@
 # IBM Security Verify Adaptive SDK for iOS
 
-The adaptive component provides device assessment. Based on cloud risk policies, authentication and authorization challenges can be evaluated.
+The Adaptive software development kit (SDK) provides device assessment. Based on cloud risk policies, authentication and authorization challenges can be evaluated.
 
 
 ## Example
-An [example](../../examples/adaptive) application is available for the Adaptive component.
+An [example](../../examples/adaptive) application is available for the Adaptive SDK.
 
 ## Getting started
 
