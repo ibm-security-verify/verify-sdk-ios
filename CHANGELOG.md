@@ -2,7 +2,7 @@ Note: This is in reverse chronological order, so newer entries are added to the 
 
 
 # v3.0.3
-1 February 2021
+23 March 2022
 ### IBM Security Verify Authentication SDK for iOS
 * Added to repository
 
