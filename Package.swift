@@ -19,6 +19,9 @@ let package = Package(
         .library(
             name: "Core",
             targets: ["Core"]),
+        .library(
+            name: "Authentication",
+            targets: ["Authentication"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -51,5 +54,14 @@ let package = Package(
             name: "Core Tests",
             dependencies: ["Core"],
             path: "sdk/core/Tests"),
+        .target(
+            name: "Authentication",
+            dependencies: ["Core"],
+            path: "sdk/authentication/Sources",
+            exclude: ["Info.plist"]),
+        .testTarget(
+            name: "Authentication Tests",
+            dependencies: ["Authentication", "Core"],
+            path: "sdk/authentication/Tests"),
     ]
 )

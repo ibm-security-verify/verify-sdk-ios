@@ -1,10 +1,10 @@
 # IBM Security Verify Adaptive SDK for iOS
 
-The adaptive component provides device assessment. Based on cloud risk policies, authentication and authorization challenges can be evaluated.
+The Adaptive software development kit (SDK) provides device assessment. Based on cloud risk policies, authentication and authorization challenges can be evaluated.
 
 
 ## Example
-An [example](../../examples/adaptive) application is available for the Adaptive component.
+An [example](../../examples/adaptive) application is available for the Adaptive SDK.
 
 ## Getting started
 
@@ -23,7 +23,7 @@ An [example](../../examples/adaptive) application is available for the Adaptive 
 
 ```swift
 dependencies: [
-    .package(name: "IBM Security Verify", url: "https://github.com/ibm-security-verify/verify-sdk-ios.git", from: "3.0.2")
+    .package(name: "IBM Security Verify", url: "https://github.com/ibm-security-verify/verify-sdk-ios.git", from: "3.0.3")
 ]
 ```
 
@@ -49,7 +49,7 @@ The Adaptive component API can be reviewed [here](https://ibm-security-verify.gi
 
 ### Importing the SDK
 
-Add the following import statement to the `.swift` files you wish to reference the component.
+Add the following import statement to the `.swift` files you wish to reference the Verify Adaptive SDK.
 
 ```swift
 import Adaptive

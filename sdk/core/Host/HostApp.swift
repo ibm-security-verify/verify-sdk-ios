@@ -1,8 +1,5 @@
 //
-//  HostApp.swift
-//  Host
-//
-//  Created by Craig Pearson on 28/9/21.
+// Copyright contributors to the IBM Security Verify Core SDK for iOS project
 //
 
 import SwiftUI

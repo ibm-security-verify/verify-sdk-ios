@@ -1,6 +1,6 @@
 # IBM Security Verify Core SDK for iOS
 
-The Core SDK provides common functionality across the other components in the IBM Security Verify SDK offering.  The core component will evolve over time and currently offers extensions and helpers for `URLSession` and the Keychain.
+The Core software development kit (SDK) provides common functionality across the other components in the IBM Security Verify SDK offering.  The core component will evolve over time and currently offers extensions and helpers for `URLSession` and the Keychain.
 
 ## Getting started
 
@@ -10,7 +10,7 @@ The Core SDK provides common functionality across the other components in the IB
 
 ```swift
 dependencies: [
-    .package(name: "IBM Security Verify", url: "https://github.com/ibm-security-verify/verify-sdk-ios.git", from: "3.0.2")
+    .package(name: "IBM Security Verify", url: "https://github.com/ibm-security-verify/verify-sdk-ios.git", from: "3.0.3")
 ]
 ```
 

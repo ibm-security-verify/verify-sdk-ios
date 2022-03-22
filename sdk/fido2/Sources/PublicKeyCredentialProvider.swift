@@ -63,8 +63,8 @@ public class PublicKeyCredentialProvider {
     
     /// Creates a public key credential registration request with the authenticator identifier, attestation format provider and options representing the request.
     /// - parameter aaguid: The AAGUID of the authenticator.  Default is  "00000000-0000-0000-0000-000000000000".
-    /// - parameter statementProvider: Represents a type of signed data object, containing statements about a public key credential itself and the authenticator that created it.  Default is ``NoneAttestation`.
-    /// - parameter options: An instance of ``PublicKeyCredentialCreationOptions``.
+    /// - parameter statementProvider: Represents a type of signed data object, containing statements about a public key credential itself and the authenticator that created it.  Default is `NoneAttestation`.
+    /// - parameter options: An instance of `PublicKeyCredentialCreationOptions`.
     ///
     /// When the request succeeds, the information is relayed to the view controllers `delegate` by calling the `publicKeyCredential(provider:didCompleteWithAttestation:)` method with the result.  If the request fails then `publicKeyCredential(provider:didCompleteWithError:)` is called instead.
     /// ```
