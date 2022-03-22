@@ -9,13 +9,13 @@ Note: This is in reverse chronological order, so newer entries are added to the 
 ### IBM Security Verify Core SDK for iOS
 * Increment version
 * Increment deployment info to iOS 14.6 
-* Added @propertyWrapper for decoding default JSON values
-* Added Data extension
-* Added String extension
-* Added NSNumber extension
-* Added KeyedDecodingContainer extension
+* Added `@propertyWrapper` for decoding default JSON values
+* Added `Data` extension
+* Added `String` extension
+* Added `NSNumber` extension
+* Added `KeyedDecodingContainer` extension
 * Added JSON codable helpers
-* Updated URLSession extension
+* Updated `URLSession` extension
 
 ### IBM Security Verify Adaptive SDK for iOS
 * Increment version
