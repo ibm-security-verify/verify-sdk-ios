@@ -1,0 +1,431 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		440156B826EEEBA00050D651 /* FIDO2 in Frameworks */ = {isa = PBXBuildFile; productRef = 440156B726EEEBA00050D651 /* FIDO2 */; };
+		445A989125F5A5A0007B5EBB /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445A989025F5A5A0007B5EBB /* LandingViewController.swift */; };
+		447A0A2226686494008A517F /* CredentialUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447A0A2126686494008A517F /* CredentialUserData.swift */; };
+		447A0A2426688322008A517F /* FidoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447A0A2326688322008A517F /* FidoService.swift */; };
+		447BE64C25F6ED0900E21233 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447BE64B25F6ED0900E21233 /* LoginViewController.swift */; };
+		449E17B125F78FFF000C0011 /* WhoAmIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449E17B025F78FFF000C0011 /* WhoAmIViewController.swift */; };
+		44D2CFC725D534B800DF5959 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D2CFC625D534B800DF5959 /* AppDelegate.swift */; };
+		44D2CFC925D534B800DF5959 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D2CFC825D534B800DF5959 /* SceneDelegate.swift */; };
+		44D2CFCB25D534B800DF5959 /* AttestationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D2CFCA25D534B800DF5959 /* AttestationViewController.swift */; };
+		44D2CFCE25D534B800DF5959 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44D2CFCC25D534B800DF5959 /* Main.storyboard */; };
+		44D2CFD025D534BA00DF5959 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44D2CFCF25D534BA00DF5959 /* Assets.xcassets */; };
+		44D2CFD325D534BA00DF5959 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44D2CFD125D534BA00DF5959 /* LaunchScreen.storyboard */; };
+		44D2D01125D540BB00DF5959 /* AppHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D2D01025D540BB00DF5959 /* AppHelper.swift */; };
+		44D2D01625D60E9900DF5959 /* AttestationInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D2D01525D60E9900DF5959 /* AttestationInfoViewController.swift */; };
+		44D61BAF25E4723B00B34EE7 /* AssertionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D61BAE25E4723B00B34EE7 /* AssertionViewController.swift */; };
+		44D61BB325E4DA0300B34EE7 /* AssertionInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D61BB225E4DA0300B34EE7 /* AssertionInfoViewController.swift */; };
+		B90BF51A25E880DA00EBA614 /* IVCreds.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90BF51925E880D900EBA614 /* IVCreds.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		445A989025F5A5A0007B5EBB /* LandingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingViewController.swift; sourceTree = "<group>"; };
+		447A0A2126686494008A517F /* CredentialUserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialUserData.swift; sourceTree = "<group>"; };
+		447A0A2326688322008A517F /* FidoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FidoService.swift; sourceTree = "<group>"; };
+		447BE64B25F6ED0900E21233 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		449E17B025F78FFF000C0011 /* WhoAmIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhoAmIViewController.swift; sourceTree = "<group>"; };
+		44D2CFC325D534B800DF5959 /* FIDO2App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FIDO2App.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		44D2CFC625D534B800DF5959 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		44D2CFC825D534B800DF5959 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		44D2CFCA25D534B800DF5959 /* AttestationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttestationViewController.swift; sourceTree = "<group>"; };
+		44D2CFCD25D534B800DF5959 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		44D2CFCF25D534BA00DF5959 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		44D2CFD225D534BA00DF5959 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		44D2CFD425D534BA00DF5959 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		44D2D01025D540BB00DF5959 /* AppHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHelper.swift; sourceTree = "<group>"; };
+		44D2D01525D60E9900DF5959 /* AttestationInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttestationInfoViewController.swift; sourceTree = "<group>"; };
+		44D61BAE25E4723B00B34EE7 /* AssertionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssertionViewController.swift; sourceTree = "<group>"; };
+		44D61BB225E4DA0300B34EE7 /* AssertionInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssertionInfoViewController.swift; sourceTree = "<group>"; };
+		B90BF51925E880D900EBA614 /* IVCreds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IVCreds.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		44D2CFC025D534B800DF5959 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				440156B826EEEBA00050D651 /* FIDO2 in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		445FB24026B9FDCC00AF4C73 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		44D2CFBA25D534B700DF5959 = {
+			isa = PBXGroup;
+			children = (
+				44D2CFC525D534B800DF5959 /* Sources */,
+				44D2CFC425D534B800DF5959 /* Products */,
+				445FB24026B9FDCC00AF4C73 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		44D2CFC425D534B800DF5959 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				44D2CFC325D534B800DF5959 /* FIDO2App.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		44D2CFC525D534B800DF5959 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				447A0A2126686494008A517F /* CredentialUserData.swift */,
+				44D2CFC625D534B800DF5959 /* AppDelegate.swift */,
+				44D2D01025D540BB00DF5959 /* AppHelper.swift */,
+				447A0A2326688322008A517F /* FidoService.swift */,
+				44D2CFC825D534B800DF5959 /* SceneDelegate.swift */,
+				B90BF51925E880D900EBA614 /* IVCreds.swift */,
+				445A989025F5A5A0007B5EBB /* LandingViewController.swift */,
+				44D2CFCA25D534B800DF5959 /* AttestationViewController.swift */,
+				44D2D01525D60E9900DF5959 /* AttestationInfoViewController.swift */,
+				44D61BAE25E4723B00B34EE7 /* AssertionViewController.swift */,
+				44D61BB225E4DA0300B34EE7 /* AssertionInfoViewController.swift */,
+				447BE64B25F6ED0900E21233 /* LoginViewController.swift */,
+				449E17B025F78FFF000C0011 /* WhoAmIViewController.swift */,
+				44D2CFD125D534BA00DF5959 /* LaunchScreen.storyboard */,
+				44D2CFCC25D534B800DF5959 /* Main.storyboard */,
+				44D2CFCF25D534BA00DF5959 /* Assets.xcassets */,
+				44D2CFD425D534BA00DF5959 /* Info.plist */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		44D2CFC225D534B800DF5959 /* FIDO2App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 44D2CFD725D534BA00DF5959 /* Build configuration list for PBXNativeTarget "FIDO2App" */;
+			buildPhases = (
+				44D2CFBF25D534B800DF5959 /* Sources */,
+				44D2CFC025D534B800DF5959 /* Frameworks */,
+				44D2CFC125D534B800DF5959 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FIDO2App;
+			packageProductDependencies = (
+				440156B726EEEBA00050D651 /* FIDO2 */,
+			);
+			productName = FIDO2App;
+			productReference = 44D2CFC325D534B800DF5959 /* FIDO2App.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		44D2CFBB25D534B700DF5959 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					44D2CFC225D534B800DF5959 = {
+						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
+					};
+				};
+			};
+			buildConfigurationList = 44D2CFBE25D534B700DF5959 /* Build configuration list for PBXProject "FIDO2App" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 44D2CFBA25D534B700DF5959;
+			packageReferences = (
+				440156B626EEEBA00050D651 /* XCRemoteSwiftPackageReference "verify-sdk-ios" */,
+			);
+			productRefGroup = 44D2CFC425D534B800DF5959 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				44D2CFC225D534B800DF5959 /* FIDO2App */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		44D2CFC125D534B800DF5959 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44D2CFD325D534BA00DF5959 /* LaunchScreen.storyboard in Resources */,
+				44D2CFD025D534BA00DF5959 /* Assets.xcassets in Resources */,
+				44D2CFCE25D534B800DF5959 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		44D2CFBF25D534B800DF5959 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				447BE64C25F6ED0900E21233 /* LoginViewController.swift in Sources */,
+				44D2CFCB25D534B800DF5959 /* AttestationViewController.swift in Sources */,
+				44D2CFC725D534B800DF5959 /* AppDelegate.swift in Sources */,
+				B90BF51A25E880DA00EBA614 /* IVCreds.swift in Sources */,
+				44D2D01625D60E9900DF5959 /* AttestationInfoViewController.swift in Sources */,
+				447A0A2426688322008A517F /* FidoService.swift in Sources */,
+				44D61BAF25E4723B00B34EE7 /* AssertionViewController.swift in Sources */,
+				44D2CFC925D534B800DF5959 /* SceneDelegate.swift in Sources */,
+				44D61BB325E4DA0300B34EE7 /* AssertionInfoViewController.swift in Sources */,
+				449E17B125F78FFF000C0011 /* WhoAmIViewController.swift in Sources */,
+				44D2D01125D540BB00DF5959 /* AppHelper.swift in Sources */,
+				445A989125F5A5A0007B5EBB /* LandingViewController.swift in Sources */,
+				447A0A2226686494008A517F /* CredentialUserData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		44D2CFCC25D534B800DF5959 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				44D2CFCD25D534B800DF5959 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		44D2CFD125D534BA00DF5959 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				44D2CFD225D534BA00DF5959 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		44D2CFD525D534BA00DF5959 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		44D2CFD625D534BA00DF5959 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		44D2CFD825D534BA00DF5959 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.security.verifyexample.fido2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		44D2CFD925D534BA00DF5959 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.security.verifyexample.fido2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		44D2CFBE25D534B700DF5959 /* Build configuration list for PBXProject "FIDO2App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44D2CFD525D534BA00DF5959 /* Debug */,
+				44D2CFD625D534BA00DF5959 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		44D2CFD725D534BA00DF5959 /* Build configuration list for PBXNativeTarget "FIDO2App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44D2CFD825D534BA00DF5959 /* Debug */,
+				44D2CFD925D534BA00DF5959 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		440156B626EEEBA00050D651 /* XCRemoteSwiftPackageReference "verify-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ibm-security-verify/verify-sdk-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		440156B726EEEBA00050D651 /* FIDO2 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 440156B626EEEBA00050D651 /* XCRemoteSwiftPackageReference "verify-sdk-ios" */;
+			productName = FIDO2;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 44D2CFBB25D534B700DF5959 /* Project object */;
+}

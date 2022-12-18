@@ -1,0 +1,6 @@
+{
+    "exceptionMsg":"",
+    "state":"",
+    "message":"FBTMUA103E The mobile user approval authentication mechanism failed to validate the submitted signed challenge.",
+    "mechanism":"urn:ibm:security:authentication:asf:mechanism:mmfa"
+}

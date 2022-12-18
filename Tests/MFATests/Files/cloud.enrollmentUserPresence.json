@@ -1,0 +1,23 @@
+[
+    {
+        "owner": "A1B2C3D4",
+        "enrollmentUri": "https://sdk.verify.ibm.com/v1.0/authnmethods/signatures/ab8e8112",
+        "methodType": "signature",
+        "creationTime": "2022-05-24T11:50:22.045Z",
+        "validated": false,
+        "subType": "userPresence",
+        "attributes": {
+            "deviceSecurity": true,
+            "authenticatorUri": "https://sdk.verify.ibm.com/v1.0/authenticators/ab8e8112",
+            "authenticatorId": "ab8e8112",
+            "additionalData": [{
+                "name": "sampleName",
+                "value": "sampleValue"
+            }],
+            "algorithm": "RSASHA256"
+        },
+        "id": "f0cf603f-ae9b-49ce-ad07-70f5777377db",
+        "enabled": true
+    }
+]
+

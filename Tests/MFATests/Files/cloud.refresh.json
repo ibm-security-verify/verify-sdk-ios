@@ -1,0 +1,9 @@
+{
+    "expiresIn": 90,
+    "accessToken": "a1b2c3",
+    "version": {
+        "number": "1.0.0",
+        "platform": "com.ibm.security.access.verify"
+    },
+    "refreshToken": "d4e5f6"
+}

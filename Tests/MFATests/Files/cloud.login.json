@@ -1,0 +1,15 @@
+{
+  "updated": "2018-07-16T02:13:47.719Z",
+  "created": "2018-07-16T02:13:47.719Z",
+  "userId": "50CP15KFD3",
+  "assertion": "ey...",
+  "expiry": "2018-07-16T02:13:47.719Z",
+  "state": "PENDING",
+  "serviceName": "Cloud Security",
+  "location": "/v2.0/factors/qr/1e5fa156-3754-4265-8796-1a2f0a6f036f",
+  "updatedBy": "50CP15KFD3",
+  "profileId": "ecb2bbbb-fd45-4ce9-957f-f18eaf65dfe8",
+  "type": "qr",
+  "id": "1e5fa156-3754-4265-8796-1a2f0a6f036f",
+  "tenant": "tenant.example.com"
+}

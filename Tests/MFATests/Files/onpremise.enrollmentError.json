@@ -1,0 +1,8 @@
+{
+    "schemas":[
+        "urn:ietf:params:scim:api:messages:2.0:Error"
+    ],
+    "detail":"SCIIS0001E   The resource 'dGVzdHVzZXJAbWFpbGluYXRvci5jb20' was not found.",
+    "status":"404"
+}
+

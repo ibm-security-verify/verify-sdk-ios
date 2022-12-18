@@ -1,0 +1,28 @@
+{
+    "rpId": "fidointerop.securitypoc.com",
+    "timeout": 60000,
+    "challenge": "s0akg_1_-555llkGJqW9eaZtaZ1yQdTTxczMZZKEH2U",
+    "allowCredentials": [
+        {
+            "id": "oMnMbb3R27jIhi3Q0HALy7sbAQ86lAdLX7lNgLZxJ2tdq__05vEqwGEOwfwNdHLmrQ8wISPGE-z6DH4kK-sw3sQTFh3wrdzvF0AHvL9u-RYPj1k37pJ7L6EzaLjBHuThFZZUr1CdJiKtPj8J194tWA",
+            "type": "public-key",
+            "transports": ["internal"]
+        },
+        {
+            "id": "v8foXYZXa8gezUVXIH3WgxF6qatuwhQXaAkHhadZI7Q",
+            "type": "public-key",
+            "transports": ["internal"]
+        },
+        {
+            "id": "Z3-0Y2ddwhZlpBu3Eo6sea5hG4gNBGSzOdBA5uatuCQ",
+            "type": "public-key",
+            "transports": ["internal"]
+        }
+    ],
+    "extensions": {
+        "txAuthSimple":"Confirm this transfer..."
+    },
+    "userVerification": "preferred",
+    "status": "ok",
+    "errorMessage": ""
+}

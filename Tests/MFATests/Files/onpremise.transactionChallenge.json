@@ -1,0 +1,10 @@
+{
+    "mechanism":"urn:ibm:security:authentication:asf:mechanism:mobile_user_approval:fingerprint",
+    "state":"3oU0Y2A52YnkX39Dnz3dAxRi49ynz7lDMgO3BUHuY57syFoUJ92VLCXQtGXFvuKX29S8gEqhKshSJ5TU2UGKunsXi4SJ9VR0ET3An6JTpPkE14NjMqreYhzTUnglrqVW",
+    "location":"/mga/sps/apiauthsvc?StateId=3oU0Y2A52YnkX39Dnz3dAxRi49ynz7lDMgO3BUHuY57syFoUJ92VLCXQtGXFvuKX29S8gEqhKshSJ5TU2UGKunsXi4SJ9VR0ET3An6JTpPkE14NjMqreYhzTUnglrqVW",
+    "type":"fingerprint",
+    "serverChallenge":"bT1SHZvefasEfisUQFyJ",
+    "keyHandles":[
+        "b0026617-cb9e-4f23-b4da-8dc0bd5b4758.fingerprint"
+    ]
+}

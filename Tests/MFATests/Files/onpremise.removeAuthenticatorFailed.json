@@ -1,0 +1,6 @@
+{
+    "exceptionMsg":"",
+    "state":"",
+    "message":"FBTMUA103E The mobile user authenticator identifier was not found.",
+    "mechanism":"urn:ibm:security:authentication:asf:mechanism:mmfa"
+}

@@ -1,0 +1,462 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4448C25E28D0535B00DF9804 /* ScanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4448C25D28D0535B00DF9804 /* ScanViewModel.swift */; };
+		4448C26028D2AC0B00DF9804 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4448C25F28D2AC0B00DF9804 /* RegistrationViewModel.swift */; };
+		4448C26228D2D10E00DF9804 /* EnrolmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4448C26128D2D10E00DF9804 /* EnrolmentView.swift */; };
+		4448C26628D36B0700DF9804 /* AuthenticatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4448C26528D36B0700DF9804 /* AuthenticatorViewModel.swift */; };
+		446A482C28C6EDE7003AACC6 /* MFAApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446A482B28C6EDE7003AACC6 /* MFAApp.swift */; };
+		446A482E28C6EDE7003AACC6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446A482D28C6EDE7003AACC6 /* ContentView.swift */; };
+		446A483328C6EDE8003AACC6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 446A483228C6EDE8003AACC6 /* Preview Assets.xcassets */; };
+		446A483B28C6EE0A003AACC6 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 446A483A28C6EE0A003AACC6 /* CodeScanner */; };
+		446A484328C80916003AACC6 /* MFA in Frameworks */ = {isa = PBXBuildFile; productRef = 446A484228C80916003AACC6 /* MFA */; };
+		44901F4028ED5F60007C0065 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 446A482F28C6EDE8003AACC6 /* Assets.xcassets */; };
+		44901F4228ED7626007C0065 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 44901F4128ED7626007C0065 /* README.md */; };
+		44AACF4028EA54A9002CCFD1 /* TransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44AACF3F28EA54A9002CCFD1 /* TransactionView.swift */; };
+		44C8756F28E579BE008E4B57 /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C8756E28E579BE008E4B57 /* TransactionViewModel.swift */; };
+		44D2258228CDA8AB0075B83A /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D2258128CDA8AB0075B83A /* RegistrationView.swift */; };
+		44D2258628CF13B20075B83A /* AuthenticatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D2258528CF13B20075B83A /* AuthenticatorView.swift */; };
+		44F1CBCB28DB108A00DA291C /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F1CBCA28DB108A00DA291C /* DataManager.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4448C25D28D0535B00DF9804 /* ScanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewModel.swift; sourceTree = "<group>"; };
+		4448C25F28D2AC0B00DF9804 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
+		4448C26128D2D10E00DF9804 /* EnrolmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrolmentView.swift; sourceTree = "<group>"; };
+		4448C26528D36B0700DF9804 /* AuthenticatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatorViewModel.swift; sourceTree = "<group>"; };
+		446A482828C6EDE7003AACC6 /* MFAApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MFAApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		446A482B28C6EDE7003AACC6 /* MFAApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFAApp.swift; sourceTree = "<group>"; };
+		446A482D28C6EDE7003AACC6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		446A482F28C6EDE8003AACC6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		446A483228C6EDE8003AACC6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		44901F4128ED7626007C0065 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		44AACF3F28EA54A9002CCFD1 /* TransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionView.swift; sourceTree = "<group>"; };
+		44C8756E28E579BE008E4B57 /* TransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewModel.swift; sourceTree = "<group>"; };
+		44D2258128CDA8AB0075B83A /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		44D2258528CF13B20075B83A /* AuthenticatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticatorView.swift; sourceTree = "<group>"; };
+		44F1CBCA28DB108A00DA291C /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		446A482528C6EDE7003AACC6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				446A483B28C6EE0A003AACC6 /* CodeScanner in Frameworks */,
+				446A484328C80916003AACC6 /* MFA in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4448C25B28D0533900DF9804 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				4448C25D28D0535B00DF9804 /* ScanViewModel.swift */,
+				4448C25F28D2AC0B00DF9804 /* RegistrationViewModel.swift */,
+				4448C26528D36B0700DF9804 /* AuthenticatorViewModel.swift */,
+				44C8756E28E579BE008E4B57 /* TransactionViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		4448C25C28D0534600DF9804 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				446A482D28C6EDE7003AACC6 /* ContentView.swift */,
+				44D2258528CF13B20075B83A /* AuthenticatorView.swift */,
+				44D2258128CDA8AB0075B83A /* RegistrationView.swift */,
+				4448C26128D2D10E00DF9804 /* EnrolmentView.swift */,
+				44AACF3F28EA54A9002CCFD1 /* TransactionView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		446A481F28C6EDE7003AACC6 = {
+			isa = PBXGroup;
+			children = (
+				44901F4128ED7626007C0065 /* README.md */,
+				446A482A28C6EDE7003AACC6 /* Sources */,
+				446A482928C6EDE7003AACC6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		446A482928C6EDE7003AACC6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				446A482828C6EDE7003AACC6 /* MFAApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		446A482A28C6EDE7003AACC6 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				44F1CBC728D9886300DA291C /* Utilities */,
+				4448C25C28D0534600DF9804 /* Views */,
+				4448C25B28D0533900DF9804 /* ViewModels */,
+				446A482B28C6EDE7003AACC6 /* MFAApp.swift */,
+				446A482F28C6EDE8003AACC6 /* Assets.xcassets */,
+				446A483128C6EDE8003AACC6 /* Preview Content */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		446A483128C6EDE8003AACC6 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				446A483228C6EDE8003AACC6 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		44F1CBC728D9886300DA291C /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				44F1CBCA28DB108A00DA291C /* DataManager.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		446A482728C6EDE7003AACC6 /* MFAApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 446A483628C6EDE8003AACC6 /* Build configuration list for PBXNativeTarget "MFAApp" */;
+			buildPhases = (
+				446A482428C6EDE7003AACC6 /* Sources */,
+				446A482528C6EDE7003AACC6 /* Frameworks */,
+				446A482628C6EDE7003AACC6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MFAApp;
+			packageProductDependencies = (
+				446A483A28C6EE0A003AACC6 /* CodeScanner */,
+				446A484228C80916003AACC6 /* MFA */,
+			);
+			productName = mfa_test;
+			productReference = 446A482828C6EDE7003AACC6 /* MFAApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		446A482028C6EDE7003AACC6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1340;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					446A482728C6EDE7003AACC6 = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+				};
+			};
+			buildConfigurationList = 446A482328C6EDE7003AACC6 /* Build configuration list for PBXProject "MFAApp" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 446A481F28C6EDE7003AACC6;
+			packageReferences = (
+				446A483928C6EE0A003AACC6 /* XCRemoteSwiftPackageReference "CodeScanner" */,
+				446A484128C80916003AACC6 /* XCRemoteSwiftPackageReference "verify-sdk-ios" */,
+			);
+			productRefGroup = 446A482928C6EDE7003AACC6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				446A482728C6EDE7003AACC6 /* MFAApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		446A482628C6EDE7003AACC6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44901F4228ED7626007C0065 /* README.md in Resources */,
+				44901F4028ED5F60007C0065 /* Assets.xcassets in Resources */,
+				446A483328C6EDE8003AACC6 /* Preview Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		446A482428C6EDE7003AACC6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				446A482E28C6EDE7003AACC6 /* ContentView.swift in Sources */,
+				4448C25E28D0535B00DF9804 /* ScanViewModel.swift in Sources */,
+				4448C26028D2AC0B00DF9804 /* RegistrationViewModel.swift in Sources */,
+				44F1CBCB28DB108A00DA291C /* DataManager.swift in Sources */,
+				4448C26228D2D10E00DF9804 /* EnrolmentView.swift in Sources */,
+				44AACF4028EA54A9002CCFD1 /* TransactionView.swift in Sources */,
+				44D2258228CDA8AB0075B83A /* RegistrationView.swift in Sources */,
+				44D2258628CF13B20075B83A /* AuthenticatorView.swift in Sources */,
+				4448C26628D36B0700DF9804 /* AuthenticatorViewModel.swift in Sources */,
+				446A482C28C6EDE7003AACC6 /* MFAApp.swift in Sources */,
+				44C8756F28E579BE008E4B57 /* TransactionViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		446A483428C6EDE8003AACC6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		446A483528C6EDE8003AACC6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		446A483728C6EDE8003AACC6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Sources/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "The app would like to use the camera to scan a QR code for registering an authenticator.";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "The sample app would like prompt for Face ID for enroling and verifying.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.security.verifyexample.mfa;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		446A483828C6EDE8003AACC6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Sources/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "The app would like to use the camera to scan a QR code for registering an authenticator.";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "The sample app would like prompt for Face ID for enroling and verifying.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.security.verifyexample.mfa;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		446A482328C6EDE7003AACC6 /* Build configuration list for PBXProject "MFAApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				446A483428C6EDE8003AACC6 /* Debug */,
+				446A483528C6EDE8003AACC6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		446A483628C6EDE8003AACC6 /* Build configuration list for PBXNativeTarget "MFAApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				446A483728C6EDE8003AACC6 /* Debug */,
+				446A483828C6EDE8003AACC6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		446A483928C6EE0A003AACC6 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		446A484128C80916003AACC6 /* XCRemoteSwiftPackageReference "verify-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ibm-security-verify/verify-sdk-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		446A483A28C6EE0A003AACC6 /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 446A483928C6EE0A003AACC6 /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
+		};
+		446A484228C80916003AACC6 /* MFA */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 446A484128C80916003AACC6 /* XCRemoteSwiftPackageReference "verify-sdk-ios" */;
+			productName = MFA;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 446A482028C6EDE7003AACC6 /* Project object */;
+}

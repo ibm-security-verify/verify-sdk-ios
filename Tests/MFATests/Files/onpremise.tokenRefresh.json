@@ -1,0 +1,9 @@
+{
+    "access_token":"A1b2C3D4",
+    "refresh_token":"Z9x8Y7",
+    "scope":"mmfaAuthn",
+    "authenticator_id":"uuid7a3c25a5",
+    "token_type":"bearer",
+    "display_name":"testuser",
+    "expires_in":59
+}

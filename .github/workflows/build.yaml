@@ -1,0 +1,93 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: Verify SDK release
+
+on: 
+  push:
+    branches:
+    - main
+    tags:
+      - 'v*'
+
+jobs:    
+  build_and_deploy:
+    name: Build and deploy
+    runs-on: macos-11
+    outputs:
+      github_sha: ${{github.sha}}
+      event_before: ${{ github.event.before }}
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+      - uses: swift-actions/setup-swift@v1
+        with:
+          swift-version: "5.7"
+      - name: Checkout swift-docc repo
+        uses: actions/checkout@v2
+        with:
+          repository: apple/swift-docc
+          path: swift-docc
+
+      - name: Generate Symbol Graphs
+        run: |
+          mkdir -p .build/symbol-graphs && \
+          swift build \
+            -Xswiftc -emit-symbol-graph \
+            -Xswiftc -emit-symbol-graph-dir -Xswiftc .build/symbol-graphs \
+            -Xswiftc "-sdk" -Xswiftc "`xcrun --sdk iphonesimulator --show-sdk-path`" -Xswiftc "-target" -Xswiftc "x86_64-apple-ios15.0-simulator"
+      - name: Generate docc
+        run: |
+          cd swift-docc
+          swift build
+
+          mkdir ../.build/iOS-SDK.docc
+
+          git clone https://github.com/apple/swift-docc-render-artifact.git
+          
+          export DOCC_HTML_DIR="/Users/runner/work/verify-sdk-ios/verify-sdk-ios/swift-docc/swift-docc-render-artifact/dist"
+
+          swift run docc convert ../.build/iOS-SDK.docc \
+            --fallback-display-name iOS-SDK \
+            --fallback-bundle-identifier com.ibm.iOS-SDK \
+            --fallback-bundle-version 1.0.0 \
+            --additional-symbol-graph-dir ../.build/symbol-graphs
+
+          swift run docc process-archive transform-for-static-hosting --hosting-base-path ios/ ../.build/iOS-SDK.docc/.docc-build
+
+      - name: Push to I/O repo
+        run: |
+          git clone https://github.com/ibm-security-verify/ibm-security-verify.github.io.git
+          cd ibm-security-verify.github.io
+          git checkout master
+          cd ..
+          rm -r ibm-security-verify.github.io/ios/*
+          mkdir -p ibm-security-verify.github.io/ios/
+          cp -R ./.build/iOS-SDK.docc/.docc-build/. ibm-security-verify.github.io/ios
+          cd ibm-security-verify.github.io
+          git add .
+          git commit -m "[GitHub Actions] Auto-Documentation Update"
+          git status
+          git config --get remote.origin.url
+          git remote set-url origin https://${{ secrets.API_TOKEN_GITHUB }}@github.com/ibm-security-verify/ibm-security-verify.github.io.git
+          git push origin
+          git config --get remote.origin.url
+  job_summary:
+    name: Update job summary
+    runs-on: ubuntu-latest
+    needs: build_and_deploy
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 3
+      - name: Add markdown
+        run: |
+          echo '## Build Summary :white_check_mark:' >> $GITHUB_STEP_SUMMARY
+          echo '### Documentation' >> $GITHUB_STEP_SUMMARY
+          echo 'The documentation has been successfully created, and can be accessed [here.](https://ibm-security-verify.github.io/)' >> $GITHUB_STEP_SUMMARY
+          echo '### Files Changed' >> $GITHUB_STEP_SUMMARY
+          echo -n 'Count: '  >> $GITHUB_STEP_SUMMARY
+          git diff --name-only HEAD~ | wc -l | awk '{$1=$1;print}' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          git diff --name-only HEAD~ >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY

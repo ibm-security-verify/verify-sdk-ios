@@ -1,0 +1,28 @@
+{
+   "id":"0f3dbc1d-dc1b-41de-98e5-724b11dd02c4",
+   "userId":"6060000UUC",
+   "type":"fido2",
+   "created":"2021-06-13T23:18:55.053Z",
+   "updated":"2021-06-13T23:18:55.053Z",
+   "attempted":"2021-06-14T02:27:56.278Z",
+   "enabled":true,
+   "validated":true,
+   "attributes":{
+      "attestationType":"Self",
+      "attestationFormat":"packed",
+      "nickname":"Johannesburg",
+      "userVerified":true,
+      "userPresent":true,
+      "credentialId":"UYJYV-1VCnjK07ImqadtPKT5rLHTbTxWN6Oo0_dTG1A",
+      "credentialPublicKey":"v2EzYi03YTMmYTECYi0xAWItMlggxzcTX/VwYSDoKdGsFQNxJpyU8HNIfwjHin2KqKOP/mtiLTNYIEEX5xLuNvzAkn7R3g1dAcK7rnqRQ9rlkis1RQdd8P4Y/w==",
+      "rpId":"milano.dev.verify.ibmcloudsecurity.com",
+      "counter":1623637672,
+      "aaGuid":"9BD13266-56D9-4F73-B135-E615A9D31961",
+      "transports":[
+         "internal"
+      ]
+   },
+   "references":{
+      "rpUuid":"6f6a23d6-687c-4100-94a7-da588c854057"
+   }
+}

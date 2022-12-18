@@ -1,0 +1,16 @@
+{
+    "authntrxn_endpoint":"https:\/\/sdk.verifyaccess.ibm.com\/scim\/Me?attributes=urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction:transactionsPending,urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction:attributesPending",
+    "metadata":{
+        "service_name":"ISVA Service"
+    },
+    "discovery_mechanisms":[
+        "urn:ibm:security:authentication:asf:mechanism:mobile_user_approval:user_presence"
+    ],
+    "enrollment_endpoint":"https:\/\/sdk.verifyaccess.ibm.com\/scim\/Me",
+    "qrlogin_endpoint":"https:\/\/sdk.verifyaccess.ibm.com\/mga\/sps\/apiauthsvc?PolicyId=urn:ibm:security:authentication:asf:qrcode_response",
+    "hotp_shared_secret_endpoint":"https:\/\/sdk.verifyaccess.ibm.com\/mga\/sps\/mga\/user\/mgmt\/otp\/hotp",
+    "totp_shared_secret_endpoint":"https:\/\/sdk.verifyaccess.ibm.com\/mga\/sps\/mga\/user\/mgmt\/otp\/totp",
+    "version":"9.0.7.0",
+    "token_endpoint":"https:\/\/sdk.verifyaccess.ibm.com\/mga\/sps\/oauth\/oauth20\/token"
+}
+

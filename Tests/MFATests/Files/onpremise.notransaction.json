@@ -1,0 +1,11 @@
+{
+    "meta":{
+        "location":"https://sdk.verifyaccess.ibm.com\/scim\/Users\/dGVzdHVzZXI",
+        "resourceType":"User"
+    },
+    "schemas":[
+        "urn:ietf:params:scim:schemas:core:2.0:User"
+    ],
+    "id":"dGVzdHVzZXI",
+    "userName":"testuser"
+}

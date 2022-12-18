@@ -1,0 +1,23 @@
+{
+    "totalResults":1,
+    "schemas":[
+        "urn:ietf:params:scim:api:messages:2.0:ListResponse"]
+    ,
+    "Resources":[{
+        "meta":{
+            "location":"https:\/\/192.168.42.104:444\/scim\/Users\/dGVzdHVzZXI",
+            "resourceType":"User"
+        },
+        "id":"dGVzdHVzZXI",
+        "userName":"testuser",
+        "urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator":{
+            "fingerprintMethods":[{
+                "id":"uuid8871a344-bea3-4b14-9160-88526a106a69",
+                "keyHandle":"11679ca3-cb43-474f-86b0-13204729af65.fingerprint",
+                "authenticator":"uuid7a3c25a5",
+                "enabled":true,
+                "algorithm":"SHA256withRSA"
+            }]
+        }
+    }]
+}

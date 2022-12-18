@@ -1,0 +1,8 @@
+{
+    "period":"30",
+    "secretKeyUrl":"otpauth:\/\/totp\/Example:testuser?secret=AAA111&issuer=Example",
+    "secretKey":"BBB333",
+    "digits": "6",
+    "username":"testuser",
+    "algorithm":"HmacSHA1"
+}

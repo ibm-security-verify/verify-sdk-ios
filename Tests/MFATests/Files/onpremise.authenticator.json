@@ -1,0 +1,33 @@
+{
+  "transactionUri" : "https:\/\/sdk.verifyaccess.ibm.com\/scim\/Me?attributes=urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction:transactionsPending,urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction:attributesPending",
+  "refreshUri" : "https:\/\/sdk.verifyaccess.ibm.com\/mga\/sps\/oauth\/oauth20\/token",
+  "id" : "B3E52879-604B-43C6-B099-E9F25E47612C",
+  "allowedFactors" : [
+    {
+      "totp" : {
+        "secret" : "BBB333",
+        "id" : "812707F9-EDC8-4665-9466-C5965542149C",
+        "digits" : 6,
+        "period" : 30,
+        "algorithm" : "sha1"
+      }
+    }
+  ],
+  "ignoreSSLCertificate" : false,
+  "theme" : {
+
+  },
+  "token" : {
+    "authenticator_id" : "uuid7a3c25a5",
+    "token_type" : "bearer",
+    "scope" : "mmfaAuthn",
+    "refreshToken" : "Z9x8Y7",
+    "display_name" : "testuser",
+    "expiresIn" : 59,
+    "accessToken" : "A1b2C3D4",
+    "expires_on" : 683059553.19942296
+  },
+  "accountName" : "John Doe",
+  "serviceName" : "ISVA Service",
+  "clientId": "abc123"
+}

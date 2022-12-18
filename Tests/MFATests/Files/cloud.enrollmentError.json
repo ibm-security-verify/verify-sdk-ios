@@ -1,0 +1,22 @@
+[
+  {
+    "requestObject": {
+      "subType": "fingerprint",
+      "enabled": false,
+      "attributes": {
+        "publicKey": "12ewdDE12==",
+        "deviceSecurity": true,
+        "signedData": "563r324F3214==",
+        "algorithm": "RSASHA256",
+        "additionalData": [
+          {
+            "name": "foo",
+            "value": "bar"
+          }
+        ]
+      }
+    },
+    "messageDescription": "CSIBH1234X The access token included in the request is not valid.",
+    "messageId": "CSIBH1234X"
+  }
+]

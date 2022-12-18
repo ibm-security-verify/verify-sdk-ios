@@ -1,0 +1,15 @@
+{
+    "schemas":[
+        "urn:ietf:params:scim:api:messages:2.0:PatchOp"
+    ],
+    "Operations":[{
+        "op":"add",
+        "path":"urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:userPresenceMethods",
+        "value":[{
+            "keyHandle":"3ba8e471-e7ec-43d5-bbda-998cef82d5f5.userPresence",
+            "algorithm":"SHA256withRSA",
+            "publicKey":"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwpfXctzHMzhEAqXlfB0xmrfMdXjbSP083wZju+YKp90pSCEa7h6HTqjBVgv4X4sDF15tpjrEFFKUcZOooZngzLFIy3Vc2BMq1swTEzVWV+cqkubc+Owfifk\/ycRKjoW8Z8GLTERCocylbTC1JUk0ZoQu3NYzWhPbI9E4YGsAMzSlJ0AWlPhFGIbj9yhnq5lpUzMWzTK\/Ph1xX\/DQcpIxvCzgf7VVMi6yAdIuyAp3nIH6cl0XBqBIQzj7EcKe\/09+FJwmDAGlvFM3v5rxVmnEm6P2gwxO5cjU8m1cOyn+bJ3z9fDFQUMm6+PpgUdrgCGwniQOXUFgrD\/YGZ67EdePQwIDAQAB",
+            "enabled":true
+        }]
+    }]
+}

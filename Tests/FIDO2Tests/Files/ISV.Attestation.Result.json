@@ -1,0 +1,27 @@
+{
+   "id":"8432e7cf-a101-4ca6-9d55-135fe325c28c",
+   "userId":"6060000UUC",
+   "type":"fido2",
+   "created":"2021-06-14T02:33:40.101Z",
+   "updated":"2021-06-14T02:33:40.101Z",
+   "enabled":true,
+   "validated":false,
+   "attributes":{
+      "attestationType":"Self",
+      "attestationFormat":"packed",
+      "nickname":"Sydney",
+      "userVerified":true,
+      "userPresent":true,
+      "credentialId":"EH4t1jUkK-lRP_2Q2dTQe5tUNV0Yv3WS9r3lD2YXGGM",
+      "credentialPublicKey":"v2EzYi03YTMmYTECYi0xAWItMlgg1MCCmZxL7YZApc2fkiJv9i/Tm5g0ZPjSOiQBGr4Q0NJiLTNYIGN/p01yRJptIpfYYAApof/hoDub4Et0pNPJAMfJyJGA/w==",
+      "rpId":"milano.dev.verify.ibmcloudsecurity.com",
+      "counter":1623638018,
+      "aaGuid":"5C207A16-C325-4E74-913F-5F9021D6D51A",
+      "transports":[
+         "internal"
+      ]
+   },
+   "references":{
+      "rpUuid":"6f6a23d6-687c-4100-94a7-da588c854057"
+   }
+}

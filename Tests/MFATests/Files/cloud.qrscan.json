@@ -1,0 +1,9 @@
+{
+    "code": "abc123",
+    "accountName": "Savings Account",
+    "registrationUri": "https://sdk.verify.ibm.com/v1.0/authenticators/registration",
+    "version": {
+        "number": "1.0.0",
+        "platform": "com.ibm.security.access.verify"
+    }
+}
