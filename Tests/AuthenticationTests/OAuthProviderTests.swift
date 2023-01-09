@@ -71,7 +71,7 @@ class OAuthProviderTest: XCTestCase {
         // Then
         do {
             let token = try await provider.authorize(issuer: url, username: self.username, password: self.password, scope: ["name", "age"])
-                XCTAssertNotNil(token)
+            XCTAssertNotNil(token)
         }
         catch let error {
             print(error)
