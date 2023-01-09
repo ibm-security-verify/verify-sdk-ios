@@ -1,33 +1,30 @@
 {
-  "transactionUri" : "https:\/\/sdk.verifyaccess.ibm.com\/scim\/Me?attributes=urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction:transactionsPending,urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction:attributesPending",
-  "refreshUri" : "https:\/\/sdk.verifyaccess.ibm.com\/mga\/sps\/oauth\/oauth20\/token",
-  "id" : "B3E52879-604B-43C6-B099-E9F25E47612C",
-  "allowedFactors" : [
-    {
-      "totp" : {
-        "secret" : "BBB333",
-        "id" : "812707F9-EDC8-4665-9466-C5965542149C",
-        "digits" : 6,
-        "period" : 30,
-        "algorithm" : "sha1"
-      }
-    }
-  ],
-  "ignoreSSLCertificate" : false,
-  "theme" : {
-
-  },
-  "token" : {
-    "authenticator_id" : "uuid7a3c25a5",
-    "token_type" : "bearer",
-    "scope" : "mmfaAuthn",
-    "refreshToken" : "Z9x8Y7",
-    "display_name" : "testuser",
-    "expiresIn" : 59,
-    "accessToken" : "A1b2C3D4",
-    "expires_on" : 683059553.19942296
-  },
-  "accountName" : "John Doe",
-  "serviceName" : "ISVA Service",
-  "clientId": "abc123"
+    "serviceName": "ADB Test",
+    "qrloginUri": "https://am-mobile-dev.adb.org/mga/sps/apiauthsvc?PolicyId=urn:ibm:security:authentication:asf:qrcode_response",
+    "accountName": "mhm",
+    "token":{
+          "authenticator_id": "uuid32f7aa4f-6de3-4f6a-b242-a2d935144974",
+          "token_type": "bearer",
+          "scope": "mmfaAuthn",
+          "refreshToken": "VM6eEnMxmr8n479QSXiy1fTiVXP552StZNoD7GJr",
+          "display_name": "mhm",
+          "expiresIn": 3599,
+          "accessToken": "TCvJksf2wdIF5k9pFS2x",
+          "expires_on": "2023-01-03T06:32:51.632Z"
+    },
+    "theme": {},
+    "clientId": "ADBAuthenticatorClient",
+    "ignoreSSLCertificate": true,
+    "allowedFactors":[
+          {
+             "userPresence": {
+                "id": "7F81136C-DD93-4D96-BC6B-3F3A3DD4583E",
+                "name": "uuid32f7aa4f-6de3-4f6a-b242-a2d935144974.userPresence",
+                "algorithm": "sha512"
+             }
+          }
+       ],
+    "id": "uuid32f7aa4f-6de3-4f6a-b242-a2d935144974",
+    "refreshUri": "https://am-mobile-dev.adb.org/mga/sps/oauth/oauth20/token",
+    "transactionUri": "https://am-mobile-dev.adb.org/scim/Me?attributes=urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction:transactionsPending,urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction:attributesPending"
 }
