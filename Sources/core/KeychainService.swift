@@ -179,13 +179,13 @@ public final class KeychainService: NSObject {
         try addItem(forKey, value: data, accessControl: accessControl, accessibility: accessibility)
     }
     
-    /// Adds an item to a keychain.
+    /// Adds an item to a keychain, or updates a value if the key already exists.
     /// - Parameters:
     ///   - forKey: The key with which to associate the value.
     ///   - value: The `Data` value to store in the keychain.
     ///   - accessControl: One or more flags that determine how the value can be accessed. See [SecAccessControlCreateFlags](https://developer.apple.com/documentation/security/secaccesscontrolcreateflags).
     ///   - accessibility: A key whose value indicates when a keychain item is accessible. Default is `SecAccessible.afterFirstUnlock`.
-    /// 
+    ///
     /// ```swift
     /// struct Person: Codable {
     ///    var name: String
@@ -204,9 +204,12 @@ public final class KeychainService: NSObject {
         // Prepare the query to be writtern to the keychain.
         var query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
                                     kSecAttrService as String: serviceName,
-                                    kSecAttrAccount as String: forKey,
-                                    kSecValueData as String: value]
+                                    kSecAttrAccount as String: forKey]
         
+        
+        let values: [String: Any] = [kSecValueData as String: value]
+        
+    
         // Check if any access control is to be applied. Otherwise apply just the accessible item.
         if let accessControl = accessControl {
             var error: Unmanaged<CFError>?
@@ -224,14 +227,16 @@ public final class KeychainService: NSObject {
             query[kSecAttrAccessible as String] = accessibility.rawValue
         }
 
-        let status = SecItemAdd(query as CFDictionary, nil)
-        logger.info("Item '\(forKey, privacy: .public)' added to keychain: \(status == errSecSuccess, privacy: .public)")
+        let params = query.merging(values) { $1 }
+        var status = SecItemAdd(params as CFDictionary, nil)
         
-        guard status != errSecDuplicateItem else {
-            throw KeychainError.duplicateKey
-        }
-        
-        guard status == errSecSuccess else {
+        switch status {
+        case errSecSuccess:
+            logger.info("Item '\(forKey, privacy: .public)' added to keychain: \(status == errSecSuccess, privacy: .public)")
+        case errSecDuplicateItem:
+            status = SecItemUpdate(query as CFDictionary, values as CFDictionary)
+            logger.info("Item '\(forKey, privacy: .public)' updated in keychain: \(status == errSecSuccess, privacy: .public)")
+        default:
             let message = SecCopyErrorMessageString(status, nil) as String? ?? "Unknown error"
             logger.error("Error occured performing the operation. \(message, privacy: .public)")
             throw KeychainError.unhandledError(message: message)
