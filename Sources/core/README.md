@@ -10,7 +10,7 @@ The Core software development kit (SDK) provides common functionality across the
 
 ```swift
 dependencies: [
-    .package(name: "IBM Security Verify", url: "https://github.com/ibm-security-verify/verify-sdk-ios.git", from: "3.0.4")
+    .package(name: "IBM Security Verify", url: "https://github.com/ibm-security-verify/verify-sdk-ios.git", from: "3.0.5")
 ]
 ```
 

@@ -139,7 +139,7 @@ public enum MFAAttributeInfo {
     /// - Remark: This value represents the latest [Github release version](https://github.com/ibm-security-verify/verify-sdk-ios/releases/tag).
     public static var frameworkVersion: String {
         get {
-            return "3.0.4"
+            return "3.0.5"
         }
     }
     
