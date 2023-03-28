@@ -357,6 +357,13 @@ extension URLSession {
             throw URLSessionError.invalidResponse(statusCode: httpResponse.statusCode, description: description)
         }
         
+        #if DEBUG
+            let description = try await String(decoding: data, as: UTF8.self)
+            print("--RESPONSE--\n")
+            print("\tUrl:\n\(resource.request.url!)\n")
+            print("\tBody:\n\(description)")
+        #endif
+        
         return try await resource.parse(data, httpResponse).get()
     }
 }

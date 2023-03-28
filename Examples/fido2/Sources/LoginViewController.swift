@@ -167,14 +167,14 @@ class LoginViewController: UIViewController {
                     return
                 }
                 
-                guard let fido = dictionary["fido2"] as? [Any], let value = fido.first as? [String: String] else {
-                    completion(.failure(.general(message: "The fido2 array held no elements.")))
-                    return
-                }
-                
-                guard let id = value.first(where: { $0.key == "id" }) else {
-                    completion(.failure(.general(message: "'id' not found in fido2 array.")))
-                    return
+                guard let fido = dictionary["fido2"] as? [Any], let value = fido.first as? [String: Any] else {
+                   completion(.failure(.general(message: "The fido2 array held no elements.")))
+                   return
+                 }
+                                
+                guard let item = value.first(where: { $0.key == "id" }), let id = item.value as? String else {
+                  completion(.failure(.general(message: "'id' not found in fido2 array.")))
+                  return
                 }
                 
                 completion(.success(id.value))

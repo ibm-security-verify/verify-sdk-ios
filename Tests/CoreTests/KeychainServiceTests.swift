@@ -65,6 +65,31 @@ class KeychainServiceTests: XCTestCase {
         XCTAssertTrue(result)
     }
     
+    /// Adds a `String` then removes the keychain item.
+    func testAddUpdateAndDeleteItemString() throws {
+        // Given
+        var result = true
+        
+        // When
+        do {
+            try KeychainService.default.addItem("greeting", value: "Hello World")
+            try KeychainService.default.addItem("greeting", value: "World Hello")
+            
+            let value = try KeychainService.default.readItem("greeting", type: String.self)
+            
+            XCTAssertEqual(value, "World Hello")
+        }
+        catch {
+            result = false
+        }
+        
+        // Then
+        try KeychainService.default.deleteItem("greeting")
+        
+        // Then
+        XCTAssertTrue(result)
+    }
+    
     /// Adds a `String` with access control of `.userPresence`.
     /// - note: Will fail tracked againt [https://feedbackassistant.apple.com/feedback/82890873](https://feedbackassistant.apple.com/feedback/82890873)
     func testAddAndDeleteItemStringWithUserPresense() throws {
