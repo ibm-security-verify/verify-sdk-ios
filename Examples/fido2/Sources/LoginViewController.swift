@@ -177,7 +177,7 @@ class LoginViewController: UIViewController {
                   return
                 }
                 
-                completion(.success(id.value))
+                completion(.success(id))
             }
         }.resume()
     }
