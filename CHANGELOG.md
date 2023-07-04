@@ -1,9 +1,32 @@
 Note: This is in reverse chronological order, so newer entries are added to the top.
 
+# v3.0.6
+5 July 2023
+### IBM Security Verify MFA SDK for iOS
+* Increment version
+* Remove OTP from being automatically registered during MFA enrolment.
+
+### IBM Security Verify Core SDK for iOS
+* Increment version
+
+### IBM Security Verify Authentication SDK for iOS
+* Increment version
+
+### IBM Security Verify Adaptive SDK for iOS
+* Increment version
+
+### IBM Security Verify FIDO2™ SDK for iOS
+* Increment version
+* Fix handling of `/attestation/options` in example app
+* Increment deployment info to iOS 15 in sample app
+* Update labels in sample app
+<br/>
+<br/>
+
 # v3.0.5
 28 March 2023
 ### IBM Security Verify MFA SDK for iOS
-* Increment versio
+* Increment version
 
 ### IBM Security Verify Core SDK for iOS
 * Increment version
