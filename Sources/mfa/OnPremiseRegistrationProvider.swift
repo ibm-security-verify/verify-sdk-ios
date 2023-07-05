@@ -58,11 +58,12 @@ public class OnPremiseRegistrationProvider: MFARegistrationDescriptor {
     /// Initiates the multi-factor method enrollment.
     /// - Parameters:
     ///   - accountName: The account name associated with the service.
+    ///   - skipTotpEnrollment: A Boolean value that when set to `true` the TOTP authentication method enrollment attempt will be skipped.
     ///   - pushToken: A token that identifies the device to Apple Push Notification Service (APNS).
     ///   - additionalData: (Optional) A collection of options associated with the registration.
     ///
     ///Communicate with Apple Push Notification service (APNs) and receive a unique device token that identifies your app.  Refer to [Registering Your App with APNs](https://developer.apple.com/documentation/usernotifications/registering_your_app_with_apns).
-    internal func initiate(with accountName: String, pushToken: String? = nil, additionalData: [String: Any]? = nil) async throws {
+    internal func initiate(with accountName: String, skipTotpEnrollment: Bool = true, pushToken: String? = nil, additionalData: [String: Any]? = nil) async throws {
         // Override the account name assigned with init().
         self.accountName = accountName
         self.pushToken = pushToken ?? ""
@@ -106,26 +107,28 @@ public class OnPremiseRegistrationProvider: MFARegistrationDescriptor {
         
         // Automatically enroll for TOTP is available.
         if let factor = self.metadata.availableFactors.first(where: { $0 is OnPremiseTOTPEnrollableFactor }) as? OnPremiseTOTPEnrollableFactor {
-            let totpResource = HTTPResource<TOTPFactorInfo>(url: factor.uri, headers: ["Authorization": self.token.authorizationHeader]) { data, response in
-                
-                guard let data = data else {
-                    return Result.failure(OnPremiseRegistrationError.dataInitializationFailed)
+            if !skipTotpEnrollment {
+                let totpResource = HTTPResource<TOTPFactorInfo>(url: factor.uri, headers: ["Authorization": self.token.authorizationHeader]) { data, response in
+                    
+                    guard let data = data else {
+                        return Result.failure(OnPremiseRegistrationError.dataInitializationFailed)
+                    }
+                    
+                    // Instead of a proxy object to parse this JSON, easier to construct a new TOTPFactorInfo from a dictionary.
+                    guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: String] else {
+                        return Result.failure(OnPremiseRegistrationError.failedToParse)
+                    }
+                    
+                    guard let secret = json["secretKey"], let digits = Int(json["digits"]!), let algorithm = json["algorithm"], let period = Int(json["period"]!) else {
+                        return Result.failure(OnPremiseRegistrationError.enrollmentFailed)
+                    }
+                    
+                    return Result.success(TOTPFactorInfo(with: secret, digits: digits, algorithm: HashAlgorithmType(rawValue: algorithm) ?? .sha1, period: period))
                 }
-               
-                // Instead of a proxy object to parse this JSON, easier to construct a new TOTPFactorInfo from a dictionary.
-                guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: String] else {
-                    return Result.failure(OnPremiseRegistrationError.failedToParse)
-                }
                 
-                guard let secret = json["secretKey"], let digits = Int(json["digits"]!), let algorithm = json["algorithm"], let period = Int(json["period"]!) else {
-                    return Result.failure(OnPremiseRegistrationError.enrollmentFailed)
-                }
-                
-                return Result.success(TOTPFactorInfo(with: secret, digits: digits, algorithm: HashAlgorithmType(rawValue: algorithm) ?? .sha1, period: period))
+                let totp = try await URLSession.shared.dataTask(for: totpResource)
+                self.factors.append(.totp(totp))
             }
-            
-            let totp = try await URLSession.shared.dataTask(for: totpResource)
-            self.factors.append(.totp(totp))
             
             // Remove the factor from being called from nextEnrollment
             self.metadata.availableFactors.removeAll(where: { $0 is OnPremiseTOTPEnrollableFactor })
@@ -172,21 +175,24 @@ public class OnPremiseRegistrationProvider: MFARegistrationDescriptor {
         let method = "\(self.currentFactor.type.rawValue)Methods"
         
         // Create the parameters for the request body.
-        let parameters: [String: Any] = ["schemas": ["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
-                                         "Operations": [
-                                            ["op": "add",
-                                             "path": "\(namespace):\(method)",
-                                             "value": [
-                                                ["keyHandle": "\(keyHandle)",
-                                                 "algorithm": "\(self.currentFactor.algorithm)",
-                                                 "publicKey": "\(publicKey)",
-                                                 "enabled": true]
-                                             ]],
-                                         ]]
-        
-        // Convert the parameters in JSON data.
-        let body = try JSONSerialization.data(withJSONObject: parameters, options: [])
-        
+        let body = """
+            {
+                "schemas":[
+                    "urn:ietf:params:scim:api:messages:2.0:PatchOp"
+                ],
+                "Operations":[{
+                    "op":"add",
+                    "path":"\(namespace):\(method)",
+                    "value":[{
+                        "enabled":true,
+                        "keyHandle":"\(keyHandle)",
+                        "algorithm":""\(self.currentFactor.algorithm)",
+                        "publicKey":"\(publicKey)"
+                    }]
+                }]
+            }
+        """.data(using: .utf8)!
+         
         // Create the resource to execute the request to enroll a signature factor and parse the result.
         let resource = HTTPResource<UUID>(.patch, url: self.currentFactor.uri, accept: .json, contentType: .json, body: body, headers: ["Authorization": self.token.authorizationHeader]) { data, response in
             guard let _ = data else {
@@ -196,7 +202,6 @@ public class OnPremiseRegistrationProvider: MFARegistrationDescriptor {
             return Result.success(id)
         }
         
-       
         let result = try await URLSession.shared.dataTask(for: resource)
         
         if self.currentFactor.type == .fingerprint {
