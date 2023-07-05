@@ -191,18 +191,19 @@ public class MFARegistrationController {
     /// Initiates the registration of a multi-factor authenticator.
     /// - Parameters:
     ///   - accountName: The account name associated with the service.
+    ///   - skipTotpEnrollment: A Boolean value that when set to `true` the TOTP authentication method enrollment attempt will be skipped.
     ///   - pushToken: A token that identifies the device to Apple Push Notification Service (APNS).
     ///   - additionalData: (Optional) A dictionary of additional attributes assigned to an on-premise registration.
     ///
     ///Communicate with Apple Push Notification service (APNs) and receive a unique device token that identifies your app.  Refer to [Registering Your App with APNs](https://developer.apple.com/documentation/usernotifications/registering_your_app_with_apns).
-    public func initiate(with accountName: String, pushToken: String? = "", additionalData: [String: Any]? = nil) async throws -> any MFARegistrationDescriptor {
+    public func initiate(with accountName: String, skipTotpEnrollment: Bool = true, pushToken: String? = "", additionalData: [String: Any]? = nil) async throws -> any MFARegistrationDescriptor {
         if let provider = try? CloudRegistrationProvider(json: self.json) {
-            try await provider.initiate(with: accountName, pushToken: pushToken)
+            try await provider.initiate(with: accountName, skipTotpEnrollment: skipTotpEnrollment, pushToken: pushToken)
             return provider
         }
         
         if let provider = try? OnPremiseRegistrationProvider(json: self.json) {
-            try await provider.initiate(with: accountName, pushToken: pushToken, additionalData: additionalData)
+            try await provider.initiate(with: accountName, skipTotpEnrollment: skipTotpEnrollment, pushToken: pushToken, additionalData: additionalData)
             return provider
         }
         

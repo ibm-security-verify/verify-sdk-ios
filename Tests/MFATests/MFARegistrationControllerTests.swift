@@ -43,7 +43,7 @@ class MFARegistrationControllerTests: XCTestCase {
     /// Test the scan and create an instance of the cloud registration provider.
     func testInitiateCloudRegistration() async throws {
         // Given
-        let registrationUrl = URL(string: "\(urlBaseCloud)/v1.0/authenticators/registration")!
+        let registrationUrl = URL(string: "\(urlBaseCloud)/v1.0/authenticators/registration?skipTotpEnrollment=false")!
         MockURLProtocol.urls[registrationUrl] = MockHTTPResponse(response: HTTPURLResponse(url: registrationUrl, statusCode: 200, httpVersion: nil, headerFields: nil)!, fileResource: "cloud.initiate")
         
         // Where
@@ -53,7 +53,7 @@ class MFARegistrationControllerTests: XCTestCase {
         XCTAssertNotNil(controller)
         
         // Then
-        let provider = try await controller.initiate(with: "John Doe", pushToken: "abc123")
+        let provider = try await controller.initiate(with: "John Doe", skipTotpEnrollment: false, pushToken: "abc123")
         XCTAssertNotNil(provider)
         XCTAssertTrue(provider is CloudRegistrationProvider)
     }
@@ -77,7 +77,7 @@ class MFARegistrationControllerTests: XCTestCase {
         XCTAssertNotNil(controller)
         
         // Then
-        let provider = try await controller.initiate(with: "John Doe", pushToken: "abc123")
+        let provider = try await controller.initiate(with: "John Doe", skipTotpEnrollment: false, pushToken: "abc123")
         XCTAssertNotNil(provider)
         XCTAssertTrue(provider is OnPremiseRegistrationProvider)
     }

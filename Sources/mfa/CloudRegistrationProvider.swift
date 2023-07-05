@@ -28,7 +28,7 @@ public class CloudRegistrationProvider: MFARegistrationDescriptor {
         self.initializationInfo = result
     }
     
-    /// The on-premise initialization information.
+    /// The cloud initialization information.
     private let initializationInfo: InitializationInfo
     
     /// The cloud metedata to enable authentication registration.
@@ -50,14 +50,17 @@ public class CloudRegistrationProvider: MFARegistrationDescriptor {
     public var countOfAvailableEnrollments: Int {
         return metadata.availableFactors.count
     }
+    
+    public var skipTotpEnrollment: Bool = true
        
     /// Initiates the multi-factor method enrollment.
     /// - Parameters:
     ///   - accountName: The account name associated with the service.
+    ///   - skipTotpEnrollment: A Boolean value that when set to `true` the TOTP authentication method enrollment attempt will be skipped.
     ///   - pushToken: A token that identifies the device to Apple Push Notification Service (APNS).
     ///
     /// Communicate with Apple Push Notification service (APNs) and receive a unique device token that identifies your app.  Refer to [Registering Your App with APNs](https://developer.apple.com/documentation/usernotifications/registering_your_app_with_apns).
-    internal func initiate(with accountName: String, pushToken: String? = nil) async throws {
+    internal func initiate(with accountName: String, skipTotpEnrollment: Bool = true, pushToken: String? = nil) async throws {
         // Override the account name assigned with init().
         self.accountName = accountName
         self.pushToken = pushToken ?? ""
@@ -79,8 +82,10 @@ public class CloudRegistrationProvider: MFARegistrationDescriptor {
             throw CloudRegistrationError.failedToParse
         }
         
+        let url = URL(string: self.initializationInfo.uri.absoluteString + "?skipTotpEnrollment=\(skipTotpEnrollment)")!
+        
         // Construct the request and parsing method.  We decode the metadata, then the token using the TokenInfo in the Authentication module.
-        let resource = HTTPResource<(metadata: Metadata, token: TokenInfo)>(.post, url: self.initializationInfo.uri, accept: .json, contentType: .json, body: body) { data, response in
+        let resource = HTTPResource<(metadata: Metadata, token: TokenInfo)>(.post, url: url, accept: .json, contentType: .json, body: body) { data, response in
             guard let data = data else {
                 return Result.failure(CloudRegistrationError.dataInitializationFailed)
             }
@@ -98,11 +103,12 @@ public class CloudRegistrationProvider: MFARegistrationDescriptor {
         
         // Check if TOTP got auto enrolled, if so remove it and append it to factors.
         if let factor = self.metadata.availableFactors.first(where: { $0 is CloudTOTPEnrollableFactor }) as? CloudTOTPEnrollableFactor {
-            
-            // Convert the enrollable factor.
-            self.factors = [
-                .totp(TOTPFactorInfo(with: factor.secret, digits: factor.digits, algorithm: HashAlgorithmType(rawValue: factor.algorithm) ?? .sha1, period: factor.period))
-            ]
+            if !skipTotpEnrollment {
+                // Convert the enrollable factor.
+                self.factors = [
+                    .totp(TOTPFactorInfo(with: factor.secret, digits: factor.digits, algorithm: HashAlgorithmType(rawValue: factor.algorithm) ?? .sha1, period: factor.period))
+                ]
+            }
             
             // Remove the factor from being called from nextEnrollment
             self.metadata.availableFactors.removeAll(where: { $0 is CloudTOTPEnrollableFactor })
@@ -154,19 +160,22 @@ public class CloudRegistrationProvider: MFARegistrationDescriptor {
         }
         
         // Create the parameters for the request body.
-        let parameters = [["subType": "\(self.currentFactor.type.rawValue)",
-                           "enabled": true,
-                           "attributes": [
-                                "publicKey": "\(publicKey)",
-                                "deviceSecurity": self.currentFactor.type == .face || self.currentFactor.type == .fingerprint,
-                                "algorithm": "\(self.currentFactor.algorithm)",
-                                "signedData": "\(signedData)",
-                                "additionalData": [["name": "name", "value": "\(name)"]]
-                            ]
-                          ]]
-        
-        // Convert the parameters in JSON data.
-        let body = try JSONSerialization.data(withJSONObject: parameters, options: [])
+        let body = """
+            [{
+                "subType":"\(self.currentFactor.type.rawValue)",
+                "enabled":true,
+                "attributes":{
+                    "signedData":"\(signedData)",
+                    "publicKey":"\(publicKey)",
+                    "deviceSecurity":\(self.currentFactor.type == .face || self.currentFactor.type == .fingerprint),
+                    "algorithm":"\(self.currentFactor.algorithm)",
+                    "additionalData":[{
+                        "name":"name",
+                        "value":"\(name)"
+                    }]
+                }
+            }]
+        """.data(using: .utf8)!
         
         // Create the resource to execute the request to enroll a signature factor and parse the result.
         let resource = HTTPResource<UUID>(.post, url: self.currentFactor.uri, accept: .json, contentType: .json, body: body, headers: ["Authorization": self.token.authorizationHeader]) { data, response in

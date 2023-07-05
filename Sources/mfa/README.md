@@ -14,7 +14,7 @@ An [example](../../Examples/mfa) application is available for the MFA SDK
 
 ```swift
 dependencies: [
-    .package(name: "IBM Security Verify", url: "https://github.com/ibm-security-verify/verify-sdk-ios.git", from: "3.0.5")
+    .package(name: "IBM Security Verify", url: "https://github.com/ibm-security-verify/verify-sdk-ios.git", from: "3.0.6")
 ]
 ```
 
