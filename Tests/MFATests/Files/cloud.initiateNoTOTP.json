@@ -1,0 +1,58 @@
+{
+    "expiresIn": 90,
+    "metadata": {
+        "authenticationMethods": {
+            "totp": {
+                "enrollmentUri": "https://sdk.verify.ibm.com/v1.0/authnmethods/totp",
+                "enabled": true,
+                "id": "f0cf603f-ae9b-49ce-ad07-70f5777377db"
+            },
+            "signature_face": {
+                "enrollmentUri": "https://sdk.verify.ibm.com/v1.0/authnmethods/signatures",
+                "attributes": {
+                    "supportedAlgorithms": [
+                        "RSASHA256",
+                        "RSASHA512"
+                    ],
+                    "algorithm": "RSASHA256"
+                },
+                "enabled": true
+            },
+            "signature_fingerprint": {
+                "enrollmentUri": "https://sdk.verify.ibm.com/v1.0/authnmethods/signatures",
+                "attributes": {
+                    "supportedAlgorithms": [
+                        "RSASHA256",
+                        "RSASHA512"
+                    ],
+                    "algorithm": "RSASHA512"
+                },
+                "enabled": true
+            },
+            "signature_userPresence": {
+                "enrollmentUri": "https://sdk.verify.ibm.com/v1.0/authnmethods/signatures",
+                "attributes": {
+                    "supportedAlgorithms": [
+                        "RSASHA256",
+                        "RSASHA512"
+                    ],
+                    "algorithm": "RSASHA256"
+                },
+                "enabled": true
+            }
+        },
+        "registrationUri": "https://sdk.verify.ibm.com/v1.0/authenticators/registration",
+        "serviceName": "IBM Security Verify SDK Tenant",
+        "customAttributes": {
+            "privacyUri": "https://sdk.verify.ibm.com/privacy.html"
+        }
+    },
+    "id": "b0bf603f-ae9b-49ce-ad07-70f5777377db",
+    "accessToken": "a1b2c3",
+    "version": {
+        "number": "1.0.0",
+        "platform": "com.ibm.security.access.verify"
+    },
+    "refreshToken": "d4e5f6"
+}
+

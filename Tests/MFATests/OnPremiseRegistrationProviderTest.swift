@@ -150,6 +150,35 @@ class OnPremiseRegistrationProviderTest: XCTestCase {
         XCTAssertEqual(provider.countOfAvailableEnrollments, 2)
     }
     
+    /// Test the scan and create an insance of the on-premise registration provider, then ffinalizes the authenticator with no factors.
+    func testEnrolmentsSkipTOTP() async throws {
+        // Given
+        let registrationUrl = URL(string: "\(urlBase)/mga/sps/mmfa/user/mgmt/details")!
+        MockURLProtocol.urls[registrationUrl] = MockHTTPResponse(response: HTTPURLResponse(url: registrationUrl, statusCode: 200, httpVersion: nil, headerFields: nil)!, fileResource: "onpremise.initiate")
+
+        let tokenUrl = URL(string: "\(urlBase)/mga/sps/oauth/oauth20/token")!
+        MockURLProtocol.urls[tokenUrl] = MockHTTPResponse(response: HTTPURLResponse(url: tokenUrl, statusCode: 200, httpVersion: nil, headerFields: nil)!, fileResource: "onpremise.tokenRefresh")
+
+        let otpUrl = URL(string: "\(urlBase)/mga/sps/mga/user/mgmt/otp/totp")!
+        MockURLProtocol.urls[otpUrl] = MockHTTPResponse(response: HTTPURLResponse(url: otpUrl, statusCode: 200, httpVersion: nil, headerFields: nil)!, fileResource: "onpremise.enrollmentTOTP")
+      
+        // Where
+        let controller = MFARegistrationController(json: scanResult)
+         
+        // Then
+        XCTAssertNotNil(controller)
+        
+        // Then
+        let provider = try! await controller.initiate(with: "OnPremise account", pushToken: "abc123")
+        XCTAssertNotNil(provider)
+        
+        // Then
+        let authenticator = try! await provider.finalize()
+        
+        // Then
+        XCTAssertFalse(authenticator.allowedFactors.contains(where: { $0.valueType is TOTPFactorInfo }))
+    }
+    
     /// Test the scan and create an insance of the on-premise registration provider, then get the next enrollments until an error is thrown
     func testNextEnrollmentThrowNoEnrollments() async throws {
         // Given
@@ -363,7 +392,7 @@ class OnPremiseRegistrationProviderTest: XCTestCase {
         XCTAssertNotNil(controller)
         
         // Then
-        let provider = try! await controller.initiate(with: "OnPremise account", pushToken: "abc123")
+        let provider = try! await controller.initiate(with: "OnPremise account", skipTotpEnrollment: false, pushToken: "abc123")
         XCTAssertNotNil(provider)
         
         // Then
