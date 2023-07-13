@@ -14,6 +14,9 @@ public typealias OnPremiseRegistrationError = MFARegistrationError
 public class OnPremiseRegistrationProvider: MFARegistrationDescriptor {
     public typealias Authenticator = OnPremiseAuthenticator
     
+    /// An object that coordinates a group of related, network data transfer tasks.
+    private let urlSession: URLSession
+    
     /// Creates the instance with a JSON string value.
     /// - Parameters:
     ///   - value: The JSON value typically obtained from a QR code.
@@ -27,6 +30,14 @@ public class OnPremiseRegistrationProvider: MFARegistrationDescriptor {
         self.pushToken = ""
         self.accountName = ""
         self.initializationInfo = result
+        
+        if result.ignoreSSLCertificate {
+            // Set the URLSession for certificate pinning.
+            self.urlSession = URLSession(configuration: .default, delegate: SelfSignedCertificateDelegate(), delegateQueue: nil)
+        }
+        else {
+            self.urlSession = URLSession.shared
+        }
     }
     
     /// The on-premise initialization information.
@@ -88,7 +99,7 @@ public class OnPremiseRegistrationProvider: MFARegistrationDescriptor {
         let resource = HTTPResource<Metadata>(json: .get, url: self.initializationInfo.uri)
         
         // Perfom the request.
-        self.metadata = try await URLSession.shared.dataTask(for: resource)
+        self.metadata = try await self.urlSession.dataTask(for: resource)
             
         let oauthProvider = OAuthProvider(clientId: self.initializationInfo.clientId, additionalParameters: parameters)
         self.token = try await oauthProvider.authorize(issuer: metadata.registrationUri, authorizationCode: self.initializationInfo.code, scope: ["mmfaAuthn"])
@@ -126,7 +137,7 @@ public class OnPremiseRegistrationProvider: MFARegistrationDescriptor {
                     return Result.success(TOTPFactorInfo(with: secret, digits: digits, algorithm: HashAlgorithmType(rawValue: algorithm) ?? .sha1, period: period))
                 }
                 
-                let totp = try await URLSession.shared.dataTask(for: totpResource)
+                let totp = try await self.urlSession.dataTask(for: totpResource)
                 self.factors.append(.totp(totp))
             }
             
@@ -202,7 +213,7 @@ public class OnPremiseRegistrationProvider: MFARegistrationDescriptor {
             return Result.success(id)
         }
         
-        let result = try await URLSession.shared.dataTask(for: resource)
+        let result = try await self.urlSession.dataTask(for: resource)
         
         if self.currentFactor.type == .fingerprint {
             self.factors.append(.fingerprint(FingerprintFactorInfo(id: result, name: name, algorithm: algorithm)))
