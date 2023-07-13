@@ -100,8 +100,8 @@ public class OnPremiseRegistrationProvider: MFARegistrationDescriptor {
         
         // Perfom the request.
         self.metadata = try await self.urlSession.dataTask(for: resource)
-            
-        let oauthProvider = OAuthProvider(clientId: self.initializationInfo.clientId, additionalParameters: parameters)
+        
+        let oauthProvider = OAuthProvider(clientId: self.initializationInfo.clientId, ignoreSSLCertificate: self.initializationInfo.ignoreSSLCertificate, additionalParameters: parameters)
         self.token = try await oauthProvider.authorize(issuer: metadata.registrationUri, authorizationCode: self.initializationInfo.code, scope: ["mmfaAuthn"])
         
         // Check for the authenticator_id from the token additionalData.
