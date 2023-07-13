@@ -197,7 +197,7 @@ public class OnPremiseRegistrationProvider: MFARegistrationDescriptor {
                     "value":[{
                         "enabled":true,
                         "keyHandle":"\(keyHandle)",
-                        "algorithm":""\(self.currentFactor.algorithm)",
+                        "algorithm":"\(self.currentFactor.algorithm)",
                         "publicKey":"\(publicKey)"
                     }]
                 }]
