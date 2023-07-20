@@ -54,6 +54,9 @@ public class OAuthProvider {
     /// The client secret.
     let clientSecret: String?
     
+    /// An object that coordinates a group of related, network data transfer tasks.
+    private let urlSession: URLSession
+    
     /// The request’s timeout interval, in seconds.  Default is 30 seconds.
     ///
     /// If during a connection attempt the request remains idle for longer than the timeout interval, the request is considered to have timed out.
@@ -74,13 +77,22 @@ public class OAuthProvider {
     ///   - clientSecret: The client secret.
     ///   - timeoutInterval: The request’s timeout interval, in seconds.  Default is 30 seconds.
     ///   - additonalParameters: The client's additional authorization parameters.
-    public init(clientId: String, clientSecret: String? = nil, timeoutInterval: TimeInterval = 30, additionalParameters: [String: Any] = [:]) {
+    ///   - certificateTrust: A delegate to handle session-level certificate pinning.
+    public init(clientId: String, clientSecret: String? = nil, timeoutInterval: TimeInterval = 30, additionalParameters: [String: Any] = [:], certificateTrust: URLSessionDelegate? = nil) {
         logger = Logger(subsystem: serviceName, category: "oauth")
         
         self.clientId = clientId
         self.clientSecret = clientSecret
         self.timeoutInterval = timeoutInterval
         self.additionalParameters = additionalParameters
+        
+        if let certificateTrust = certificateTrust {
+            // Set the URLSession for certificate pinning.
+            self.urlSession = URLSession(configuration: .default, delegate: certificateTrust, delegateQueue: nil)
+        }
+        else {
+            self.urlSession = URLSession.shared
+        }
     }
     
     // MARK: - OIDC Discovery
@@ -234,7 +246,7 @@ public class OAuthProvider {
                                                headers: self.additionalHeaders,
                                                timeOutInterval: self.timeoutInterval)
         
-        return try await URLSession.shared.dataTask(for: resource)
+        return try await self.urlSession.dataTask(for: resource)
     }
     
     /// The resource owner password credentials (i.e., username and password) can be used directly as an authorization grant to obtain an access token.
@@ -274,7 +286,7 @@ public class OAuthProvider {
                                                headers: self.additionalHeaders,
                                                timeOutInterval: self.timeoutInterval)
         // Perfom the request.
-        return try await URLSession.shared.dataTask(for: resource)
+        return try await self.urlSession.dataTask(for: resource)
     }
     
     /// Refresh tokens are issued to the client by the authorization server and are used to obtain a new access token when the current access token becomes invalid or expires, or to obtain additional access tokens with identical or narrower scope.
@@ -312,7 +324,7 @@ public class OAuthProvider {
         let resource =  HTTPResource<TokenInfo>(json: .post, url: url, contentType: .urlEncoded, body: body, headers: self.additionalHeaders, timeOutInterval: self.timeoutInterval)
 
         // Perfom the request.
-        return try await URLSession.shared.dataTask(for: resource)
+        return try await self.urlSession.dataTask(for: resource)
     }
 }
 
