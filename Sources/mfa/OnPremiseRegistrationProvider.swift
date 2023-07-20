@@ -27,7 +27,18 @@ public class OnPremiseRegistrationProvider: MFARegistrationDescriptor {
         self.pushToken = ""
         self.accountName = ""
         self.initializationInfo = result
+        
+        if result.ignoreSSLCertificate {
+            // Set the URLSession for certificate pinning.
+            self.urlSession = URLSession(configuration: .default, delegate: SelfSignedCertificateDelegate(), delegateQueue: nil)
+        }
+        else {
+            self.urlSession = URLSession.shared
+        }
     }
+    
+    /// An object that coordinates a group of related, network data transfer tasks.
+    private let urlSession: URLSession
     
     /// The on-premise initialization information.
     private var initializationInfo: InitializationInfo
@@ -88,9 +99,9 @@ public class OnPremiseRegistrationProvider: MFARegistrationDescriptor {
         let resource = HTTPResource<Metadata>(json: .get, url: self.initializationInfo.uri)
         
         // Perfom the request.
-        self.metadata = try await URLSession.shared.dataTask(for: resource)
+        self.metadata = try await self.urlSession.dataTask(for: resource)
             
-        let oauthProvider = OAuthProvider(clientId: self.initializationInfo.clientId, additionalParameters: parameters)
+        let oauthProvider = OAuthProvider(clientId: self.initializationInfo.clientId, additionalParameters: parameters, certificateTrust: self.urlSession.delegate)
         self.token = try await oauthProvider.authorize(issuer: metadata.registrationUri, authorizationCode: self.initializationInfo.code, scope: ["mmfaAuthn"])
         
         // Check for the authenticator_id from the token additionalData.
@@ -126,7 +137,7 @@ public class OnPremiseRegistrationProvider: MFARegistrationDescriptor {
                     return Result.success(TOTPFactorInfo(with: secret, digits: digits, algorithm: HashAlgorithmType(rawValue: algorithm) ?? .sha1, period: period))
                 }
                 
-                let totp = try await URLSession.shared.dataTask(for: totpResource)
+                let totp = try await self.urlSession.dataTask(for: totpResource)
                 self.factors.append(.totp(totp))
             }
             
@@ -169,10 +180,14 @@ public class OnPremiseRegistrationProvider: MFARegistrationDescriptor {
 
     public func enroll(with name: String, publicKey: String, signedData: String) async throws {
         let algorithm = HashAlgorithmType.init(rawValue: self.currentFactor.algorithm)!
-        let namespace = "urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator"
+        let path = "urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:\(self.currentFactor.type.rawValue)Methods"
         let id = UUID()
         let keyHandle = "\(id.uuidString).\(self.currentFactor.type.rawValue)"
-        let method = "\(self.currentFactor.type.rawValue)Methods"
+         
+        // Append SCIM specific components as a query string.
+        guard let url = URL(string: "\(self.currentFactor.uri.absoluteString)?attributes=\(path)") else {
+            throw URLError(.badURL)
+        }
         
         // Create the parameters for the request body.
         let body = """
@@ -182,11 +197,11 @@ public class OnPremiseRegistrationProvider: MFARegistrationDescriptor {
                 ],
                 "Operations":[{
                     "op":"add",
-                    "path":"\(namespace):\(method)",
+                    "path":"\(path)",
                     "value":[{
                         "enabled":true,
                         "keyHandle":"\(keyHandle)",
-                        "algorithm":""\(self.currentFactor.algorithm)",
+                        "algorithm":"\(self.currentFactor.algorithm)",
                         "publicKey":"\(publicKey)"
                     }]
                 }]
@@ -194,7 +209,7 @@ public class OnPremiseRegistrationProvider: MFARegistrationDescriptor {
         """.data(using: .utf8)!
          
         // Create the resource to execute the request to enroll a signature factor and parse the result.
-        let resource = HTTPResource<UUID>(.patch, url: self.currentFactor.uri, accept: .json, contentType: .json, body: body, headers: ["Authorization": self.token.authorizationHeader]) { data, response in
+        let resource = HTTPResource<UUID>(.patch, url: url, accept: .json, contentType: .json, body: body, headers: ["Authorization": self.token.authorizationHeader]) { data, response in
             guard let _ = data else {
                 return Result.failure(OnPremiseRegistrationError.dataInitializationFailed)
             }
@@ -202,7 +217,7 @@ public class OnPremiseRegistrationProvider: MFARegistrationDescriptor {
             return Result.success(id)
         }
         
-        let result = try await URLSession.shared.dataTask(for: resource)
+        let result = try await self.urlSession.dataTask(for: resource)
         
         if self.currentFactor.type == .fingerprint {
             self.factors.append(.fingerprint(FingerprintFactorInfo(id: result, name: name, algorithm: algorithm)))
