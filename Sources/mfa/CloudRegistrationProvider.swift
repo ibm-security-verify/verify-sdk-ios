@@ -251,7 +251,7 @@ public class CloudRegistrationProvider: MFARegistrationDescriptor {
                                   customAttributes: self.metadata.custom)
     }
 
-    // MARK: - On-premise initialization
+    // MARK: - Cloud initialization
     internal struct InitializationInfo: Decodable {
         /// The endpoint location to complete or initialize an mutli-factor.
         let uri: URL

@@ -146,6 +146,9 @@ public class MFARegistrationController {
     /// The JSON string that initiates the a multi-factor registration.
     private let json: String
     
+    /// The domain name supporting multi-factor registration.
+    public let domain: String?
+    
     /// A Boolean value that indicates whether the authenticator will ignore secure sockets layer certificate challenages.
     ///
     ///  Before invoking ``initiate(with:pushToken:additionalData:)`` this value can be used to alert the user that the certificate connecting the service is self-signed.
@@ -185,6 +188,19 @@ public class MFARegistrationController {
             ignoreSSLCertificate = options.contains("ignoreSslCerts=true")
         }
         
+        var domain: String? = nil
+                
+        // Check for a host value.
+        if let jsonObject = try? JSONSerialization.jsonObject(with: value.data(using: .utf8)!, options: []) as? [String: Any] {
+            if let value = jsonObject["registrationUri"] as? String, let url = URL(string: value), let host = url.host {
+                domain = host
+            }
+            else if let value = jsonObject["details_url"] as? String, let url = URL(string: value), let host = url.host {
+                domain = host
+            }
+        }
+        
+        self.domain = domain
         self.ignoreSSLCertificate = ignoreSSLCertificate
     }
 
