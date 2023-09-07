@@ -101,6 +101,29 @@ class OAuthProviderTest: XCTestCase {
         }
     }
     
+    /// Tests the token endpoint for obtaining an access token and ID token using ROPC.
+    func testAuthorizeROPCIDTokenWithHeaders() async throws {
+        // Given
+        let url = URL(string: "\(urlBase)/token")!
+        
+        // Where
+        let provider = OAuthProvider(clientId: self.clientId, clientSecret: self.clientSecret, additionalParameters: ["pet": "dog", "food": "pizza"])
+        provider.additionalHeaders = ["foo": "bar"]
+        provider.timeoutInterval = 10
+       
+        // Then
+        do {
+            let token = try await provider.authorize(issuer: url, username: self.username, password: self.password, scope: ["openid", "name", "age"])
+            print(token)
+            XCTAssertNotNil(token)
+            XCTAssertNotNil(token.idToken)
+        }
+        catch let error {
+            print(error)
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
     /// Tests the token endpoint for obtaining an access token using ROPC which generates a grant_id
     func testAuthorizeWithParametersResponse() async throws {
         // Given

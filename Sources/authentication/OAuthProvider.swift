@@ -63,7 +63,7 @@ public class OAuthProvider {
     public var timeoutInterval: TimeInterval
 
     /// Additional HTTP headers of the request.
-    var additionalHeaders: [String: String] = [:]
+    public var additionalHeaders: [String: String] = [:]
     
     /// The client's additional authorization parameters.
     var additionalParameters: [String: Any]
