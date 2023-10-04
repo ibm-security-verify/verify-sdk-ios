@@ -66,7 +66,7 @@ public class OAuthProvider {
     public var additionalHeaders: [String: String] = [:]
     
     /// The client's additional authorization parameters.
-    var additionalParameters: [String: Any]
+    private let additionalParameters: [String: Any]
     
     /// A delegate that the OAuth provider informs about the success or failure of  an authorization request via the browser.
     public weak var delegate: OAuthProviderDelegate?

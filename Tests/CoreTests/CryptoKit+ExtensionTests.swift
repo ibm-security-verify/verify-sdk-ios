@@ -97,6 +97,17 @@ class CryptoKitExtensionTests: XCTestCase {
         XCTAssertEqual(key.derRepresentation, newKey.derRepresentation)
     }
     
+    /// Test to return the underlying keyt from the private key.
+    func testGetPrivateKeySecKey() throws {
+        // Given
+        let key = RSA.Signing.PrivateKey()
+        
+        let secKey = key.keyRepresentation
+        
+        // Then
+        XCTAssertNotNil(secKey)
+    }
+    
     /// Test data signing with the rpivate key.
     func testCreateSignatureDefaultSHA512() throws {
         // Given
@@ -169,6 +180,17 @@ class CryptoKitExtensionTests: XCTestCase {
         
         // Then
         XCTAssertNotNil(data)
+    }
+    
+    /// Test to return the underlying keyt from the public key.
+    func testGetPublicKeySecKey() throws {
+        // Given
+        let key = RSA.Signing.PrivateKey().publicKey
+        
+        let secKey = key.keyRepresentation
+        
+        // Then
+        XCTAssertNotNil(secKey)
     }
     
     func testGetPublicKeyX509() throws {
