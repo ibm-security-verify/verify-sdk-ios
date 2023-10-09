@@ -10,15 +10,15 @@ import CryptoKit
 @testable import MFA
 
 class OnPremiseRegistrationProviderTest: XCTestCase {
-    let urlBase = "https://sdk.verifyaccess.ibm.com"
+    let urlBase = "https://mmfa.securitypoc.com"
     let scanResult = """
-        {
-            "code": "A1B2C3D4",
-            "options":"ignoreSslCerts=true",
-            "details_url": "https://sdk.verifyaccess.ibm.com/mga/sps/mmfa/user/mgmt/details",
-            "version": 1,
-            "client_id": "IBMVerify"
-        }
+    {
+        "code": "A1B2C3D4",
+        "options":"ignoreSslCerts=false",
+        "details_url": "https://mmfa.securitypoc.com/mga/sps/mmfa/user/mgmt/details",
+        "version": 1,
+        "client_id": "IBMVerify"
+    }
     """
     
     override func setUp() {

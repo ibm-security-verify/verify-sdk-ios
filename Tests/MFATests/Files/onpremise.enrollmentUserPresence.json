@@ -4,7 +4,7 @@
     ],
     "Resources":[{
         "meta":{
-            "location":"https:\/\/192.168.42.104:444\/scim\/Users\/dGVzdHVzZXI",
+            "location":"https://mmfa.securitypoc.com/scim/Users/dGVzdHVzZXI",
             "resourceType":"User"
         },
         "id":"dGVzdHVzZXI",

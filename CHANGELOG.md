@@ -7,6 +7,7 @@ Note: This is in reverse chronological order, so newer entries are added to the 
 * Fix JSON format when enrolling factor.
 * Fix URL to include SCIM namespace.
 * Add support for `URLSessionDelegate`.
+* Update unit test JSON data files.
 
 ### IBM Security Verify Core SDK for iOS
 * Increment version

@@ -1,6 +1,6 @@
 {
     "meta":{
-        "location":"https://sdk.verifyaccess.ibm.com\/scim\/Users\/dGVzdHVzZXI",
+        "location":"https://mmfa.securitypoc.com/scim/Users/dGVzdHVzZXI",
         "resourceType":"User"
     },
     "schemas":[

@@ -7,7 +7,7 @@ import XCTest
 
 class MFARegistrationControllerTests: XCTestCase {
     let urlBaseCloud = "https://sdk.verify.ibm.com"
-    let urlBaseOnPremise = "https://sdk.verifyaccess.ibm.com"
+    let urlBaseOnPremise = "https://mmfa.securitypoc.com"
     let scanResultCloud = """
         {
             "code": "abc123",
@@ -23,8 +23,8 @@ class MFARegistrationControllerTests: XCTestCase {
     let scanResultOnPremise = """
         {
             "code": "A1B2C3D4",
-            "options":"ignoreSslCerts=true",
-            "details_url": "https://sdk.verifyaccess.ibm.com/mga/sps/mmfa/user/mgmt/details",
+            "options":"ignoreSslCerts=false",
+            "details_url": "https://mmfa.securitypoc.com/mga/sps/mmfa/user/mgmt/details",
             "version": 1,
             "client_id": "IBMVerify"
         }

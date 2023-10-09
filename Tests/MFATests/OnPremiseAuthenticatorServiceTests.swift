@@ -10,7 +10,7 @@ import CryptoKit
 
 class OnPremiseAuthenticatorServiceTest: XCTestCase {
 
-    let urlBase = "https://sdk.verifyaccess.ibm.com"
+    let urlBase = "https://mmfa.securitypoc.com"
     
     override func setUp() {
         super.setUp()
@@ -478,6 +478,30 @@ class OnPremiseAuthenticatorServiceTest: XCTestCase {
             XCTAssertNotNil(error, error.localizedDescription)
         }
     }
+    
+    /// Call login
+    func testPerformQrLoginFailed() async throws {
+        // Given
+        let loginUrl = URL(string: "\(urlBase)/mga/sps/apiauthsvc?PolicyId=urn:ibm:security:authentication:asf:qrcode_response")!
+        MockURLProtocol.urls[loginUrl] = MockHTTPResponse(response: HTTPURLResponse(url: loginUrl, statusCode: 401, httpVersion: nil, headerFields: nil)!, fileResource: "onpremise.failedQrLogin")
+        
+        // Where
+        let url = Bundle.module.url(forResource: "onpremise.authenticator", withExtension: "json", subdirectory: "Files")!
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(.iso8061FormatterBehavior)
+        
+        let authenticator = try decoder.decode(OnPremiseAuthenticator.self, from: Data(contentsOf: url))
+        let service = OnPremiseAuthenticatorService(with: authenticator.token.accessToken, refreshUri: authenticator.refreshUri, transactionUri: authenticator.transactionUri, clientId: authenticator.clientId, authenticatorId: authenticator.id)
+        
+        // Then
+        do {
+            try await service.login(using: authenticator.qrloginUri!, code: "VGZT-XFRB")
+        }
+        catch let error {
+            XCTAssertNotNil(error, error.localizedDescription)
+        }
+    }
+    
     
     // MARK: - Remove
     

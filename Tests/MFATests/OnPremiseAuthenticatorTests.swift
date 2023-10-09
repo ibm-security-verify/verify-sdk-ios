@@ -10,7 +10,7 @@ import CryptoKit
 
 class OnPremiseAuthenticatorTests: XCTestCase {
 
-    let urlBase = "https://sdk.verifyaccess.ibm.com"
+    let urlBase = "https://mmfa.securitypoc.com"
     
     override func setUp() {
         super.setUp()
