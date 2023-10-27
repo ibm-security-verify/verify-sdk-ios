@@ -182,6 +182,17 @@ class CryptoKitExtensionTests: XCTestCase {
         XCTAssertNotNil(data)
     }
     
+    /// Test to generate the JWK format from the public key.
+    func testGetPublicKeyJWK() throws {
+        // Given
+        let key = RSA.Signing.PrivateKey().publicKey
+        
+        let data = key.jwkRepresentation
+        
+        // Then
+        XCTAssertNotNil(data)
+    }
+    
     /// Test to return the underlying keyt from the public key.
     func testGetPublicKeySecKey() throws {
         // Given

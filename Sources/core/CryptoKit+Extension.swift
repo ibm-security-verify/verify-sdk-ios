@@ -85,6 +85,35 @@ extension RSA {
                 }
             }
             
+            /// A JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key.
+            public var jwkRepresentation: String {
+                get {
+                    // Get the public key attributes.
+                    let attributes = SecKeyCopyAttributes(self.key)! as NSDictionary
+                    
+                    // Get the v-data information.
+                    let data = attributes[kSecValueData]! as! Data
+                                
+                    // Create the modulus and exponent from the public key attribute data.
+                    var modulus  = data.subdata(in: 8..<(data.count - 5))
+                    let exponent = data.subdata(in: (data.count - 3)..<data.count)
+
+                    if modulus.count > self.sizeInBits / 8 { // --> 257 bytes
+                        modulus.removeFirst(1)
+                    }
+
+                    return """
+                    { \
+                    "kty": "RSA", \
+                    "use": "sig", \
+                    "kid": "\(UUID().uuidString)", \
+                    "n": "\(modulus.base64UrlEncodedString(options: [.noPaddingCharacters, .safeUrlCharacters]))", \
+                    "e": "\(exponent.base64UrlEncodedString(options: [.noPaddingCharacters, .safeUrlCharacters]))" \
+                    }
+                    """
+                }
+            }
+            
             /// The representation of the key as  ``SecKey``.
             public var keyRepresentation: SecKey {
                 return self.key
@@ -445,3 +474,4 @@ extension Data {
         }
     }
 }
+
