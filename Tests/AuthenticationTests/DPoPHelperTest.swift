@@ -1,13 +1,14 @@
 //
-//  DPoPHeaderTest.swift
-//  
-//
-//  Created by Craig Pearson on 25/10/2023.
+// Copyright contributors to the IBM Security Verify Authentication SDK for iOS project
 //
 
 import XCTest
+import Core
+@testable import Authentication
+import CryptoKit
 
-final class DPoPHeaderTest: XCTestCase {
+
+class DPoPHelperTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -17,19 +18,55 @@ final class DPoPHeaderTest: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    // Test generating a DPoP proof.
+    func testGenarateProof() throws {
+        // Given
+        let key = RSA.Signing.PrivateKey()
+        
+        // Where
+        let result = try DPoP.generateProof(key, uri: "https://server.com")
+        
+        // Then
+        XCTAssertTrue(!result.isEmpty)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    // Test generating a DPoP proof with access token.
+    func testGenarateProofWithAccessToken() throws {
+        // Given
+        let key = RSA.Signing.PrivateKey()
+        
+        // Where
+        let result = try DPoP.generateProof(key, uri: "https://example.com", accessToken: "abc123")
+        
+        // Then
+        XCTAssertTrue(!result.isEmpty)
+    }
+    
+    // Test generating a DPoP proof with invalid url.
+    func testGenarateProofInvalidURL() throws {
+        // Given
+        let key = RSA.Signing.PrivateKey()
+        
+        // Where, Them
+        do {
+            let _ = try DPoP.generateProof(key, uri: "")
+        }
+        catch let error {
+            XCTAssertNotNil(error, error.localizedDescription)
         }
     }
-
+    
+    // Test generating a DPoP proof with invalid hash.
+    func testGenarateProofInvalidHash() throws {
+        // Given
+        let key = RSA.Signing.PrivateKey()
+        
+        // Where, Them
+        do {
+            let _ = try DPoP.generateProof(key, algorithm: Insecure.SHA1(), uri: "example.com")
+        }
+        catch let error {
+            XCTAssertNotNil(error, error.localizedDescription)
+        }
+    }
 }
