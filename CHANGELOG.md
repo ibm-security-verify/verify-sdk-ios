@@ -1,7 +1,7 @@
 Note: This is in reverse chronological order, so newer entries are added to the top.
 
 # v3.0.8
-6 October 2023
+1 November 2023
 ### IBM Security Verify MFA SDK for iOS
 * Increment version
 * Fix JSON format when enrolling factor.
@@ -12,10 +12,13 @@ Note: This is in reverse chronological order, so newer entries are added to the 
 ### IBM Security Verify Core SDK for iOS
 * Increment version
 * Make `SecKey` accessible as `keyRepresentation`
+* Support for `jwkRepresentation`.
 
 ### IBM Security Verify Authentication SDK for iOS
 * Increment version
 * Make `additionalHeaders` accessible
+* Support for Demonstrating Proof of Possession (DPoP) generation.
+* Fix Proof Key for Code Exchange (PKCE) encoding.
 
 ### IBM Security Verify Adaptive SDK for iOS
 * Increment version
