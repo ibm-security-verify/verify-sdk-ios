@@ -20,7 +20,7 @@ public enum PKCE {
     public static func generateCodeVerifier() -> String {
         var buffer = [UInt8](repeating: 0, count: 32)
         _ = SecRandomCopyBytes(kSecRandomDefault, buffer.count, &buffer)
-        return Data(buffer).base64UrlEncodedString()
+        return Data(buffer).base64UrlEncodedString(options: [.noPaddingCharacters, .safeUrlCharacters])
     }
 
     /// A challenge derived from the code verifier that is sent in the authorization request, to be verified against later.
@@ -32,6 +32,6 @@ public enum PKCE {
         }
         
         let digest = SHA256.hash(data: data)
-        return Data(digest).base64UrlEncodedString()
+        return Data(digest).base64UrlEncodedString(options: [.noPaddingCharacters, .safeUrlCharacters])
     }
 }
