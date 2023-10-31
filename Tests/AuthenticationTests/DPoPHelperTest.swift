@@ -30,39 +30,6 @@ class DPoPHelperTests: XCTestCase {
         XCTAssertTrue(!result.isEmpty)
     }
     
-    // Test generating a DPoP proof using a POST and GET with the same private key.
-    func testGenarateProof2() async throws {
-        // Given
-        let key = RSA.Signing.PrivateKey()
-        var accessToken = ""
-        var parameters: [String: Any] = ["grant_type": "client_credentials",
-                          "client_id": "df3ede58-19fb-45d4-a5ca-f0e82b4e569f",
-                          "client_secret": "Z91m00KQeC"]
-        
-        let body = urlEncode(from: parameters).data(using: .utf8)!
-        
-        // Where
-        // Generate the request for a DPoP access token
-        let resource = HTTPResource<TokenInfo>(json: .post,
-                                               url: URL(string: "https://sdk.verify.ibm.com/oauth2/token")!,
-                                               contentType: .urlEncoded,
-                                               body: body,
-                                               headers: ["DPoP": try DPoP.generateProof(key, uri: "https://sdk.verify.ibm.com/oauth2/token")],
-                                               timeOutInterval: 30)
-        
-        let token = try await URLSession(configuration: .default).dataTask(for: resource)
-        print(token)
-        XCTAssertNotNil(token)
-        
-        // Then
-        // Generate the DPoP JWT for introspection
-        let result = try DPoP.generateProof(key, uri: "http://localhost:8080/validate-token", method: .get, accessToken: token.accessToken)
-        print(result)
-        
-        // Then
-        XCTAssertTrue(!result.isEmpty)
-    }
-    
     // Test generating a DPoP proof with access token.
     func testGenarateProofWithAccessToken() throws {
         // Given
