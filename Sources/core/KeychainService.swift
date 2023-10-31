@@ -361,7 +361,7 @@ public final class KeychainService: NSObject {
     /// - `errSecInteractionNotAllowed` The item was found, the user interaction is not allowed.
     /// - `errSecAuthFailed` The item was found, but invalidated due to a change to biometry or passphrase.
     ///
-    /// ```
+    /// ```swift
     /// let result = KeychainService.default.itemExists("greeting")
     /// print(result)
     /// ```
@@ -388,7 +388,7 @@ public final class KeychainService: NSObject {
     /// - Parameter evaluatedPolicyDomainState: The initial policy domain state.  Default value is `nil`.
     /// - Returns: `true` if the current domain state has changed, otherwise `false`.
     ///
-    /// ```
+    /// ```swift
     /// if let initialDomainStateData = LAContext().evaluatedPolicyDomainState {
     ///    // Persist the initialDomainStateData for future use.
     /// }
@@ -419,7 +419,7 @@ public final class KeychainService: NSObject {
     ///   - forKey: The unique identifer of the key.
     ///   - newKey: The new unique identifier of the key.
     ///
-    /// ```
+    /// ```swift
     /// do {
     ///    try KeychainHelper.default.rename("oldKey", newKey: "newKey")
     /// }

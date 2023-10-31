@@ -7,7 +7,7 @@ import Foundation
 extension String {
     /// Converts the camel case value as snake case.
     ///
-    /// ```
+    /// ```swift
     /// print("camelCase".toSnakeCase())
     /// // prints camel_case
     /// ```
@@ -22,7 +22,7 @@ extension String {
     
     /// Returns Base-32 decoded data.
     ///
-    /// ```
+    /// ```swift
     /// guard let data = "JBSWY3DPEE======".base32DecodedData() else {
     ///    return
     /// }

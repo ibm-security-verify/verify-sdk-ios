@@ -169,7 +169,7 @@ public actor OnPremiseAuthenticatorService: MFAServiceDescriptor {
     ///
     /// See [AuthenticationPostTokenGeneration](https://www.ibm.com/docs/en/sva/10.0.1?topic=rules-mmfa-mapping-rule-methods)
     ///
-    /// ```
+    /// ```swift
     /// if let identifier = authenticator.token.additionalData["authenticator_id"] {
     ///   let service = OnPremiseAuthenticatorService(with: authenticator.token.accessToken,
     ///                             refreshUri: authenticator.refreshUri,

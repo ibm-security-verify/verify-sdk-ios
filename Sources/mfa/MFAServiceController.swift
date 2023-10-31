@@ -73,7 +73,7 @@ extension MFAServiceDescriptor {
     ///   - userAction: The enumerated type of user actions that can be performed to complete a transaction.
     ///   - factor: The enrolled factor associated with transaction.
     ///
-    /// ```
+    /// ```swift
     /// let controller = MFAServiceController(using: authenticator)
     /// let service =  controller.initiate()
     /// let nextTranaction = try await service.nextTranaction()

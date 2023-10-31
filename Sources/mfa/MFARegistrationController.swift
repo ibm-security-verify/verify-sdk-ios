@@ -88,7 +88,7 @@ public protocol MFARegistrationDescriptor {
     /// Gets the next available factor for enrollment.
     ///
     /// The function defined here returns ``EnrollableSignature`` which is used to create a public-key and sign the data. For example:
-    /// ```
+    /// ```swift
     /// let controller = MFARegistrationController(json: qrScanResult)
     ///
     /// // Initiate the registration provider.
@@ -159,7 +159,7 @@ public class MFARegistrationController {
     /// - Parameters:
     ///   - value: The JSON value typically obtained from a QR code.
     ///
-    /// ```
+    /// ```swift
     /// // Value from QR code scan
     /// let qrScanResult = "{"code":"A1B2C3D4","options":"ignoreSslCerts=true","details_url":"https://sdk.verifyaccess.ibm.com/mga/sps/mmfa/user/mgmt/details","version": 1, "client_id":"IBMVerify"}"
     ///

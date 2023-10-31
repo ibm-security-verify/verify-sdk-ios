@@ -10,7 +10,7 @@ import Core
 ///
 /// When retrieving the `TokenInfo` from a persisted state, ensure the [JSONDecoder.dateDecodingStrategy](https://developer.apple.com/documentation/foundation/jsondecoder/datedecodingstrategy) is assigned.
 ///
-/// ```
+/// ```swift
 /// let json = """
 /// {
 ///   "tokenType": "Bearer",

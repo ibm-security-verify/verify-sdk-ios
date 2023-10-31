@@ -8,7 +8,7 @@ import CryptoKit
 /// Proof Key for Code Exchange (PKCE) by OAuth 2.0 public clients.
 ///
 /// Where an OpenID Connect service provider has configured PKCE for authorization code-flow operations, generate a code verifier and code challenge.  For example:
-/// ```
+/// ```swift
 /// let codeVerifier = PKCE.generateCodeVerifier()
 /// let codeChallenge = PKCE.generateCodeChallenge(from: codeVerifier)
 ///

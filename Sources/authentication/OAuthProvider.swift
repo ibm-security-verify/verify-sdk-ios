@@ -211,7 +211,7 @@ public class OAuthProvider {
     ///   - completion: The closure to invoke when the code authorize completes.
     public func authorize(issuer url: URL, redirectUrl: URL? = nil, authorizationCode: String, codeVerifier: String? = nil, scope: [String]? = nil) async throws -> TokenInfo {
         // Create the parameters to encode into the body.
-            var parameters: [String: Any] = ["grant_type": "authorization_code",
+        var parameters: [String: Any] = ["grant_type": "authorization_code",
                           "client_id": self.clientId,
                           "code": authorizationCode]
         
