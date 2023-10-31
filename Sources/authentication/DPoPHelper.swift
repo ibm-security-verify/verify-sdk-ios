@@ -39,23 +39,22 @@ public enum DPoP {
     /// Generates a DPoP proof to demonstrate possession of a key used to sign the DPoP proof JWT.
     /// - Parameters:
     ///   - privateKey: An RSA private key used to create cryptographic signatures.
-    ///   - algorithm: A type that performs cryptographically secure hashing.
+    ///   - hashAlgorithm: A type that performs cryptographically secure hashing.
     ///   - uri: A value that identifies the location of a remote server.
     ///   - method: The HTTP request method.
-    ///   - timeoutInterval: The timeout interval of the DPoP header. Default is 60 seconds.
     ///   - accessToken: The access token to associate with the proof.
     /// - Returns: A JSON Web Token (JWT) to be sent with an HTTP request using the DPoP header field..
-    public static func generateProof(_ privateKey: RSA.Signing.PrivateKey, algorithm: any HashFunction = SHA256(), uri: String, method: method = .post, timeoutInterval: TimeInterval = 60, accessToken: String? = nil) throws -> String {
+    public static func generateProof(_ privateKey: RSA.Signing.PrivateKey, hashAlgorithm: any HashFunction = SHA256(), uri: String, method: method = .post, accessToken: String? = nil) throws -> String {
         
-        var signatureAlgorithm  = "RS256"
+        var algorithmName  = "RS256"
         
-        switch algorithm {
+        switch hashAlgorithm {
         case is SHA256:
             break;
         case is SHA384:
-            signatureAlgorithm = "RS384"
+            algorithmName = "RS384"
         case is SHA512:
-            signatureAlgorithm = "RS512"
+            algorithmName = "RS512"
         default:
             throw CryptoKitError.incorrectParameterSize
         }
@@ -69,7 +68,7 @@ public enum DPoP {
         // Create the JWT header containing the algorithm and token type.
         let header = """
         { \
-          "alg": "\(signatureAlgorithm)", \
+          "alg": "\(algorithmName)", \
           "typ": "dpop+jwt", \
           "jwk": \(publicKey.jwkRepresentation) \
         }
@@ -81,7 +80,7 @@ public enum DPoP {
         if let accessToken {
             // Hash the access token
             let digest = SHA256.hash(data: Data(accessToken.utf8))
-            let result = Data(digest).base64UrlEncodedString(options: [.noPaddingCharacters])
+            let result = Data(digest).base64UrlEncodedString(options: [.noPaddingCharacters, .safeUrlCharacters])
             accessTokenClaim = "\"ath\": \"\(result)\","
         }
         
@@ -90,8 +89,7 @@ public enum DPoP {
         { \
           "jti": "\(UUID().uuidString)", \
           "iat": \(Int(Date().timeIntervalSince1970)), \
-          "exp": \(Int(Date().addingTimeInterval(timeoutInterval).timeIntervalSince1970)), \
-          "htm": "\(method)", \
+          "htm": "\(method.rawValue.uppercased())", \
           \(accessTokenClaim) \
           "htu": "\(url.absoluteString)" \
         }
@@ -100,7 +98,7 @@ public enum DPoP {
         // Use the hashing algorithm for the header and payload.
         let data = Data("\(header).\(payload)".utf8)
         
-        var algorithm = algorithm
+        var algorithm = hashAlgorithm
         algorithm.update(data: data)
         let digest = algorithm.finalize()
 
