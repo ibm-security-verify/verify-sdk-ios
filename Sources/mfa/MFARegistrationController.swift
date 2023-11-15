@@ -124,7 +124,14 @@ public protocol MFARegistrationDescriptor {
     
     /// Performs the enrollment of the factor.
     ///
-    ///  A private/public key pair is generated saving the private key to the Keychain.
+    /// This method will generate a private/public key pair.  The private key is automatically saved to the Keychain.
+    ///
+    /// You can access the private key by name using the `authenticator.id` concatenated with the enrolled factor type.  For example:
+    /// ```swift
+    ///if let factor = authenticator.allowedFactors.first(where: { $0.valueType is FaceFactorInfo }), let face = factor.valueType as? FaceFactorInfo  {
+    ///   print(face[keyPath: \.name])  // prints "{authenicator.id}.face"
+    ///}
+    /// ```
     func enroll() async throws
     
     /// Performs the enrollment of the factor.
@@ -152,7 +159,7 @@ public class MFARegistrationController {
     /// A Boolean value that indicates whether the authenticator will ignore secure sockets layer certificate challenages.
     ///
     ///  Before invoking ``initiate(with:pushToken:additionalData:)`` this value can be used to alert the user that the certificate connecting the service is self-signed.
-    /// - remark: When `true` the service is using a self-signed certificate.
+    /// - Remark: When `true` the service is using a self-signed certificate.
     public let ignoreSSLCertificate: Bool
     
     // Creates the instance with JSON value.

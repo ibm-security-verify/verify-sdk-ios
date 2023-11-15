@@ -9,39 +9,7 @@ import SwiftUI
 
 /// An item that represents a type of factor.
 @dynamicMemberLookup
-public enum FactorType: Identifiable {
-    /// The stable identity of the entity associated with this instance.
-    public var id: UUID {
-        switch self {
-        case .totp(let value):
-            return value.id
-        case .hotp(let value):
-            return value.id
-        case .face(let value):
-            return value.id
-        case .fingerprint(let value):
-            return value.id
-        case .userPresence(let value):
-            return value.id
-        }
-    }
-    
-    /// The display name for the factor.
-    public var displayName: String {
-        switch self {
-        case .totp(let value):
-            return value.displayName
-        case .hotp(let value):
-            return value.displayName
-        case .face(let value):
-            return value.displayName
-        case .fingerprint(let value):
-            return value.displayName
-        case .userPresence(let value):
-            return value.displayName
-        }
-    }
-    
+public enum FactorType {
     /// A hash-based message authentication algorithm for generating a one-time passcode based on a time interval.
     case totp(TOTPFactorInfo)
     
@@ -62,7 +30,7 @@ extension FactorType {
     /// The underlying value type of ``Factor``.
     ///
     /// Demonstrates checking the underlying `valueType` against an array of `FactorType`.
-    /// ```
+    /// ```swift
     /// // Create a new TOTP factor.
     /// let factor = TOTPFactorInfo(with: "HXDMVJ")
     ///
@@ -133,7 +101,7 @@ extension FactorType: Codable {
         case .userPresence:
             self = .userPresence(try container.decode(UserPresenceFactorInfo.self, forKey: .userPresence))
         default:
-            throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: container.codingPath, debugDescription: "Unabled to decode enum."))
+            throw DecodingError.dataCorrupted(DecodingError.Context(codingPath: container.codingPath, debugDescription: "Unable to decode enum."))
         }
     }
     
