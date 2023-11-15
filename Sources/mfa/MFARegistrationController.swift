@@ -128,9 +128,26 @@ public protocol MFARegistrationDescriptor {
     ///
     /// You can access the private key by name using the `authenticator.id` concatenated with the enrolled factor type.  For example:
     /// ```swift
-    ///if let factor = authenticator.allowedFactors.first(where: { $0.valueType is FaceFactorInfo }), let face = factor.valueType as? FaceFactorInfo  {
-    ///   print(face[keyPath: \.name])  // prints "{authenicator.id}.face"
-    ///}
+    /// let controller = MFARegistrationController(json: qrScanResult)
+    ///
+    /// // Initiate the registration provider.
+    /// let provider = try await controller.initiate(with: "John Doe", pushToken: "abc123")
+    ///
+    /// // Get the next enrollable signature.
+    /// guard let factor = await provider.nextEnrollment() else {
+    ///    return
+    /// }
+    ///
+    /// // Enroll the factor.
+    /// try await provider.enroll()
+    ///
+    /// // Finalize the enrollment operations and generate the authenticator.
+    /// let authenticator = try await provider.finalize()
+    ///
+    /// // Get the enrolled face factor and retrieve the name in the Keychain to obtain the private key.
+    /// if let enrolledFactor = authenticator.allowedFactors.first(where: { $0.valueType is FaceFactorInfo }), let face = enrolledFactor.valueType as? FaceFactorInfo  {
+    ///    print(face[keyPath: \.name])  // prints "<authenicator.id>.face"
+    /// }
     /// ```
     func enroll() async throws
     
