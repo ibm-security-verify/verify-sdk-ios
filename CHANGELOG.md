@@ -26,6 +26,7 @@ Note: This is in reverse chronological order, so newer entries are added to the 
 ### IBM Security Verify FIDO2™ SDK for iOS
 * Increment version
 * Add transport support for Webauthn specification 3
+* Enhance the sample app
 <br/>
 <br/>
 

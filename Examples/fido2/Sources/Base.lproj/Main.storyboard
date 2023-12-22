@@ -772,6 +772,9 @@
                                                     </label>
                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" title="Assertion options" translatesAutoresizingMaskIntoConstraints="NO" id="lvN-e8-aES">
                                                         <rect key="frame" x="0.0" y="30" width="376" height="31"/>
+                                                        <connections>
+                                                            <action selector="onTxnSigningChange:" destination="uLb-8K-83g" eventType="valueChanged" id="1sw-wv-HbN"/>
+                                                        </connections>
                                                     </switch>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qnq-Pw-Vl3">
                                                         <rect key="frame" x="0.0" y="73" width="374" height="18"/>
