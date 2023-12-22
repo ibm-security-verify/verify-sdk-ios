@@ -17,13 +17,14 @@ class AssertionViewController: UIViewController {
     @IBOutlet weak var labelCreatedDate: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var switchEauthExt: UISwitch!
+    @IBOutlet weak var textboxMessage: UITextField!
     
     // Random messages for the user to acknowledge before signing the assertion.
     let reasons = ["Please confirm your pizza order of $49.99",
                    "Please verify that you intended to transfer $2,877.34.",
                    "Please confirm you purchased a new Apple MacBook.",
                    "Are you trying to access to the server room?",
-                   "Your confirmation of to access the registration resource on this server is required.",
+                   "Your confirmation to access the registration resource on this server is required.",
                    "Please confirm your order of 10 widgets."]
     
     override func viewDidLoad() {
@@ -52,7 +53,11 @@ class AssertionViewController: UIViewController {
         setTraitAppearance()
         animateLogo()
         
+        textboxMessage.setBorderBottom()
         buttonAuthenticate.setCornerRadius()
+        
+        // Handle UITextField events
+        textboxMessage.delegate = self
     }
     
     /// Called when the iOS interface environment changes.
@@ -111,6 +116,17 @@ class AssertionViewController: UIViewController {
     }
     
     // MARK: Control events
+    @IBAction func onTxnSigningChange(_ sender: UISwitch) {
+        if sender.isOn {
+            textboxMessage.isEnabled = true
+            textboxMessage.text = reasons.randomElement()!
+        }
+        else {
+            textboxMessage.isEnabled = false
+        }
+    }
+    
+    
     @IBAction func onAuthenticateClick(_ sender: UIButton) {
         guard let accessToken = UserDefaults.standard.string(forKey: Store.accessToken.rawValue), let relyingPartyUrl =  UserDefaults.standard.string(forKey: Store.relyingPartyUrl.rawValue) else {
             let alertController = UIAlertController(title: "FIDO2 Example", message: "Information about the relying party is missing.", preferredStyle: .alert)
@@ -127,8 +143,8 @@ class AssertionViewController: UIViewController {
         if UserDefaults.standard.string(forKey: Store.server.rawValue) == isva, let username = UserDefaults.standard.string(forKey: Store.username.rawValue) {
             params.updateValue(username, forKey: "username")
             
-            if switchEauthExt.isOn {
-                params.updateValue(["credProps": true, "txAuthSimple": reasons.randomElement()!], forKey: "extensions")
+            if switchEauthExt.isOn && textboxMessage.hasText {
+                params.updateValue(["credProps": true, "txAuthSimple": textboxMessage.text!], forKey: "extensions")
             }
         }
        

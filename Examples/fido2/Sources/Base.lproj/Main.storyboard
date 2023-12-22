@@ -673,7 +673,7 @@
                                 <rect key="frame" x="0.0" y="48" width="414" height="662"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Et6-2R-EW5">
-                                        <rect key="frame" x="20" y="48" width="374" height="440"/>
+                                        <rect key="frame" x="20" y="48" width="374" height="500.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="74i-Bh-duQ" userLabel="Stack Title">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="97"/>
@@ -762,17 +762,28 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Ke3-Cw-EZw">
-                                                <rect key="frame" x="0.0" y="379" width="374" height="61"/>
+                                                <rect key="frame" x="0.0" y="379" width="374" height="121.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction confirmation extension" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mjx-Vv-97V">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allow transaction confirmation " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mjx-Vv-97V">
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <color key="textColor" systemColor="systemGrayColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" title="Assertion options" translatesAutoresizingMaskIntoConstraints="NO" id="lvN-e8-aES">
+                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" title="Assertion options" translatesAutoresizingMaskIntoConstraints="NO" id="lvN-e8-aES">
                                                         <rect key="frame" x="0.0" y="30" width="376" height="31"/>
                                                     </switch>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qnq-Pw-Vl3">
+                                                        <rect key="frame" x="0.0" y="73" width="374" height="18"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <color key="textColor" systemColor="systemGrayColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Message to sign" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8Qj-CJ-NmM">
+                                                        <rect key="frame" x="0.0" y="103" width="374" height="18.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
@@ -811,6 +822,7 @@
                         <outlet property="labelHostName" destination="Dq2-zb-WCj" id="yRh-rX-L8m"/>
                         <outlet property="labelNickName" destination="5VK-0o-Fhm" id="MkG-0p-jxW"/>
                         <outlet property="switchEauthExt" destination="lvN-e8-aES" id="ma8-0r-aoG"/>
+                        <outlet property="textboxMessage" destination="8Qj-CJ-NmM" id="b3v-qS-lSv"/>
                         <segue destination="Vjz-gM-NVA" kind="showDetail" identifier="ShowAssertionOptionsInfo" id="hsU-xT-PzC"/>
                     </connections>
                 </viewController>
