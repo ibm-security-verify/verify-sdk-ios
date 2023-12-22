@@ -1,7 +1,7 @@
 Note: This is in reverse chronological order, so newer entries are added to the top.
 
 # v3.0.8
-1 November 2023
+22 December 2023
 ### IBM Security Verify MFA SDK for iOS
 * Increment version
 * Fix JSON format when enrolling factor.
@@ -25,6 +25,7 @@ Note: This is in reverse chronological order, so newer entries are added to the 
 
 ### IBM Security Verify FIDO2™ SDK for iOS
 * Increment version
+* Add transport support for Webauthn specification 3
 <br/>
 <br/>
 
