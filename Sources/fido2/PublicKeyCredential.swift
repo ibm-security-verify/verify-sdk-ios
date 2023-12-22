@@ -431,6 +431,12 @@ public enum AuthenticatorTransport: String, Codable {
     /// Authenticator can be contacted over Bluetooth Low Energy (BLE).
     case ble
     
+    /// Authenticator can be contacted over ISO/IEC 7816 smart card with contacts.
+    case smartcard = "smart-card"
+    
+    /// Authenticator can be contacted using a combination of (often separate) data-transport and proximity mechanisms. This supports, for example, authentication on a desktop computer using a smartphone.
+    case hybrid
+    
     /// Authenticator is contacted using a client device-specific transport, i.e a platform authenticator. These authenticators are not removable from the client device.
     case `internal` = "internal"
 }
