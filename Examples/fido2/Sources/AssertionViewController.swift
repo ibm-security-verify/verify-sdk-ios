@@ -173,21 +173,28 @@ class AssertionViewController: UIViewController {
         }
         
         self.buttonAuthenticate.setActivity(true)
-        let assertionUrl = "\(relyingPartyUrl)/assertion/options"
         
+        let assertionUrl = "\(relyingPartyUrl)/assertion/options"
         var params:[String: Any] = ["userVerification": "required"]
+        var signingText: String?
+        
         if UserDefaults.standard.string(forKey: Store.server.rawValue) == isva, let username = UserDefaults.standard.string(forKey: Store.username.rawValue) {
             params.updateValue(username, forKey: "username")
             
+            // Add the transaction message when signing the challenge.
             if switchEauthExt.isOn && textboxMessage.hasText {
-                params.updateValue(["credProps": true, "txAuthSimple": textboxMessage.text!], forKey: "extensions")
+                signingText = textboxMessage.text!
             }
         }
        
         // Fetch the attestation options from the relying party.
         FidoService.shared.fetchAssertionOptions(assertionUrl, accessToken: accessToken, params: params) { result in
             switch result {
-            case .success(let value):
+            case .success(var value):
+                if let txAuthSimpleValue = signingText {
+                    value.extensions = AuthenticatorExtensions(txAuthSimple: txAuthSimpleValue)
+                }
+                
                 let provider = PublicKeyCredentialProvider()
                 provider.delegate = self
                 provider.createCredentialAssertionRequest(options: value)
@@ -202,7 +209,6 @@ class AssertionViewController: UIViewController {
             }
         }
     }
-    
     
     @IBAction func onRemoveClick(_ sender: UIButton) {
         let alertController = UIAlertController(title: "FIDO2 Example", message: "Remove FIDO2 authenticator? If you proceed, you will need to remove the authenticator from the relying party.", preferredStyle: .alert)
