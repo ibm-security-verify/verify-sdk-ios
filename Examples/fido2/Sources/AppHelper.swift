@@ -79,8 +79,7 @@ extension UIViewController: UITextFieldDelegate {
     /// Asks the delegate whether to process the pressing of the Return button for the text field.
     /// - parameter textField: The text field whose return button was pressed.
     public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+        return textField.resignFirstResponder()
     }
 }
 
