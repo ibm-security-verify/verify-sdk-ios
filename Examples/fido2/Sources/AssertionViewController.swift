@@ -52,8 +52,8 @@ class AssertionViewController: UIViewController {
         
         // Handle the keyboard over text input
         let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector:#selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
 
         
         // Animate the registration logo
@@ -122,34 +122,22 @@ class AssertionViewController: UIViewController {
         }
     }
     
-    @objc func keyboardWillShow(notification: NSNotification){
-        // Need to calculate keyboard exact size due to Apple suggestions
-        self.scrollView.isScrollEnabled = true
-        let info = notification.userInfo!
-        let keyboardSize = (info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
-        let contentInsets : UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize!.height, right: 0.0)
-
-        self.scrollView.contentInset = contentInsets
-        self.scrollView.scrollIndicatorInsets = contentInsets
-
-        var aRect : CGRect = self.view.frame
-        aRect.size.height -= keyboardSize!.height
-        if let activeField = self.textboxMessage {
-            if (!aRect.contains(activeField.frame.origin)){
-                self.scrollView.scrollRectToVisible(activeField.frame, animated: true)
-            }
+    @objc func adjustForKeyboard(notification: Notification) {
+        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
+            return
         }
-    }
 
-    @objc func keyboardWillHide(notification: NSNotification){
-        // Once keyboard disappears, restore original positions
-        let info = notification.userInfo!
-        let keyboardSize = (info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
-        let contentInsets : UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: -keyboardSize!.height, right: 0.0)
-        self.scrollView.contentInset = contentInsets
-        self.scrollView.scrollIndicatorInsets = contentInsets
-        self.view.endEditing(true)
-        self.scrollView.isScrollEnabled = false
+        let keyboardScreenEndFrame = keyboardValue.cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
+
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            scrollView.contentInset = .zero
+        }
+        else {
+            scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height - view.safeAreaInsets.bottom, right: 0)
+        }
+
+        scrollView.scrollIndicatorInsets = scrollView.contentInset
     }
     
     // MARK: Control events
@@ -183,14 +171,14 @@ class AssertionViewController: UIViewController {
             
             // Add the transaction message when signing the challenge.
             if switchEauthExt.isOn && textboxMessage.hasText {
-               params.updateValue(["credProps": true, "txAuthSimple": reasons.randomElement()!], forKey: "extensions")
+                params.updateValue(["credProps": true, "txAuthSimple": textboxMessage.text!], forKey: "extensions")
             }
         }
        
         // Fetch the attestation options from the relying party.
         FidoService.shared.fetchAssertionOptions(assertionUrl, accessToken: accessToken, params: params) { result in
             switch result {
-            case .success(var value):
+            case .success(let value):
                 let provider = PublicKeyCredentialProvider()
                 provider.delegate = self
                 provider.createCredentialAssertionRequest(options: value)
