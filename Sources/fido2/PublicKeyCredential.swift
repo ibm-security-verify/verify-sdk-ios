@@ -235,13 +235,13 @@ public struct PublicKeyCredentialDescriptor: Codable {
     public let id: String // credential ID
     
     /// An array of transport type that can communicate with the client.
-    public let transports: [AuthenticatorTransport]
+    public let transports: [AuthenticatorTransport]?
     
     /// Create a new `PublicKeyCredentialDescriptor` instance.
     /// - Parameters:
     ///   - id: The credential ID of the public key credential the caller is referring to.
     ///   - transports: An array of transport type that can communicate with the client.
-    public init(id: String, transports: [AuthenticatorTransport] = [.internal]) {
+    public init(id: String, transports: [AuthenticatorTransport]? = [.internal]) {
         self.id = id
         self.transports = transports
         self.type = .publicKey
