@@ -70,11 +70,11 @@ public class FidoService {
         // Convert into the data the FIDO server wants.
         let data: Data!
         if server == isv {
-            let attestation = ISVAsstestationResponse(nickname, attestation: attestation)
+            let attestation = ISVAttestationResponse(nickname, attestation: attestation)
             data = try? JSONEncoder().encode(attestation)
         }
         else {
-            let attestation = ISVAAsstestationResponse(nickname, attestation: attestation)
+            let attestation = ISVAAttestationResponse(nickname, attestation: attestation)
             data = try? JSONEncoder().encode(attestation)
         }
         

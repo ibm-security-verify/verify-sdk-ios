@@ -18,6 +18,7 @@ class AssertionViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var switchEauthExt: UISwitch!
     @IBOutlet weak var textboxMessage: UITextField!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     // Random messages for the user to acknowledge before signing the assertion.
     let reasons = ["Please confirm your pizza order of $49.99",
@@ -176,14 +177,13 @@ class AssertionViewController: UIViewController {
         
         let assertionUrl = "\(relyingPartyUrl)/assertion/options"
         var params:[String: Any] = ["userVerification": "required"]
-        var signingText: String?
         
         if UserDefaults.standard.string(forKey: Store.server.rawValue) == isva, let username = UserDefaults.standard.string(forKey: Store.username.rawValue) {
             params.updateValue(username, forKey: "username")
             
             // Add the transaction message when signing the challenge.
             if switchEauthExt.isOn && textboxMessage.hasText {
-                signingText = textboxMessage.text!
+               params.updateValue(["credProps": true, "txAuthSimple": reasons.randomElement()!], forKey: "extensions")
             }
         }
        
@@ -191,10 +191,6 @@ class AssertionViewController: UIViewController {
         FidoService.shared.fetchAssertionOptions(assertionUrl, accessToken: accessToken, params: params) { result in
             switch result {
             case .success(var value):
-                if let txAuthSimpleValue = signingText {
-                    value.extensions = AuthenticatorExtensions(txAuthSimple: txAuthSimpleValue)
-                }
-                
                 let provider = PublicKeyCredentialProvider()
                 provider.delegate = self
                 provider.createCredentialAssertionRequest(options: value)
