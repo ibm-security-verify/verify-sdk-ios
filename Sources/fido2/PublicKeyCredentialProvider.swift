@@ -399,7 +399,7 @@ public class PublicKeyCredentialProvider {
         
         // MARK: Build clientData JSON and hash
         // 1. Create a dictionary of the values.
-        var clientDataParams:[String: Any] = ["origin": "https://\(options.rpId!)",
+        var clientDataParams: [String: Any] = ["origin": "https://\(options.rpId!)",
                                               "challenge": options.challenge,
                                               "type": "webauthn.get"]
         
