@@ -171,7 +171,7 @@ class AssertionViewController: UIViewController {
             
             // Add the transaction message when signing the challenge.
             if switchEauthExt.isOn && textboxMessage.hasText {
-               params.updateValue(["credProps": true, "txAuthSimple": reasons.randomElement()!], forKey: "extensions")
+                params.updateValue(["credProps": true, "txAuthSimple": textboxMessage.text!], forKey: "extensions")
             }
         }
        
