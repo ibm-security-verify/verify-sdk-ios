@@ -58,7 +58,7 @@ public actor CloudAuthenticatorService: MFAServiceDescriptor {
     /// Refresh the OAuth token associated with the registered authenticator.
     ///
     /// When the `transactionID` is supplied, information relating to that transaction identifier is returned while in a PENDING state.  Otherwise the next transaction is returned.
-    /// ```
+    /// ```swift
     /// // Using the authenticator properties, create a new CloudAuthenticatorService.
     /// let service = CloudAuthenticatorService(with: authenticator.token.accessToken, refreshUri: authenticator.refreshUri, transactionUri: authenticator.transactionUri)
     ///
@@ -123,7 +123,7 @@ public actor CloudAuthenticatorService: MFAServiceDescriptor {
     /// Retrieve the next transaction that is associated with an authenticator registration.
     ///
     /// When a `transactionID` is supplied, information relating to that transaction identifier is returned while in a PENDING state.  Otherwise the next transaction is returned.
-    /// ```
+    /// ```swift
     /// // Using the authenticator properties, create a new CloudAuthenticatorService.
     /// let service = CloudAuthenticatorService(with: authenticator.token.accessToken, refreshUri: authenticator.refreshUri, transactionUri: authenticator.transactionUri)
     ///

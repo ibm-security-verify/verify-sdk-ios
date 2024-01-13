@@ -63,10 +63,10 @@ public class OAuthProvider {
     public var timeoutInterval: TimeInterval
 
     /// Additional HTTP headers of the request.
-    var additionalHeaders: [String: String] = [:]
+    public var additionalHeaders: [String: String] = [:]
     
     /// The client's additional authorization parameters.
-    var additionalParameters: [String: Any]
+    private let additionalParameters: [String: Any]
     
     /// A delegate that the OAuth provider informs about the success or failure of  an authorization request via the browser.
     public weak var delegate: OAuthProviderDelegate?
@@ -211,7 +211,7 @@ public class OAuthProvider {
     ///   - completion: The closure to invoke when the code authorize completes.
     public func authorize(issuer url: URL, redirectUrl: URL? = nil, authorizationCode: String, codeVerifier: String? = nil, scope: [String]? = nil) async throws -> TokenInfo {
         // Create the parameters to encode into the body.
-            var parameters: [String: Any] = ["grant_type": "authorization_code",
+        var parameters: [String: Any] = ["grant_type": "authorization_code",
                           "client_id": self.clientId,
                           "code": authorizationCode]
         

@@ -9,7 +9,7 @@ extension Default {
     ///
     /// This enum should not be called directly from your code. Use the type alias references.
     ///
-    /// ```
+    /// ```swift
     /// struct Person: Decodable {
     ///   let firstName: String
     ///   @Default.EmptyString var lastName: String

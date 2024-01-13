@@ -57,7 +57,7 @@ extension TOTPFactorInfo: OTPDescriptor {
     /// - Parameters:
     ///   - seconds: The value in seconds.
     ///
-    /// ```
+    /// ```swift
     /// let result = TOTPFactorInfo.remainingTime(4)
     /// print(result)
     /// ```

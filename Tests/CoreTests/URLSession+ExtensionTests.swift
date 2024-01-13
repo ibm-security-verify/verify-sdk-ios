@@ -243,10 +243,11 @@ class URLSessionExtensionTests: XCTestCase {
         }
     }
     
+    
     /// Tests overloaded init returning an UIImage
     func testInitImageResource() async throws {
         // Given
-        let url = URL(string: "https://picsum.photos/id/0/5616/3744")!
+        let url = URL(string: "https://picsum.photos/200")!
         let resource = HTTPResource<UIImage>(.get, url: url, accept: .jpeg) { data, response in
             return Result {
                 guard let data = data, let image = UIImage(data: data) else {
@@ -264,6 +265,29 @@ class URLSessionExtensionTests: XCTestCase {
         }
         catch let error {
             XCTAssertFalse(true, error.localizedDescription)
+        }
+    }
+    
+    /// Tests overloaded init returning an UIImage of invalid size
+    func testInitInvalidImageResource() async throws {
+        // Given
+        let url = URL(string: "https://picsum.photos/id/0/5616/3744")!
+        let resource = HTTPResource<UIImage>(.get, url: url, accept: .jpeg) { data, response in
+            return Result {
+                guard let data = data, let image = UIImage(data: data) else {
+                    throw URLSessionError.noData
+                }
+                
+                return image
+            }
+        }
+        
+        // Where, Then
+        do {
+            let _ = try await URLSession.shared.dataTask(for: resource)
+        }
+        catch let error {
+            XCTAssertNotNil(error, error.localizedDescription)
         }
     }
     

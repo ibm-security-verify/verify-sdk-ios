@@ -159,42 +159,6 @@ public struct HTTPResource<T> {
     /// A function type that attempts to parse the response payload into a generic type.
     var parse: (Data?, URLResponse?) -> Result<T, Error>
     
-    /// HTTP method definitions.
-    /// See [https://tools.ietf.org/html/rfc7231#section-4.3](https://tools.ietf.org/html/rfc7231#section-4.3)
-    public enum method: String {
-        /// The GET method requests transfer of a current selected representation for the target resource.
-        case get = "GET"
-
-        /// The POST method requests that the target resource process the representation enclosed in the request according to the resource's own specific semantics.
-        case post = "POST"
-
-        /// The PUT method requests that the state of the target resource be created or replaced with the state defined by the representation enclosed in the request message payload.
-        case put = "PUT"
-
-        /// The PATCH method requests that a set of changes described in the request entity be applied to the resource identified by the Request-URI.
-        case patch = "PATCH"
-
-        /// The DELETE method requests that the origin server remove the association between the target resource and its current functionality.
-        case delete = "DELETE"
-    }
-    
-    /// The `ContentType` is used to indicate the media type of the resource.
-    public enum ContentType: String {
-        /// JSON format.
-        case json = "application/json"
-        /// XML format.
-        /// - Remark: `application/xml` is recommended as of [RFC 7303](https://datatracker.ietf.org/doc/html/rfc7303#section-4.1)
-        case xml = "application/xml"
-        
-        /// JPEG image format.
-        /// - Remark: Used for `GET` methods.
-        case jpeg = "image/jpeg"
-        
-        /// The keys and values are encoded in key-value tuples separated by '&', with a '=' between the key and the value.
-        /// - Remark: Non-alphanumeric characters in both keys and values are percent encoded.
-        case urlEncoded = "application/x-www-form-urlencoded"
-    }
-    
     // MARK: - Initializers
     
     /// Create a new `HTTPResource` with request parameters.
@@ -366,4 +330,41 @@ extension URLSession {
         
         return try await resource.parse(data, httpResponse).get()
     }
+}
+
+// MARK: - Enums
+/// HTTP method definitions.
+/// See [https://tools.ietf.org/html/rfc7231#section-4.3](https://tools.ietf.org/html/rfc7231#section-4.3)
+public enum method: String {
+    /// The GET method requests transfer of a current selected representation for the target resource.
+    case get = "GET"
+
+    /// The POST method requests that the target resource process the representation enclosed in the request according to the resource's own specific semantics.
+    case post = "POST"
+
+    /// The PUT method requests that the state of the target resource be created or replaced with the state defined by the representation enclosed in the request message payload.
+    case put = "PUT"
+
+    /// The PATCH method requests that a set of changes described in the request entity be applied to the resource identified by the Request-URI.
+    case patch = "PATCH"
+
+    /// The DELETE method requests that the origin server remove the association between the target resource and its current functionality.
+    case delete = "DELETE"
+}
+
+/// The `ContentType` is used to indicate the media type of the resource.
+public enum ContentType: String {
+    /// JSON format.
+    case json = "application/json"
+    /// XML format.
+    /// - Remark: `application/xml` is recommended as of [RFC 7303](https://datatracker.ietf.org/doc/html/rfc7303#section-4.1)
+    case xml = "application/xml"
+    
+    /// JPEG image format.
+    /// - Remark: Used for `GET` methods.
+    case jpeg = "image/jpeg"
+    
+    /// The keys and values are encoded in key-value tuples separated by '&', with a '=' between the key and the value.
+    /// - Remark: Non-alphanumeric characters in both keys and values are percent encoded.
+    case urlEncoded = "application/x-www-form-urlencoded"
 }

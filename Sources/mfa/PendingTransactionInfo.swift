@@ -29,7 +29,7 @@ public enum TransactionAttribute: String, Codable {
     ///
     /// The value is represented as an JSON array for example:
     ///
-    /// ```
+    /// ```swift
     /// [{
     ///   "name": "name1",
     ///   "value": "value1"

@@ -88,7 +88,7 @@ public protocol MFARegistrationDescriptor {
     /// Gets the next available factor for enrollment.
     ///
     /// The function defined here returns ``EnrollableSignature`` which is used to create a public-key and sign the data. For example:
-    /// ```
+    /// ```swift
     /// let controller = MFARegistrationController(json: qrScanResult)
     ///
     /// // Initiate the registration provider.
@@ -124,7 +124,31 @@ public protocol MFARegistrationDescriptor {
     
     /// Performs the enrollment of the factor.
     ///
-    ///  A private/public key pair is generated saving the private key to the Keychain.
+    /// This method will generate a private/public key pair.  The private key is automatically saved to the Keychain.
+    ///
+    /// You can access the private key by name using the `authenticator.id` concatenated with the enrolled factor type.  For example:
+    /// ```swift
+    /// let controller = MFARegistrationController(json: qrScanResult)
+    ///
+    /// // Initiate the registration provider.
+    /// let provider = try await controller.initiate(with: "John Doe", pushToken: "abc123")
+    ///
+    /// // Get the next enrollable signature.
+    /// guard let factor = await provider.nextEnrollment() else {
+    ///    return
+    /// }
+    ///
+    /// // Enroll the factor.
+    /// try await provider.enroll()
+    ///
+    /// // Finalize the enrollment operations and generate the authenticator.
+    /// let authenticator = try await provider.finalize()
+    ///
+    /// // Get the enrolled face factor and retrieve the name in the Keychain to obtain the private key.
+    /// if let enrolledFactor = authenticator.allowedFactors.first(where: { $0.valueType is FaceFactorInfo }), let face = enrolledFactor.valueType as? FaceFactorInfo  {
+    ///    print(face[keyPath: \.name])  // prints "<authenicator.id>.face"
+    /// }
+    /// ```
     func enroll() async throws
     
     /// Performs the enrollment of the factor.
@@ -146,17 +170,20 @@ public class MFARegistrationController {
     /// The JSON string that initiates the a multi-factor registration.
     private let json: String
     
+    /// The domain name supporting multi-factor registration.
+    public let domain: String?
+    
     /// A Boolean value that indicates whether the authenticator will ignore secure sockets layer certificate challenages.
     ///
     ///  Before invoking ``initiate(with:pushToken:additionalData:)`` this value can be used to alert the user that the certificate connecting the service is self-signed.
-    /// - remark: When `true` the service is using a self-signed certificate.
+    /// - Remark: When `true` the service is using a self-signed certificate.
     public let ignoreSSLCertificate: Bool
     
     // Creates the instance with JSON value.
     /// - Parameters:
     ///   - value: The JSON value typically obtained from a QR code.
     ///
-    /// ```
+    /// ```swift
     /// // Value from QR code scan
     /// let qrScanResult = "{"code":"A1B2C3D4","options":"ignoreSslCerts=true","details_url":"https://sdk.verifyaccess.ibm.com/mga/sps/mmfa/user/mgmt/details","version": 1, "client_id":"IBMVerify"}"
     ///
@@ -185,6 +212,19 @@ public class MFARegistrationController {
             ignoreSSLCertificate = options.contains("ignoreSslCerts=true")
         }
         
+        var domain: String? = nil
+                
+        // Check for a host value.
+        if let jsonObject = try? JSONSerialization.jsonObject(with: value.data(using: .utf8)!, options: []) as? [String: Any] {
+            if let value = jsonObject["registrationUri"] as? String, let url = URL(string: value), let host = url.host {
+                domain = host
+            }
+            else if let value = jsonObject["details_url"] as? String, let url = URL(string: value), let host = url.host {
+                domain = host
+            }
+        }
+        
+        self.domain = domain
         self.ignoreSSLCertificate = ignoreSSLCertificate
     }
 

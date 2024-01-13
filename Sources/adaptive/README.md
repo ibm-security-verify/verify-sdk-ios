@@ -23,7 +23,7 @@ An [example](../../Examples/adaptive) application is available for the Adaptive 
 
 ```swift
 dependencies: [
-    .package(name: "IBM Security Verify", url: "https://github.com/ibm-security-verify/verify-sdk-ios.git", from: "3.0.7")
+    .package(name: "IBM Security Verify", url: "https://github.com/ibm-security-verify/verify-sdk-ios.git", from: "3.0.8")
 ]
 ```
 

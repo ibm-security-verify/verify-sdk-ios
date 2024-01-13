@@ -1,6 +1,6 @@
 {
-    "serviceName": "ADB Test",
-    "qrloginUri": "https://am-mobile-dev.adb.org/mga/sps/apiauthsvc?PolicyId=urn:ibm:security:authentication:asf:qrcode_response",
+    "serviceName": "Test",
+    "qrloginUri": "https://mmfa.securitypoc.com/mga/sps/apiauthsvc?PolicyId=urn:ibm:security:authentication:asf:qrcode_response",
     "accountName": "mhm",
     "token":{
           "authenticator_id": "uuid32f7aa4f-6de3-4f6a-b242-a2d935144974",
@@ -13,8 +13,8 @@
           "expires_on": "2023-01-03T06:32:51.632Z"
     },
     "theme": {},
-    "clientId": "ADBAuthenticatorClient",
-    "ignoreSSLCertificate": true,
+    "clientId": "AuthenticatorClient",
+    "ignoreSSLCertificate": false,
     "allowedFactors":[
           {
              "userPresence": {
@@ -25,6 +25,6 @@
           }
        ],
     "id": "uuid32f7aa4f-6de3-4f6a-b242-a2d935144974",
-    "refreshUri": "https://am-mobile-dev.adb.org/mga/sps/oauth/oauth20/token",
-    "transactionUri": "https://am-mobile-dev.adb.org/scim/Me?attributes=urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction:transactionsPending,urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction:attributesPending"
+    "refreshUri": "https://mmfa.securitypoc.com/mga/sps/oauth/oauth20/token",
+    "transactionUri": "https://mmfa.securitypoc.com/scim/Me?attributes=urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction:transactionsPending,urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction:attributesPending"
 }

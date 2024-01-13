@@ -17,13 +17,15 @@ class AssertionViewController: UIViewController {
     @IBOutlet weak var labelCreatedDate: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var switchEauthExt: UISwitch!
+    @IBOutlet weak var textboxMessage: UITextField!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     // Random messages for the user to acknowledge before signing the assertion.
     let reasons = ["Please confirm your pizza order of $49.99",
                    "Please verify that you intended to transfer $2,877.34.",
                    "Please confirm you purchased a new Apple MacBook.",
                    "Are you trying to access to the server room?",
-                   "Your confirmation of to access the registration resource on this server is required.",
+                   "Your confirmation to access the registration resource on this server is required.",
                    "Please confirm your order of 10 widgets."]
     
     override func viewDidLoad() {
@@ -48,11 +50,21 @@ class AssertionViewController: UIViewController {
             labelCreatedDate.text = value
         }
         
+        // Handle the keyboard over text input
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+
+        
         // Animate the registration logo
         setTraitAppearance()
         animateLogo()
         
+        textboxMessage.setBorderBottom()
         buttonAuthenticate.setCornerRadius()
+        
+        // Handle UITextField events
+        textboxMessage.delegate = self
     }
     
     /// Called when the iOS interface environment changes.
@@ -110,7 +122,36 @@ class AssertionViewController: UIViewController {
         }
     }
     
+    @objc func adjustForKeyboard(notification: Notification) {
+        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
+            return
+        }
+
+        let keyboardScreenEndFrame = keyboardValue.cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
+
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            scrollView.contentInset = .zero
+        }
+        else {
+            scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height - view.safeAreaInsets.bottom, right: 0)
+        }
+
+        scrollView.scrollIndicatorInsets = scrollView.contentInset
+    }
+    
     // MARK: Control events
+    @IBAction func onTxnSigningChange(_ sender: UISwitch) {
+        if sender.isOn {
+            textboxMessage.isEnabled = true
+            textboxMessage.text = reasons.randomElement()!
+        }
+        else {
+            textboxMessage.isEnabled = false
+        }
+    }
+    
+    
     @IBAction func onAuthenticateClick(_ sender: UIButton) {
         guard let accessToken = UserDefaults.standard.string(forKey: Store.accessToken.rawValue), let relyingPartyUrl =  UserDefaults.standard.string(forKey: Store.relyingPartyUrl.rawValue) else {
             let alertController = UIAlertController(title: "FIDO2 Example", message: "Information about the relying party is missing.", preferredStyle: .alert)
@@ -121,14 +162,16 @@ class AssertionViewController: UIViewController {
         }
         
         self.buttonAuthenticate.setActivity(true)
-        let assertionUrl = "\(relyingPartyUrl)/assertion/options"
         
+        let assertionUrl = "\(relyingPartyUrl)/assertion/options"
         var params:[String: Any] = ["userVerification": "required"]
+        
         if UserDefaults.standard.string(forKey: Store.server.rawValue) == isva, let username = UserDefaults.standard.string(forKey: Store.username.rawValue) {
             params.updateValue(username, forKey: "username")
             
-            if switchEauthExt.isOn {
-                params.updateValue(["credProps": true, "txAuthSimple": reasons.randomElement()!], forKey: "extensions")
+            // Add the transaction message when signing the challenge.
+            if switchEauthExt.isOn && textboxMessage.hasText {
+                params.updateValue(["credProps": true, "txAuthSimple": textboxMessage.text!], forKey: "extensions")
             }
         }
        
@@ -150,7 +193,6 @@ class AssertionViewController: UIViewController {
             }
         }
     }
-    
     
     @IBAction func onRemoveClick(_ sender: UIButton) {
         let alertController = UIAlertController(title: "FIDO2 Example", message: "Remove FIDO2 authenticator? If you proceed, you will need to remove the authenticator from the relying party.", preferredStyle: .alert)

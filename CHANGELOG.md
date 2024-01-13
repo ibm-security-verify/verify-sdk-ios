@@ -1,6 +1,37 @@
 Note: This is in reverse chronological order, so newer entries are added to the top.
 
-# v3.0.6
+# v3.0.8
+22 January 2024
+### IBM Security Verify MFA SDK for iOS
+* Increment version
+* Fix JSON format when enrolling factor.
+* Fix URL to include SCIM namespace.
+* Add support for `URLSessionDelegate`.
+* Update unit test JSON data files.
+
+### IBM Security Verify Core SDK for iOS
+* Increment version
+* Make `SecKey` accessible as `keyRepresentation`
+* Support for `jwkRepresentation`.
+
+### IBM Security Verify Authentication SDK for iOS
+* Increment version
+* Make `additionalHeaders` accessible
+* Support for Demonstrating Proof of Possession (DPoP) generation.
+* Fix Proof Key for Code Exchange (PKCE) encoding.
+
+### IBM Security Verify Adaptive SDK for iOS
+* Increment version
+
+### IBM Security Verify FIDO2™ SDK for iOS
+* Increment version
+* Add transport support for Webauthn specification 3
+* Fix typo
+* Enhance the sample app
+<br/>
+<br/>
+
+# v3.0.7
 5 July 2023
 ### IBM Security Verify MFA SDK for iOS
 * Increment version

@@ -8,7 +8,7 @@ import Foundation
 extension DateFormatter {
     /// Provides ISO 8601 formatting covering millisecond precision and timezone.
     ///
-    /// ```
+    /// ```swift
     /// let decoder = JSONDecoder()
     /// decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8061FormatterBehavior)
     /// ```

@@ -96,7 +96,7 @@ public class OnPremiseRegistrationProvider: MFARegistrationDescriptor {
         }
         
         // Construct the request and parsing method.  We decode the metadata, then the token using the TokenInfo in the Authentication module.
-        let resource = HTTPResource<Metadata>(json: .get, url: self.initializationInfo.uri)
+        let resource = HTTPResource<Metadata>(json: .get, url: self.initializationInfo.uri, accept: .json)
         
         // Perfom the request.
         self.metadata = try await self.urlSession.dataTask(for: resource)

@@ -7,7 +7,7 @@ import XCTest
 
 class MFARegistrationControllerTests: XCTestCase {
     let urlBaseCloud = "https://sdk.verify.ibm.com"
-    let urlBaseOnPremise = "https://sdk.verifyaccess.ibm.com"
+    let urlBaseOnPremise = "https://mmfa.securitypoc.com"
     let scanResultCloud = """
         {
             "code": "abc123",
@@ -23,8 +23,8 @@ class MFARegistrationControllerTests: XCTestCase {
     let scanResultOnPremise = """
         {
             "code": "A1B2C3D4",
-            "options":"ignoreSslCerts=true",
-            "details_url": "https://sdk.verifyaccess.ibm.com/mga/sps/mmfa/user/mgmt/details",
+            "options":"ignoreSslCerts=false",
+            "details_url": "https://mmfa.securitypoc.com/mga/sps/mmfa/user/mgmt/details",
             "version": 1,
             "client_id": "IBMVerify"
         }
@@ -77,7 +77,7 @@ class MFARegistrationControllerTests: XCTestCase {
         XCTAssertNotNil(controller)
         
         // Then
-        let provider = try await controller.initiate(with: "John Doe", skipTotpEnrollment: false, pushToken: "abc123")
+        let provider = try await controller.initiate(with: "John Doe", pushToken: "abc123")
         XCTAssertNotNil(provider)
         XCTAssertTrue(provider is OnPremiseRegistrationProvider)
     }
@@ -105,6 +105,38 @@ class MFARegistrationControllerTests: XCTestCase {
         let provider = try await controller.initiate(with: "John Doe", pushToken: "abc123", additionalData: additionalData)
         XCTAssertNotNil(provider)
         XCTAssertTrue(provider is OnPremiseRegistrationProvider)
+    }
+    
+    /// Test the scan and create an instance registration controller and test the domain.
+    func testInitiateCloudRegistrationDomain() async throws {
+        // Given
+        let registrationUrl = URL(string: "\(urlBaseCloud)/v1.0/authenticators/registration?skipTotpEnrollment=false")!
+        MockURLProtocol.urls[registrationUrl] = MockHTTPResponse(response: HTTPURLResponse(url: registrationUrl, statusCode: 200, httpVersion: nil, headerFields: nil)!, fileResource: "cloud.initiate")
+        
+        // Where
+        let controller = MFARegistrationController(json: scanResultCloud)
+        
+        // Then
+        XCTAssertNotNil(controller)
+        
+        // Then
+        XCTAssertEqual(controller.domain, registrationUrl.host)
+    }
+        
+    /// Test the scan and create an instance registration controller and test the domain.
+    func testInitiateOnPremiseRegistrationDomain() async throws {
+        // Given
+        let registrationUrl = URL(string: "\(urlBaseOnPremise)/mga/sps/mmfa/user/mgmt/details")!
+        MockURLProtocol.urls[registrationUrl] = MockHTTPResponse(response: HTTPURLResponse(url: registrationUrl, statusCode: 200, httpVersion: nil, headerFields: nil)!, fileResource: "onpremise.initiate")
+        
+        // Where
+        let controller = MFARegistrationController(json: scanResultOnPremise)
+        
+        // Then
+        XCTAssertNotNil(controller)
+        
+        // Then
+        XCTAssertEqual(controller.domain, registrationUrl.host)
     }
     
     /// Test the scan and attempt to create an instance of the unknown registration provider.

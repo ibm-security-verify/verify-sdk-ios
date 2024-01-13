@@ -1,6 +1,6 @@
 {
     "meta":{
-        "location":"https://w3id.sso.ibm.com/scim/Users/Y3JhaWdhcHNAYXUxLmlibS5jb20",
+        "location":"https://mmfa.securitypoc.com/scim/Users/Y3JhaWdhcHNAYXUxLmlibS5jb20",
         "resourceType":"User"
     },
     "schemas":[
@@ -58,7 +58,7 @@
             "authnPolicyAction":"POST",
             "txnStatus":"PENDING",
             "creationTime":"2018-06-18T01:47:37.089Z",
-            "requestUrl":"https://sdk.verifyaccess.ibm.com/mga/sps/apiauthsvc?MmfaTransactionId=DEA8B846-76DC-4786-9941-DAF9FA86427E",
+            "requestUrl":"https://mmfa.securitypoc.com/mga/sps/apiauthsvc?MmfaTransactionId=DEA8B846-76DC-4786-9941-DAF9FA86427E",
             "authnPolicyURI":"urn:ibm:security:authentication:asf:w3id:ibm:verify:user:presence",
             "lastActivityTime":"2018-06-18T01:47:37.636Z",
             "transactionId":"dea8b846-76dc-4786-9941-daf9fa86427e"

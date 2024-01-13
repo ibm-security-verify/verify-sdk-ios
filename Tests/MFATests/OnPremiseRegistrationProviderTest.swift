@@ -10,15 +10,15 @@ import CryptoKit
 @testable import MFA
 
 class OnPremiseRegistrationProviderTest: XCTestCase {
-    let urlBase = "https://sdk.verifyaccess.ibm.com"
+    let urlBase = "https://mmfa.securitypoc.com"
     let scanResult = """
-        {
-            "code": "A1B2C3D4",
-            "options":"ignoreSslCerts=true",
-            "details_url": "https://sdk.verifyaccess.ibm.com/mga/sps/mmfa/user/mgmt/details",
-            "version": 1,
-            "client_id": "IBMVerify"
-        }
+    {
+        "code": "A1B2C3D4",
+        "options":"ignoreSslCerts=false",
+        "details_url": "https://mmfa.securitypoc.com/mga/sps/mmfa/user/mgmt/details",
+        "version": 1,
+        "client_id": "IBMVerify"
+    }
     """
     
     override func setUp() {
@@ -63,7 +63,7 @@ class OnPremiseRegistrationProviderTest: XCTestCase {
         XCTAssertNotNil(controller)
         
         // Then
-        let provider = try! await controller.initiate(with: "OnPremise account")
+        let provider = try await controller.initiate(with: "OnPremise account")
         XCTAssertNotNil(provider)
     }
     
@@ -116,7 +116,7 @@ class OnPremiseRegistrationProviderTest: XCTestCase {
         XCTAssertNotNil(controller)
         
         // Then
-        let provider = try! await controller.initiate(with: "Onpremise account", pushToken: "abc123")
+        let provider = try await controller.initiate(with: "Onpremise account", pushToken: "abc123")
         XCTAssertNotNil(provider)
         
         // Then
@@ -143,7 +143,7 @@ class OnPremiseRegistrationProviderTest: XCTestCase {
         XCTAssertNotNil(controller)
         
         // Then
-        let provider = try! await controller.initiate(with: "OnPremise account", pushToken: "abc123")
+        let provider = try await controller.initiate(with: "OnPremise account", pushToken: "abc123")
         XCTAssertNotNil(provider)
         
         // Then
@@ -169,7 +169,7 @@ class OnPremiseRegistrationProviderTest: XCTestCase {
         XCTAssertNotNil(controller)
         
         // Then
-        let provider = try! await controller.initiate(with: "OnPremise account", pushToken: "abc123")
+        let provider = try await controller.initiate(with: "OnPremise account", pushToken: "abc123")
         XCTAssertNotNil(provider)
         
         // Then
@@ -226,7 +226,7 @@ class OnPremiseRegistrationProviderTest: XCTestCase {
         XCTAssertNotNil(controller)
         
         // Then
-        let provider = try! await controller.initiate(with: "OnPremise account", pushToken: "abc123")
+        let provider = try await controller.initiate(with: "OnPremise account", pushToken: "abc123")
         XCTAssertNotNil(provider)
         
         // Then
@@ -254,7 +254,7 @@ class OnPremiseRegistrationProviderTest: XCTestCase {
         XCTAssertNotNil(controller)
         
         // Then
-        let provider = try! await controller.initiate(with: "OnPremise account", pushToken: "abc123")
+        let provider = try await controller.initiate(with: "OnPremise account", pushToken: "abc123")
         XCTAssertNotNil(provider)
         
         // Then
@@ -285,7 +285,7 @@ class OnPremiseRegistrationProviderTest: XCTestCase {
         XCTAssertNotNil(controller)
         
         // Then
-        let provider = try! await controller.initiate(with: "OnPremise account", pushToken: "abc123")
+        let provider = try await controller.initiate(with: "OnPremise account", pushToken: "abc123")
         XCTAssertNotNil(provider)
         
         // Then
@@ -316,7 +316,7 @@ class OnPremiseRegistrationProviderTest: XCTestCase {
         XCTAssertNotNil(controller)
         
         // Then
-        let provider = try! await controller.initiate(with: "OnPremise account", pushToken: "abc123")
+        let provider = try await controller.initiate(with: "OnPremise account", pushToken: "abc123")
         XCTAssertNotNil(provider)
         
         // Then
@@ -351,7 +351,7 @@ class OnPremiseRegistrationProviderTest: XCTestCase {
         XCTAssertNotNil(controller)
         
         // Then
-        let provider = try! await controller.initiate(with: "OnPremise account", pushToken: "abc123")
+        let provider = try await controller.initiate(with: "OnPremise account", pushToken: "abc123")
         XCTAssertNotNil(provider)
         
         // Then
@@ -392,7 +392,7 @@ class OnPremiseRegistrationProviderTest: XCTestCase {
         XCTAssertNotNil(controller)
         
         // Then
-        let provider = try! await controller.initiate(with: "OnPremise account", skipTotpEnrollment: false, pushToken: "abc123")
+        let provider = try await controller.initiate(with: "OnPremise account", skipTotpEnrollment: false, pushToken: "abc123")
         XCTAssertNotNil(provider)
         
         // Then
@@ -425,7 +425,7 @@ class OnPremiseRegistrationProviderTest: XCTestCase {
         XCTAssertNotNil(controller)
         
         // Then
-        let provider = try! await controller.initiate(with: "OnPremise account", pushToken: "abc123")
+        let provider = try await controller.initiate(with: "OnPremise account", pushToken: "abc123")
         XCTAssertNotNil(provider)
         
         // Then

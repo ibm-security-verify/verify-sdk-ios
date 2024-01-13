@@ -85,6 +85,40 @@ extension RSA {
                 }
             }
             
+            /// A JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key.
+            public var jwkRepresentation: String {
+                get {
+                    // Get the public key attributes.
+                    let attributes = SecKeyCopyAttributes(self.key)! as NSDictionary
+                    
+                    // Get the v-data information.
+                    let data = attributes[kSecValueData]! as! Data
+                                
+                    // Create the modulus and exponent from the public key attribute data.
+                    var modulus  = data.subdata(in: 8..<(data.count - 5))
+                    let exponent = data.subdata(in: (data.count - 3)..<data.count)
+
+                    if modulus.count > self.sizeInBits / 8 { // --> 257 bytes
+                        modulus.removeFirst(1)
+                    }
+
+                    return """
+                    { \
+                    "kty": "RSA", \
+                    "use": "sig", \
+                    "kid": "\(UUID().uuidString)", \
+                    "n": "\(modulus.base64UrlEncodedString(options: [.noPaddingCharacters, .safeUrlCharacters]))", \
+                    "e": "\(exponent.base64UrlEncodedString(options: [.noPaddingCharacters, .safeUrlCharacters]))" \
+                    }
+                    """
+                }
+            }
+            
+            /// The representation of the key as  ``SecKey``.
+            public var keyRepresentation: SecKey {
+                return self.key
+            }
+            
             /// An X.509 certificate representation of the public key.
             ///
             /// - Remark: The encoding of the public key includes the ASN.1 SubjectPublicKeyInfo type.  This representation is typically compatible with external security frameworks such as Java, openSSL, PHP, Perl etc.
@@ -223,7 +257,7 @@ extension RSA {
             /// The corresponding public key.
             ///
             /// Example to get the public key from the private key in PEM format.
-            /// ```
+            /// ```swift
             /// // Get the public key from the private key.
             /// let key = RSA.Signing.PrivateKey().publicKey
             /// let value = key.pemRepresentation
@@ -248,6 +282,11 @@ extension RSA {
                     return representation! as Data
                 }
             }
+            
+            /// The representation of the key as  ``SecKey``.
+            public var keyRepresentation: SecKey {
+                return self.key
+            }
         }
     }
 }
@@ -259,7 +298,7 @@ extension RSA.Signing.PrivateKey {
     ///   - data: The data to sign.
     ///
     /// Example to generate a signature with the private key:
-    /// ```
+    /// ```swift
     /// let key = RSA.Signing.PrivateKey()
     /// let data = "hello world".data(using: .utf8)!
     ///
@@ -279,7 +318,7 @@ extension RSA.Signing.PrivateKey {
     ///   - digest: The digest to sign.
     ///
     /// Example to generate a SHA256 digest and sign with the private key:
-    /// ```
+    /// ```swift
     /// let key = RSA.Signing.PrivateKey()
     /// let data = SHA256.hash(data: "hello world".data(using: .utf8)!)
     ///
@@ -315,7 +354,7 @@ extension RSA.Signing.PublicKey {
     ///   - data: The data that was signed.
     ///
     /// Example to validate a SHA256 digest signed with the private key:
-    /// ```
+    /// ```swift
     /// let key = RSA.Signing.PrivateKey()
     /// let data = SHA256.hash(data: "hello world".data(using: .utf8)!)
     ///
@@ -336,7 +375,7 @@ extension RSA.Signing.PublicKey {
     ///   - digest: The digest that was signed.
     ///
     /// Example to validate a signature signed with the private key:
-    /// ```
+    /// ```swift
     /// let key = RSA.Signing.PrivateKey()
     /// let data = "hello world".data(using: .utf8)!
     ///
@@ -435,3 +474,4 @@ extension Data {
         }
     }
 }
+

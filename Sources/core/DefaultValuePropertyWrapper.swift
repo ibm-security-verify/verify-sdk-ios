@@ -17,7 +17,7 @@ public typealias Map = Decodable & ExpressibleByDictionaryLiteral
 /// An interface for assigning a default value to a decodable element.
 ///
 /// Extend the `DefaultValue` protocol to implement other default values for types supporting decodable.
-/// ```
+/// ```swift
 /// extension Default.Value {
 ///    /// A zero value.
 ///    public enum Zero: DefaultValue {
@@ -43,7 +43,7 @@ public protocol DefaultValue {
 /// A wrapper that allows for default values to be used supporting `JSONDecoder`.
 ///
 /// The `@Default` attribute allows for properties to contain a default value if the JSON element does not exist in the container.
-/// ```
+/// ```swift
 /// let json = """
 /// {
 ///   "firstName": "John",

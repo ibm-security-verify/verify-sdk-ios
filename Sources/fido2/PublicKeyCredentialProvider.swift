@@ -67,7 +67,7 @@ public class PublicKeyCredentialProvider {
     ///   - options: An instance of `PublicKeyCredentialCreationOptions`.
     ///
     /// When the request succeeds, the information is relayed to the view controllers `delegate` by calling the `publicKeyCredential(provider:didCompleteWithAttestation:)` method with the result.  If the request fails then `publicKeyCredential(provider:didCompleteWithError:)` is called instead.
-    /// ```
+    /// ```swift
     /// // Create the desired authenticator section criteria.
     /// let selectionCriteria = AuthenticatorSelectionCriteria(authenticatorAttachment: .none,
     ///     requireResidentKey: true,
@@ -166,8 +166,7 @@ public class PublicKeyCredentialProvider {
     ///   - clientDataParams: Additional key/values pairs to enrich `clientJSONData` assertion.
     ///
     /// When the request succeeds, the information is relayed to the view controllers `delegate` by calling the `publicKeyCredential(provider:didCompleteWithAssertion:)` method with the result.  If the request fails then `publicKeyCredential(provider:didCompleteWithError:)` is called instead.
-    /// ```
-    ///
+    /// ```swift
     /// // Construct a new request options object. The challenge typically comes from your server.
     /// let options = PublicKeyCredentialRequestOptions(
     ///     challenge: UUID().uuidString,
@@ -400,7 +399,7 @@ public class PublicKeyCredentialProvider {
         
         // MARK: Build clientData JSON and hash
         // 1. Create a dictionary of the values.
-        var clientDataParams:[String: Any] = ["origin": "https://\(options.rpId!)",
+        var clientDataParams: [String: Any] = ["origin": "https://\(options.rpId!)",
                                               "challenge": options.challenge,
                                               "type": "webauthn.get"]
         

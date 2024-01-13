@@ -94,7 +94,7 @@ public protocol AttestationResponse {
 
 
 /// The asstestation response is a placeholder protocol to support IBM Verify on-premise FIDO server implementations
-public struct ISVAAsstestationResponse: AttestationResponse, Codable {
+public struct ISVAAttestationResponse: AttestationResponse, Codable {
     public let attestation: PublicKeyCredential<AuthenticatorAttestationResponse>
     public let nickname: String
     
@@ -115,7 +115,7 @@ public struct ISVAAsstestationResponse: AttestationResponse, Codable {
 }
 
 /// The asstestation response is a placeholder protocol to support IBM Verify cloud FIDO server implementations
-public struct ISVAsstestationResponse: AttestationResponse, Codable {
+public struct ISVAttestationResponse: AttestationResponse, Codable {
     public let attestation: PublicKeyCredential<AuthenticatorAttestationResponse>
     public let nickname: String
     public let enabled: Bool
