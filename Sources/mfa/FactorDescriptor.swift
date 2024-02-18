@@ -58,7 +58,7 @@ extension FactorType {
 }
 
 extension FactorType {
-    subscript<T>(dynamicMember keyPath: KeyPath<any Factor, T>) -> T {
+    public subscript<T>(dynamicMember keyPath: KeyPath<any Factor, T>) -> T {
         switch self {
         case .totp(let value):
             return value[keyPath: keyPath]
