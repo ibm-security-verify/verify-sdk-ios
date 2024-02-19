@@ -17,6 +17,8 @@ Note: This is in reverse chronological order, so newer entries are added to the 
 
 ### IBM Security Verify FIDO2™ SDK for iOS
 * Increment version
+<br/>
+<br/>
 
 # v3.0.8
 22 January 2024
