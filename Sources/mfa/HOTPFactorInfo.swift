@@ -12,12 +12,22 @@ public struct HOTPFactorInfo: Factor {
     ///   - digits: This value is constrained to `6` or `8` digits in length.  The default is `6`.
     ///   - algorithm: The algorithm used to calculate the one-time passcode.  The default is `sha1`.
     ///   - counter: The counter for `hotp` generation.  Default value is `1`.
-    public init(with secret: String, digits: Int = 6, algorithm: HashAlgorithmType = .sha1, counter: Int = 1) {
+    ///   - lowEntropy: This flag allows the digit value to be less than 6 but greater and 1 for OTP generation.
+    ///
+    /// - Remark: The `lowEntropy` flag is not recommended.  Reducing the number of digits for OTP validation presents a potential security risk.
+    public init(with secret: String, digits: Int = 6, algorithm: HashAlgorithmType = .sha1, counter: Int = 1, lowEntropy: Bool = false) {
         self.id = UUID()
         self.secret = secret
         self.algorithm = algorithm
-        self.digits = (digits == 6 || digits == 8) ? digits : 6
         self.counter = counter > 0 ? counter : 1
+        
+        // Default the digit value to 6 if lowEntropy is not enabled.
+        if(digits >= 1 && digits < 6 && lowEntropy) {
+            self.digits = digits
+        }
+        else {
+            self.digits = (digits == 6 || digits == 8) ? digits : 6
+        }
     }
     
     public let id: UUID
