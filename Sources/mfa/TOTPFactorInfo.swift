@@ -12,12 +12,17 @@ public struct TOTPFactorInfo: Factor {
     ///   - digits: This value is constrained to `6` or `8` digits in length.  The default is `6`.
     ///   - algorithm: The algorithm used to calculate the one-time passcode.  The default is `sha1`.
     ///   - period: The interval in seconds for `totp` generation.  Default value is `30`.
+    ///   
+    /// - Remark: A `digits` value less than 6 is not recommended.  Reducing the number of digits for OTP validation presents a potential security risk.
     public init(with secret: String, digits: Int = 6, algorithm: HashAlgorithmType = .sha1, period: Int = 30) {
         self.id = UUID()
         self.secret = secret
         self.algorithm = algorithm
-        self.digits = (digits == 6 || digits == 8) ? digits : 6
         self.period = (period >= 10 && period <= 300) ? period : 30
+        
+        // Assign the digits value or default to 6.
+        // Assign the digits value or default to 6.
+        self.digits = digits > 0 ? digits : 6
     }
     
     public let id: UUID

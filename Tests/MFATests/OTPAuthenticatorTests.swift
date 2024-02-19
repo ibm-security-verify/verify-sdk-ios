@@ -86,7 +86,7 @@ class OTPAuthenticatorTests: XCTestCase {
         let factor = result.allowedFactors[0].valueType as! TOTPFactorInfo
         
         // Then
-        XCTAssertEqual(factor.digits, 6)
+        XCTAssertEqual(factor.digits, 65)
     }
     
     /// Test to create an HOTP authenticator that assigns default digit value of 6 when an invalid value is presented.
@@ -101,7 +101,7 @@ class OTPAuthenticatorTests: XCTestCase {
         let factor = result.allowedFactors[0].valueType as! HOTPFactorInfo
         
         // Then
-        XCTAssertEqual(factor.digits, 6)
+        XCTAssertEqual(factor.digits, 65)
     }
     
     // MARK: - OTP Autenticator Algorithm
@@ -470,6 +470,42 @@ class OTPAuthenticatorTests: XCTestCase {
         XCTAssertEqual(factor.counter, 5)
     }
     
+    /// Test to create an OTP authenticator from a JSON.
+    func testOTPLowEntropyDecodeJSON() throws {
+        // Given
+        let json = """
+         {
+            "allowedFactors":[
+               {
+                  "hotp":{
+                     "secret":"HXDMVJECJJWSRB3HWIZR4IFUGFTMXBOZ",
+                     "id":"5085FF89-8322-4F49-ABFC-64B18A85BFC6",
+                     "digits":4,
+                     "counter":5,
+                     "algorithm":"sha1"
+                  }
+               }
+            ],
+            "id":"A6C8EF51-6874-4BE0-9C23-4365D518E242",
+            "serviceName":"ACME Co",
+            "accountName":"john.doe@email.com"
+         }
+         """
+        
+        // When
+        let result = try JSONDecoder().decode(OTPAuthenticator.self, from: json.data(using: .utf8)!)
+            
+        // Then
+        let factor = result.allowedFactors[0].valueType as! HOTPFactorInfo
+        
+        XCTAssertEqual(result.serviceName, "ACME Co")
+        XCTAssertEqual(result.accountName, "john.doe@email.com")
+        XCTAssertEqual(factor.secret, "HXDMVJECJJWSRB3HWIZR4IFUGFTMXBOZ")
+        XCTAssertEqual(factor.algorithm, HashAlgorithmType.sha1)
+        XCTAssertEqual(factor.digits, 4)
+        XCTAssertEqual(factor.counter, 5)
+    }
+    
     /// Test to create an HOTP authenticator from a JSON then test invalid and default counter values.
     func testOTPDecodeJSONUpdateCounter() throws {
         // Given
@@ -513,7 +549,7 @@ class OTPAuthenticatorTests: XCTestCase {
     
     // MARK: - OTP Autenticator Create
     
-    /// Test to encode generate OTP from an invalid secret
+    // Test to encode generate OTP from an invalid secret
     func testInvalidSecret() throws {
         // Given
         var factor = TOTPFactorInfo(with: "AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8gISIjJCUmJygpKissLS4vMDEyMzQ1Njc4OTo7PD0", period: 347)

@@ -183,4 +183,76 @@ class OTPGeneratorTests: XCTestCase {
             XCTAssertEqual(result, values[i])
         }
     }
+    
+    func testGenerateCodeSHA512Digits2LowEntropy() throws {
+        // Given
+        let values = ["88", "87", "71", "55", "99", "60", "39", "35", "99", "12"]
+        let factor = TOTPFactorInfo(with: secret, digits: 2, algorithm: .sha512)
+        
+        // When
+        for i in 0...9 {
+            let result = factor.generatePasscode(from: UInt64(i))
+        
+            // Then
+            XCTAssertNotNil(result)
+            XCTAssertEqual(result.count, 2)
+            XCTAssertEqual(result, values[i])
+        }
+    }
+    
+    func testGenerateCodeSHA512Digits3LowEntropy() throws {
+        // Given
+        let values = ["788", "887", "671", "955", "699", "460", "439", "035", "699", "912"]
+        let factor = TOTPFactorInfo(with: secret, digits: 3, algorithm: .sha512)
+        
+        // When
+        for i in 0...9 {
+            let result = factor.generatePasscode(from: UInt64(i))
+        
+            // Then
+            XCTAssertNotNil(result)
+            XCTAssertEqual(result.count, 3)
+            XCTAssertEqual(result, values[i])
+        }
+    }
+    
+    func testGenerateCodeSHA512Digits4LowEntropy() throws {
+        // Given
+        let values = ["2788", "9887", "4671", "9955", "8699", "3460", "3439", "5035", "1699", "9912"]
+        let factor = TOTPFactorInfo(with: secret, digits: 4, algorithm: .sha512)
+        
+        // When
+        for i in 0...9 {
+            let result = factor.generatePasscode(from: UInt64(i))
+        
+            // Then
+            XCTAssertNotNil(result)
+            XCTAssertEqual(result.count, 4)
+            XCTAssertEqual(result, values[i])
+        }
+    }
+    
+    func testGenerateCodeSHA512Digits5LowEntropy() throws {
+        // Given
+        let values = ["82788", "39887", "44671", "29955", "08699", "23460", "73439", "75035", "31699", "99912"]
+        let factor = TOTPFactorInfo(with: secret, digits: 5, algorithm: .sha512)
+        
+        // When
+        for i in 0...9 {
+            let result = factor.generatePasscode(from: UInt64(i))
+        
+            // Then
+            XCTAssertNotNil(result)
+            XCTAssertEqual(result.count, 5)
+            XCTAssertEqual(result, values[i])
+        }
+    }
+    
+    func testDigits0AssignDefault() throws {
+        // Given
+        let factor = TOTPFactorInfo(with: secret, digits: 0, algorithm: .sha512)
+        
+        // When, Then
+        XCTAssertEqual(factor.digits, 6)
+    }
 }
