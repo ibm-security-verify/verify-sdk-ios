@@ -1,5 +1,25 @@
 Note: This is in reverse chronological order, so newer entries are added to the top.
 
+# v3.0.9
+19 February 2024
+### IBM Security Verify MFA SDK for iOS
+* Fix `FactorType` enum accessibility.
+* Support for low entropy OTP generation.
+
+### IBM Security Verify Core SDK for iOS
+* Increment version
+
+### IBM Security Verify Authentication SDK for iOS
+* Increment version
+
+### IBM Security Verify Adaptive SDK for iOS
+* Increment version
+
+### IBM Security Verify FIDO2™ SDK for iOS
+* Increment version
+<br/>
+<br/>
+
 # v3.0.8
 22 January 2024
 ### IBM Security Verify MFA SDK for iOS
