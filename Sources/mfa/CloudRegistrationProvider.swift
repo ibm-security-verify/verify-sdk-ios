@@ -14,6 +14,61 @@ public typealias CloudRegistrationError = MFARegistrationError
 public class CloudRegistrationProvider: MFARegistrationDescriptor {
     public typealias Authenticator = CloudAuthenticator
     
+    /// Initiate an authenticator registration for IBM Verify instances or custom mobile authenticators.
+    /// - Parameters:
+    ///   - initiateUri: The endpoint location to initiate an mutli-factor device registration
+    ///   - accessToken: The authenticated user token.
+    ///   - clientId: The unique identifier of the authenticator client to be associated with the registration.
+    ///   - accountName: The account name associated with the service.
+    /// - Returns: A JSON structure representing the registration initiation.
+    ///
+    /// ```swift
+    /// let accountName = "Test Account"
+    ///
+    /// // Obtain the JSON payload containing the code and registration endpoint.
+    /// let result = try await CloudRegistrationProvider.inAppInitiate(with: initiateUrl, accessToken: "09876zxyt", clientId: "a8f0043d-acf5-4150-8622-bde8690dce7d", accountName: accountName)
+    ///
+    /// // Create the registration controller
+    /// let provider = try CloudRegistrationProvider(json: result)
+    ///
+    /// // Instaniate the provider,
+    /// try await provider.initiate(with: accountName, pushToken: "abc123")
+    /// ```
+    public static func inAppInitiate(with initiateUri: URL, accessToken: String, clientId: String, accountName: String) async throws -> String {
+        // Create the request headers.
+        let headers = ["Authorization": "Bearer \(accessToken)"]
+        
+        // Construct the request body and parsing method.
+        let body = """
+        {
+            "clientId": "\(clientId)",
+            "accountName": "\(accountName)"
+        }
+        """.data(using: .utf8)!
+        
+        let resource = HTTPResource<String>(.post,
+                                            url: initiateUri,
+                                            accept: .json,
+                                            contentType: .json,
+                                            body: body,
+                                            headers: headers) { data, response in
+            
+            // Ensure data is returned.
+            guard let data = data else {
+                return Result.failure(CloudRegistrationError.dataInitializationFailed)
+            }
+            
+            // Convert the data to JSON string.
+            guard let value = String(data: data, encoding: .utf8) else {
+                return Result.failure(CloudRegistrationError.failedToParse)
+            }
+            
+            return Result.success(value)
+        }
+        
+        return try await URLSession.shared.dataTask(for: resource)
+    }
+    
     /// Creates the instance with a JSON string value.
     /// - Parameters:
     ///   - value: The JSON value typically obtained from a QR code.
