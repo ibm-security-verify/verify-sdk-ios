@@ -16,7 +16,7 @@ public class CloudRegistrationProvider: MFARegistrationDescriptor {
     
     /// Initiate an authenticator registration for IBM Verify instances or custom mobile authenticators.
     /// - Parameters:
-    ///   - initiateUri: The endpoint location to initiate an mutli-factor device registration
+    ///   - initiateUri: The endpoint location to initiate an mutli-factor device registration.
     ///   - accessToken: The authenticated user token.
     ///   - clientId: The unique identifier of the authenticator client to be associated with the registration.
     ///   - accountName: The account name associated with the service.
@@ -26,6 +26,7 @@ public class CloudRegistrationProvider: MFARegistrationDescriptor {
     /// let accountName = "Test Account"
     ///
     /// // Obtain the JSON payload containing the code and registration endpoint.
+    /// let initiateUrl = URL(string: "https://tenanturl/v1.0/authenticators/initiation")!
     /// let result = try await CloudRegistrationProvider.inAppInitiate(with: initiateUrl, accessToken: "09876zxyt", clientId: "a8f0043d-acf5-4150-8622-bde8690dce7d", accountName: accountName)
     ///
     /// // Create the registration controller
