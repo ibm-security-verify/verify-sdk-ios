@@ -1,5 +1,10 @@
 Note: This is in reverse chronological order, so newer entries are added to the top.
 
+# v3.0.10
+15 June 2024
+### IBM Security Verify MFA SDK for iOS
+* Adds `CloudRegistrationProvider.inAppInitiate` supporting in-app MFA registration.
+
 # v3.0.9
 19 February 2024
 ### IBM Security Verify MFA SDK for iOS
@@ -195,6 +200,5 @@ Note: This is in reverse chronological order, so newer entries are added to the 
 
 # v3.0.0
 6 October 2021
-
 ### IBM Security Verify FIDO2™ SDK for iOS
 * Added to repository

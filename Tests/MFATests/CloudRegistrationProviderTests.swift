@@ -34,6 +34,27 @@ class CloudRegistrationProviderTests: XCTestCase {
         URLProtocol.unregisterClass(MockURLProtocol.self)
     }
     
+    /// Test the initiation of a cloud provider.
+    func testInAppInitializeAuthenticator() async throws {
+        // Given
+        let initiateUrl = URL(string: "\(urlBase)/v1.0/authenticators/initiation")!
+        MockURLProtocol.urls[initiateUrl] = MockHTTPResponse(response: HTTPURLResponse(url: initiateUrl, statusCode: 200, httpVersion: nil, headerFields: nil)!, fileResource: "cloud.qrscan")
+        
+        do {
+            // Where
+            let json = try await CloudRegistrationProvider.inAppInitiate(with: initiateUrl, accessToken: "09876zxyt", clientId: "a8f0043d-acf5-4150-8622-bde8690dce7d", accountName: "Test")
+             
+            // Then
+            XCTAssertNotNil(json)
+            
+            let provider = try CloudRegistrationProvider(json: json)
+            XCTAssertNotNil(provider)
+        }
+        catch let error {
+            XCTAssertTrue(error is URLSessionError)
+        }
+    }
+    
     /// Test the scan initiation of a cloud provider.
     func testScanInitializeAuthenticator() async throws {
         // Given
