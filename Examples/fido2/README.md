@@ -10,15 +10,15 @@ The FIDO2 sample app is an end-to-end mobile app which uses the FIDO2 server fea
 
 - OAuth2 using resource owner password credential (ROPC)
 
-> See [Create an application using ROPC](https://docs.verify.ibm.com/verify/docs/ropc-example)
+> See [Create an application using ROPC](https://docs.verify.ibm.com/verify/docs/developer-portal-ropc-example)
 
 - FIDO relying party
 
-> See [Create a FIDO Relying Party for WebAuthn](https://docs.verify.ibm.com/verify/docs/create-a-fido-relying-party)
+> See [Create a FIDO Relying Party for WebAuthn](https://docs.verify.ibm.com/verify/docs/support-developers-create-a-fido-relying-party)
 
 - Authenticator metadata (optional)
 
-> See [FIDO2 metadata](https://docs.verify.ibm.com/verify/docs/fido2#metadata)
+> See [FIDO2 metadata](https://docs.verify.ibm.com/verify/docs/user-authentication-fido2#metadata)
 
 
 ## Running the app
