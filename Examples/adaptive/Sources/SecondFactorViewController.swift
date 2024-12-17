@@ -40,8 +40,8 @@ class SecondFactorViewController: UIViewController {
                     viewController.otp = .emailotp
                 case .smsotp:
                     viewController.otp = .smsotp
-                case .timeotp:
-                    viewController.otp = .timeotp
+                case .totp:
+                    viewController.otp = .totp
                 default:
                     viewController.otp = .emailotp
                 }
@@ -144,7 +144,7 @@ class SecondFactorViewController: UIViewController {
                 
                 stackView.addArrangedSubview(button)
             }
-            if factor.type == .timeotp {
+            if factor.type == .totp {
                 let button = createButton("Time OTP")
                 let action = createOtpActionHandler(with: button, enrolmentId: factor.id, transactionId: assessment.transactionId, factor: factor.type)
                 button.addAction(action, for: .touchUpInside)

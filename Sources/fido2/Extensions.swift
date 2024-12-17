@@ -47,13 +47,16 @@ extension OSLog {
 
 /// :nodoc:
 /// A mechanism used to create a shared secret between two users by performing X25519 key agreement.
+extension Curve25519.KeyAgreement.PrivateKey: @retroactive CustomStringConvertible {}
 extension Curve25519.KeyAgreement.PrivateKey: SecKeyConvertible {}
 
 /// :nodoc:
 /// A mechanism used to create or verify a cryptographic signature using Ed25519.
+extension Curve25519.Signing.PrivateKey: @retroactive CustomStringConvertible {}
 extension Curve25519.Signing.PrivateKey: SecKeyConvertible {}
 
 /// Ensure that SymmetricKey is generic password convertible.
+extension SymmetricKey: @retroactive CustomStringConvertible {}
 extension SymmetricKey: SecKeyConvertible {
     /// Creates a new ``SymmetricKey`` object.
     /// - Parameter data: Contiguous bytes repackaged as a Data instance.
@@ -69,6 +72,7 @@ extension SymmetricKey: SecKeyConvertible {
 
 /// :nodoc:
 /// Ensure that Secure Enclave keys are generic password convertible.
+extension SecureEnclave.P256.KeyAgreement.PrivateKey: @retroactive CustomStringConvertible {}
 extension SecureEnclave.P256.KeyAgreement.PrivateKey: SecKeyConvertible {
     /// Creates a private key  from a data representation of the key.
     /// - Parameter rawRepresentation: Contiguous bytes repackaged as a Data instance.
@@ -84,6 +88,7 @@ extension SecureEnclave.P256.KeyAgreement.PrivateKey: SecKeyConvertible {
 
 /// :nodoc:
 /// A representation of a device’s hardware-based key manager.
+extension SecureEnclave.P256.Signing.PrivateKey: @retroactive CustomStringConvertible {}
 extension SecureEnclave.P256.Signing.PrivateKey: SecKeyConvertible {
     /// Creates a private key  from a data representation of the key.
     /// - Parameter rawRepresentation: Contiguous bytes repackaged as a Data instance.

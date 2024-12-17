@@ -55,7 +55,7 @@ public class CloudRegistrationProvider: MFARegistrationDescriptor {
                                             headers: headers) { data, response in
             
             // Ensure data is returned.
-            guard let data = data else {
+            guard let data = data, !data.isEmpty else {
                 return Result.failure(CloudRegistrationError.dataInitializationFailed)
             }
             
@@ -142,7 +142,7 @@ public class CloudRegistrationProvider: MFARegistrationDescriptor {
         
         // Construct the request and parsing method.  We decode the metadata, then the token using the TokenInfo in the Authentication module.
         let resource = HTTPResource<(metadata: Metadata, token: TokenInfo)>(.post, url: url, accept: .json, contentType: .json, body: body) { data, response in
-            guard let data = data else {
+            guard let data = data, !data.isEmpty else {
                 return Result.failure(CloudRegistrationError.dataInitializationFailed)
             }
             
@@ -235,7 +235,7 @@ public class CloudRegistrationProvider: MFARegistrationDescriptor {
         
         // Create the resource to execute the request to enroll a signature factor and parse the result.
         let resource = HTTPResource<UUID>(.post, url: self.currentFactor.uri, accept: .json, contentType: .json, body: body, headers: ["Authorization": self.token.authorizationHeader]) { data, response in
-            guard let data = data else {
+            guard let data = data, !data.isEmpty else {
                 return Result.failure(CloudRegistrationError.dataInitializationFailed)
             }
             
@@ -271,7 +271,7 @@ public class CloudRegistrationProvider: MFARegistrationDescriptor {
         }
     }
 
-    public func finalize() async throws -> Authenticator {
+    public func finalize() async throws -> CloudAuthenticator {
         var attributes = MFAAttributeInfo.dictionary()
         attributes["accountName"] = self.accountName
         attributes["pushToken"] = self.pushToken

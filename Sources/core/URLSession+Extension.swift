@@ -86,10 +86,7 @@ extension URLSessionError: LocalizedError {
                 comment: "Invalid Resource"
             )
         case .invalidResponse(let statusCode, let description):
-            return NSLocalizedString(
-                "The response returned an error with status code \(statusCode). \(description)",
-                comment: "Invalid Response"
-            )
+            return NSLocalizedString(String(statusCode), comment: description)
         }
     }
 }
@@ -306,7 +303,7 @@ extension URLSession {
     /// - Returns: The new session data task.
     @discardableResult
     public func dataTask<T>(for resource: HTTPResource<T>) async throws -> T {
-        async let (data, response) = try await data(for: resource.request)
+        async let (data, response) = try await self.data(for: resource.request)
         
         guard let httpResponse = try await response as? HTTPURLResponse else {
             throw URLSessionError.unknown

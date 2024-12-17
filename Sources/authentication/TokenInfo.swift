@@ -60,7 +60,7 @@ public struct TokenInfo: Codable {
     /// Creates authorization header from token type and access token.  The authorization header is used in subsequent HTTP requests.
     /// - Returns: An authorization header.  For example: `Bearer ABC123`.
     public var authorizationHeader: String {
-        return "\(tokenType) \(accessToken)"
+        return "\(tokenType.prefix(1).capitalized + tokenType.dropFirst()) \(accessToken)"
     }
     
     /// The date the access token expires.

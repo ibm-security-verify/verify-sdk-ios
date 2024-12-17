@@ -12,7 +12,6 @@ public actor OnPremiseAuthenticatorService: MFAServiceDescriptor {
     public private(set) var accessToken: String
     public private(set) var currentPendingTransaction: PendingTransactionInfo?
     
-    public var publicKeyCertificate: String?
     nonisolated public let refreshUri: URL
     nonisolated public let transactionUri: URL
     
@@ -77,7 +76,7 @@ public actor OnPremiseAuthenticatorService: MFAServiceDescriptor {
             additionalData.forEach {
                 if attributes.index(forKey: $0.key) == nil && index <= 10 {
                     attributes.updateValue($0.value, forKey: $0.key)
-                    index+=1
+                    index += 1
                 }
             }
         }

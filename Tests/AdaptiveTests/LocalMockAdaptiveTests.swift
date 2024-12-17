@@ -84,7 +84,7 @@ class LocalMockAdaptiveTests: XCTestCase {
         switch result {
             case .success(let assessmentResult):
                 if assessmentResult is RequiresAssessmentResult, let hipster = assessmentResult as? RequiresAssessmentResult {
-                    if hipster.factors.contains(where: ({$0.type == .timeotp })) {
+                    if hipster.factors.contains(where: ({$0.type == .totp })) {
                         print("Do something with One time passcode")
                     }
                     else if hipster.factors.contains(where: {($0.type == .password)}) {
@@ -111,7 +111,7 @@ class LocalMockAdaptiveTests: XCTestCase {
         switch result {
             case .success(let assessmentResult):
                 if assessmentResult is RequiresAssessmentResult, let hipster = assessmentResult as? RequiresAssessmentResult {
-                    if hipster.factors.contains(where: ({$0.type == .timeotp })) {
+                    if hipster.factors.contains(where: ({$0.type == .totp })) {
                         print("Do something with One time passcode")
                     }
                     else if hipster.factors.contains(where: {($0.type == .password)}) {
@@ -238,7 +238,7 @@ class LocalMockAdaptiveTests: XCTestCase {
         let code = "1293"
         
         // Where
-        let result = OneTimePasscodeEvaluation(UUID().uuidString, code: code, otp: .timeotp)
+        let result = OneTimePasscodeEvaluation(UUID().uuidString, code: code, otp: .totp)
         
         // Then
         XCTAssertNotNil(result, "TOTP evaluation result was parsed successfully.")
@@ -318,7 +318,7 @@ class LocalMockAdaptiveTests: XCTestCase {
     /// This test returns a time otp (TOTP) generation result.
     func testGenerationTOTP() {
         let mock = LocalMockAdaptive(testType: .requiresEnrolled)
-        let assessment = EnrolledFactor(type: .timeotp, id: UUID().uuidString, enabled: true, validated: true, attributes: [:])
+        let assessment = EnrolledFactor(type: .totp, id: UUID().uuidString, enabled: true, validated: true, attributes: [:])
         
         
         mock.generate(with: assessment.id, transactionId: UUID().uuidString, factor: assessment.type) { result in

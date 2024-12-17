@@ -33,7 +33,6 @@ public enum MFARegistrationError: Error, LocalizedError, Equatable {
     /// The initialization fails for some reason (for example if data does not represent valid data for encoding).
     case dataInitializationFailed
     
-    
     /// An error that occurs when the `authenticator_id` is missing from the OAuth token.
     case missingAuthenticatorIdentifier
     
@@ -84,7 +83,7 @@ public protocol MFARegistrationDescriptor {
     /// - Parameters:
     ///   - value: The JSON value typically obtained from a QR code.
     init(json value: String) throws
-    
+
     /// Gets the next available factor for enrollment.
     ///
     /// The function defined here returns ``EnrollableSignature`` which is used to create a public-key and sign the data. For example:

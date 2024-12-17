@@ -130,7 +130,7 @@ public class AdaptiveService: NSObject, AdaptiveDelegate {
         }
         
         if let evaluation = response as? OneTimePasscodeEvaluation {
-            if evaluation.otp == .timeotp {
+            if evaluation.otp == .totp {
                 url = URL(string: "\(baseUrl)/evaluations/totp")
             }
             else if evaluation.otp == .smsotp {

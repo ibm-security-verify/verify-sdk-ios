@@ -255,4 +255,13 @@ class OTPGeneratorTests: XCTestCase {
         // When, Then
         XCTAssertEqual(factor.digits, 6)
     }
+    
+    
+    func testTimeRemaining() throws {
+        // Given
+        let value = TOTPFactorInfo.remainingTime(60)
+        
+        // When, Then
+        XCTAssertTrue(value > 0)
+    }
 }

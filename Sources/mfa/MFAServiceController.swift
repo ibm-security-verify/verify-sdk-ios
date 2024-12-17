@@ -176,7 +176,6 @@ public class MFAServiceController {
             certificateTrust = pinnedCertificate
         }
         
-        
         if let authenticator = authenticator as? OnPremiseAuthenticator {
             // If we created a certificate trust, then ignore the self-signed flag.
             if certificateTrust == nil && authenticator.ignoreSSLCertificate {

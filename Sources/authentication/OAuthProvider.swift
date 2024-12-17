@@ -258,7 +258,7 @@ public class OAuthProvider {
     ///   - completion: The closure to invoke when the username password authorization completes.
     public func authorize(issuer url: URL, username: String, password: String, scope: [String]? = nil) async throws -> TokenInfo {
         // Create the parameters to encode into the body.
-            var parameters: [String: Any] = ["grant_type":"password",
+            var parameters: [String: Any] = ["grant_type": "password",
                           "client_id": self.clientId,
                           "username": username,
                           "password": password]

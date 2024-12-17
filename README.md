@@ -25,7 +25,7 @@ The following components are currently offered in the package.
 | [Core](Sources/core) | The IBM Security Verify Core SDK provides common Keychain and networking functionality across the other components in the IBM Security Verify SDK offering.|
 | [Authentication](Sources/authentication) | The IBM Security Verify Authentication SDK is an implementation of OAuth 2.0 and OIDC targeting mobile use cases.|
 | [MFA](Sources/mfa) | The IBM Security Verify MFA SDK provides multi-factor authentication support for creating authenticators and processing transactions.|
-
+| [DC](Sources/dc) | The IBM Security Verify DC SDK supporting digital credentials in a mobile Wallet.|
 
 ### Installation
 
@@ -33,7 +33,7 @@ The following components are currently offered in the package.
 
 ```swift
 dependencies: [
-    .package(name: "IBM Security Verify", url: "https://github.com/ibm-security-verify/verify-sdk-ios.git", from: "3.0.10")
+    .package(name: "IBM Security Verify", url: "https://github.com/ibm-security-verify/verify-sdk-ios.git", from: "3.0.11")
 ]
 ```
 

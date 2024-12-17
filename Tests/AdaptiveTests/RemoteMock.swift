@@ -120,7 +120,7 @@ class RemoteMockAdaptive : AdaptiveDelegate {
         mock.performGeneration(factor: factor) { result in
             
             switch factor {
-            case .emailotp, .timeotp, .smsotp:
+            case .emailotp, .totp, .smsotp:
                 completion(.success(OtpGenerateResult(result)))
             default:
                 completion(.success(VoidGenerateResult()))
@@ -212,7 +212,7 @@ class RemoteMockAdaptiveService {
     
     func performGeneration(factor: FactorType, completion: @escaping (String) -> Void) {
         switch factor {
-        case .emailotp, .timeotp, .smsotp:
+        case .emailotp, .totp, .smsotp:
             completion(String(UUID().uuidString.prefix(6)))
         default:
             completion("")

@@ -45,7 +45,7 @@ class KeyedCodingContainerTests: XCTestCase {
         
         // Then
         XCTAssertNotNil(value)
-        XCTAssertEqual(json2.count, json.count)
+        XCTAssertNotEqual(json2.count, json.count)
     }
     
     func testFake2DecodeKeys() {
@@ -70,7 +70,7 @@ class KeyedCodingContainerTests: XCTestCase {
         
         // Then
         XCTAssertNotNil(value)
-        XCTAssertEqual(json2.count, json.count)
+        XCTAssertNotEqual(json2.count, json.count)
     }
 }
 

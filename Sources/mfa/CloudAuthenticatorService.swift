@@ -226,7 +226,7 @@ extension CloudAuthenticatorService {
             let subType: String
         }
 
-        // MARK: Initializeras
+        // MARK: Initializers
 
         /// Creates a new instance by decoding from the given decoder.
         /// - Parameter decoder: The decoder to read data from.
@@ -247,7 +247,7 @@ extension CloudAuthenticatorService {
     ///   - response: An object that provides response metadata, such as HTTP headers and status code.
     /// - Returns: A value that represents either a success or a failure, including an associated value in each case.
     private func parsePendingTransaction(data: Data?, response: URLResponse?) -> Result<NextTransactionInfo, Error> {
-        guard let data = data else {
+        guard let data = data, !data.isEmpty else {
             return Result.failure(MFAServiceError.invalidDataResponse)
         }
         

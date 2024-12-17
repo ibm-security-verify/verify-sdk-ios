@@ -1,5 +1,13 @@
 Note: This is in reverse chronological order, so newer entries are added to the top.
 
+# v3.0.11
+15 September 2024
+### IBM Security Verify DC SDK for iOS
+* Adds support for digital credentials. 
+
+### IBM Security Verify Core SDK for iOS
+* Support for decoding a JSON array of type `T` of unknown coding key.
+
 # v3.0.10
 15 June 2024
 ### IBM Security Verify MFA SDK for iOS
