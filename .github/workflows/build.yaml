@@ -2,14 +2,15 @@
 
 name: Verify SDK release
 
-on: 
+on:
   push:
     branches:
     - main
+    - develop
     tags:
       - 'v*'
 
-jobs:    
+jobs:
   build_and_deploy:
     name: Build and deploy
     runs-on: macos-latest
@@ -18,12 +19,12 @@ jobs:
       event_before: ${{ github.event.before }}
     steps:
       - name: Git checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - uses: swift-actions/setup-swift@v1
         with:
           swift-version: "5.7"
       - name: Checkout swift-docc repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: apple/swift-docc
           path: swift-docc
