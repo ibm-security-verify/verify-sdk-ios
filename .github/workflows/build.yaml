@@ -35,10 +35,11 @@ jobs:
       - name: Generate Symbol Graphs
         run: |
           mkdir -p .build/symbol-graphs && \
-          xcodebuild \
+          xcodebuild docbuild \
           -scheme "IBM Security Verify-Package" \
           -destination "generic/platform=iOS" \
-          -derivedDataPath ".build/symbol-graphs"
+          -derivedDataPath ".build/symbol-graphs" \
+          DOCC_HOSTING_BASE_PATH='/ios'
       - name: Generate docc
         run: |
           cd swift-docc
@@ -50,13 +51,13 @@ jobs:
           
           export DOCC_HTML_DIR="/Users/runner/work/verify-sdk-ios/verify-sdk-ios/swift-docc/swift-docc-render-artifact/dist"
 
-          swift run docc convert ../.build/iOS-SDK.docc \
+          xcrun docc convert ../.build/iOS-SDK.docc \
             --fallback-display-name iOS-SDK \
             --fallback-bundle-identifier com.ibm.iOS-SDK \
             --fallback-bundle-version 1.0.0 \
             --additional-symbol-graph-dir ../.build/symbol-graphs
 
-          swift run docc process-archive transform-for-static-hosting --hosting-base-path ios/ ../.build/iOS-SDK.docc/.docc-build
+          xcrun docc process-archive transform-for-static-hosting --hosting-base-path ios/ ../.build/iOS-SDK.docc/.docc-build
 
       - name: Push to I/O repo
         run: |
