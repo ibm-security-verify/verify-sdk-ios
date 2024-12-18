@@ -28,7 +28,10 @@ jobs:
         with:
           repository: apple/swift-docc
           path: swift-docc
-
+      - name: Select Xcode 15.1
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '15.1.0'
       - name: Generate Symbol Graphs
         run: |
           mkdir -p .build/symbol-graphs && \
