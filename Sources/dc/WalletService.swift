@@ -73,13 +73,13 @@ public protocol WalletServiceDescriptor {
     
     /// Gets an array of outstanding proof requests.
     /// - Parameters:
-    ///   - state: The ``VerificationState`` to filter by.  Default``VerificationState.passed``.
+    ///   - state: The ``VerificationState`` to filter by.  Default`passed`.
     /// - Returns: An array of ``VerificationInfo``.
     func retrieveProofRequests(filter state: VerificationState) async throws -> [VerificationInfo]
     
     /// Process a proof request from the wallet.
     /// - Parameters:
-    ///   - identifier: An instance of the ``VerificationPreviewInfo``.
+    ///   - preview: The preview of type ``VerificationPreviewInfo``.
     ///   - action: The status to be assigned to the proof request.
     func processProofRequest(with preview: VerificationPreviewInfo, action: VerificationAction) async throws
     
@@ -87,7 +87,7 @@ public protocol WalletServiceDescriptor {
     
     /// Gets an array of accepted credentials.
     /// - Parameters:
-    ///   - state: The state of the credential.  Default ``CredentialState.stored``.
+    ///   - state: The ``CredentialState``.  Default `stored`.
     /// - Returns: An array of ``Credential``.
     func retrieveCredentials(filter state: CredentialState) async throws -> [Credential]
     

@@ -13,7 +13,7 @@ public struct VerificationPreviewInfo: PreviewDescriptor {
     public let comment: String?
     public let jsonRepresentation: Data?
     
-    /// The document type that is used to support a custom visual representation of the ``attributes``.
+    /// The document type that is used to support a custom visual representation of the `attributes`.
     public let documentTypes: [String]
     
     /// The title of name of the verification.

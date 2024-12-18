@@ -22,7 +22,7 @@ public struct Wallet: WalletDescriptor {
     /// The client secret.
     public var clientSecret: String?
     
-    /// The authorization server issues an access token and optional refresh token.  In addition the ``TokenInfo`` provides the token type and other properties supporting the access token.
+    /// The authorization server issues an access token and optional refresh token.  In addition the `TokenInfo` provides the token type and other properties supporting the access token.
     public var token: TokenInfo
     
     /// An `Agent` manages credentials and is used to connect to other agents on behalf of the user.

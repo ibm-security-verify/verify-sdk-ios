@@ -174,7 +174,7 @@ public class MFARegistrationController {
     
     /// A Boolean value that indicates whether the authenticator will ignore secure sockets layer certificate challenages.
     ///
-    ///  Before invoking ``initiate(with:pushToken:additionalData:)`` this value can be used to alert the user that the certificate connecting the service is self-signed.
+    ///  Before invoking `initiate(with:pushToken:additionalData:)` this value can be used to alert the user that the certificate connecting the service is self-signed.
     /// - Remark: When `true` the service is using a self-signed certificate.
     public let ignoreSSLCertificate: Bool
     

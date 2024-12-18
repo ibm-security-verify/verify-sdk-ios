@@ -19,7 +19,7 @@ extension RSA {
             
             /// Creates a RSA pubic key from a DER representation.
             /// - Parameters:
-            ///   - derRepresentation: A DER-encoded representation of the key.
+            ///   - data: A DER-encoded representation of the key.
             public init<D>(derRepresentation data: D) throws where D : DataProtocol {
                 /// Construct the SecKey.
                 let attributes: [String: Any] = [
@@ -114,7 +114,7 @@ extension RSA {
                 }
             }
             
-            /// The representation of the key as  ``SecKey``.
+            /// The representation of the key as  `SecKey`.
             public var keyRepresentation: SecKey {
                 return self.key
             }
@@ -227,7 +227,7 @@ extension RSA {
             
             /// Creates a random RSA private key for signing from a data representation of the key.
             /// - Parameters:
-            ///   - derRepresentation: A DER-encoded representation of the key.
+            ///   - data: A DER-encoded representation of the key.
             public init<D>(derRepresentation data: D) throws where D : DataProtocol {
                 // Private key attributes
                 let attributes: [String: Any] = [
@@ -283,7 +283,7 @@ extension RSA {
                 }
             }
             
-            /// The representation of the key as  ``SecKey``.
+            /// The representation of the key as  `SecKey`.
             public var keyRepresentation: SecKey {
                 return self.key
             }

@@ -96,7 +96,7 @@ public actor OnPremiseAuthenticatorService: MFAServiceDescriptor {
     /// When a `transactionID` is supplied, information relating to that transaction identifier is returned while in a PENDING state.  Otherwise the next transaction is returned.
     /// - Parameters:
     ///   - transactionID: The transaction verification identifier.
-    ///   - returns: A `NextTransactionInfo` representing the transaction and a count of the number of pending transactions.
+    /// - Returns: A `NextTransactionInfo` representing the transaction and a count of the number of pending transactions.
     public func nextTransaction(with transactionID: String? = nil) async throws -> NextTransactionInfo {
         // Set the decoding behaviour.
         let decoder = JSONDecoder()
@@ -161,10 +161,8 @@ public actor OnPremiseAuthenticatorService: MFAServiceDescriptor {
     }
     
     /// Remove the authenticator.
-    /// - Parameters:
-    ///   - identifier: The identifer of the authenticator associated with the OnPremise user account.
     ///
-    /// The `identifer` is stored within the ``OnPremiseAuthenticator.token`` and is set by IBM Security Verify Access mapping rules.
+    /// The `identifer` is stored within the `OnPremiseAuthenticator.token` and is set by IBM Security Verify Access mapping rules.
     ///
     /// See [AuthenticationPostTokenGeneration](https://www.ibm.com/docs/en/sva/10.0.1?topic=rules-mmfa-mapping-rule-methods)
     ///

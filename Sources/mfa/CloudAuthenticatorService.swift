@@ -134,7 +134,6 @@ public actor CloudAuthenticatorService: MFAServiceDescriptor {
     ///
     /// - Parameters:
     ///   - transactionID: The transaction verification identifier.
-    ///   - returns: A `NextTransactionInfo` representing the transaction and a count of the number of pending transactions.
     public func nextTransaction(with transactionID: String? = nil) async throws -> NextTransactionInfo {
         // Update the transactionUri with a query parameter to filter the response.
         var transactionUri = URL(string: "\(self.transactionUri.absoluteString)\(TransactionFilter.nextPending.rawValue)")!

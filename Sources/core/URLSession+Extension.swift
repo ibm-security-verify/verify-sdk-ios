@@ -168,7 +168,6 @@ public struct HTTPResource<T> {
     /// - Parameter timeOutInterval: The timeout interval for the request, in seconds. The default is 60.0.
     /// - Parameter queryParams: A dictionary of query items to append to the URL.
     /// - Parameter parse: A function type to transform `T`.
-    /// - Returns: A `Result` value that represents either a success or a failure, including an associated value in each case.
     public init(_ method: method = .get, url: URL, accept: ContentType? = nil, contentType: ContentType? = nil, body: Data? = nil, headers: [String: String] = [:], timeOutInterval: TimeInterval = 60, queryParams: [String: String] = [:], parse: @escaping (Data?, URLResponse?) -> Result<T, Error>) {
         
         var requestUrl: URL
@@ -211,7 +210,7 @@ public struct HTTPResource<T> {
     }
     
     /// Creates a new `HTTPResource` from a `URLRequest`.
-    /// - Parameter method: A URL request object that provides request-specific information such as the URL, cache policy, request type, and body data or body stream.
+    /// - Parameter request: The `URLRequest` to execute.
     /// - Parameter parse: A function type  to transforms `T`.
     public init(request: URLRequest, parse: @escaping (Data?, URLResponse?) -> Result<T, Error>) {
         self.request = request
@@ -251,7 +250,7 @@ extension HTTPResource where T: Decodable {
     /// Creates a new `HTTPResource` for JSON operations that have an optional request body.
     /// - Parameter method: The HTTP request method.
     /// - Parameter url: The URL of the request.
-    /// - Parameter accepts: The content type for the `Accept` header.  Default `application/json`.
+    /// - Parameter accept: The content type for the `Accept` header.  Default `application/json`.
     /// - Parameter contentType: The content type for the `Content-Type` header.  Default `application/json`.
     /// - Parameter body: The JSON data sent as the message body of a request, such as for an HTTP POST request.
     /// - Parameter headers: A dictionary of additional HTTP header fields for a request.
@@ -273,7 +272,7 @@ extension HTTPResource where T: Decodable {
     /// Creates a new `HTTPResource` for JSON operations with an encodable body.
     /// - Parameter method: The HTTP request method.
     /// - Parameter url: The URL of the request.
-    /// - Parameter accepts: The content type for the `Accepts` header.  Default `application/json`.
+    /// - Parameter accept: The content type for the `Accepts` header.  Default `application/json`.
     /// - Parameter body: The data sent as the message body of a request, such as for an HTTP POST.
     /// - Parameter headers: A dictionary of additional HTTP header fields for a request.
     /// - Parameter timeOutInterval: The timeout interval for the request, in seconds. The default is 60.0.
@@ -299,7 +298,6 @@ extension HTTPResource where T: Decodable {
 extension URLSession {
     /// Creates a task that retrieves the contents of the specified URL, then calls a handler upon completion.
     /// - Parameter resource: The `HTTPResource` containing the request.
-    /// - Parameter completionHandler: The completion handler to call when the load request is complete.
     /// - Returns: The new session data task.
     @discardableResult
     public func dataTask<T>(for resource: HTTPResource<T>) async throws -> T {

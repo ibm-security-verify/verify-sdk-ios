@@ -278,10 +278,10 @@ extension ProofRequest.PresentationRequest.PresentationDefinition {
         
         /// Describe the specific combinatorial rules that must be applied to submit a particular subset of requested inputs.
         public enum RuleType: String, Codable {
-            /// The behavior requires the ``from`` or ``fromNested`` properties be submitted to the verifier.
+            /// The behavior requires the `from` or `fromNested` properties be submitted to the verifier.
             case all
             
-            /// The behavior requires the ``from`` or ``fromNested`` properties be submitted to the verifier.  The rule may contain ``count``, ``min`` and ``max`` properties.
+            /// The behavior requires the `from` or `fromNested` properties be submitted to the verifier.  The rule may contain `count`, `min` and ``max`` properties.
             case pick
         }
         
@@ -307,7 +307,7 @@ extension ProofRequest.PresentationRequest.PresentationDefinition {
         public let from: String?
         
         /// All submission requirement specified in the `fromNested` array must be satisfied by the inputs submitted to the verifier.
-        public let fromNester: [SubmissionRequirement]?
+        public let fromNested: [SubmissionRequirement]?
         
         // MARK: Enums
         
@@ -320,7 +320,7 @@ extension ProofRequest.PresentationRequest.PresentationDefinition {
             case min
             case max
             case from
-            case fromNester = "from_nester"
+            case fromNested = "from_nested"
         }
         
         public init(from decoder: any Decoder) throws {
@@ -332,7 +332,7 @@ extension ProofRequest.PresentationRequest.PresentationDefinition {
             self.min = try container.decodeIfPresent(Int.self, forKey: .min)
             self.max = try container.decodeIfPresent(Int.self, forKey: .max)
             self.from = try container.decodeIfPresent(String.self, forKey: .from)
-            self.fromNester = try container.decodeIfPresent([SubmissionRequirement].self, forKey: .fromNester)
+            self.fromNested = try container.decodeIfPresent([SubmissionRequirement].self, forKey: .fromNested)
         }
     }
     

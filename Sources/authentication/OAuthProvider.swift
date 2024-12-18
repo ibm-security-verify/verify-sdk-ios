@@ -76,7 +76,7 @@ public class OAuthProvider {
     ///   - clientId: The client identifier issued to the client during the registration process.
     ///   - clientSecret: The client secret.
     ///   - timeoutInterval: The request’s timeout interval, in seconds.  Default is 30 seconds.
-    ///   - additonalParameters: The client's additional authorization parameters.
+    ///   - additionalParameters: The client's additional authorization parameters.
     ///   - certificateTrust: A delegate to handle session-level certificate pinning.
     public init(clientId: String, clientSecret: String? = nil, timeoutInterval: TimeInterval = 30, additionalParameters: [String: Any] = [:], certificateTrust: URLSessionDelegate? = nil) {
         logger = Logger(subsystem: serviceName, category: "oauth")
@@ -100,7 +100,6 @@ public class OAuthProvider {
     /// Discover the authorization service configuration from a compliant OpenID Connect endpoint.
     /// - Parameters:
     ///   - url: The `URL` for the OpenID Connect service provider issuer.
-    ///   - completion: The closure to invoke when the discovery completes.
     public static func discover(issuer url: URL) async throws -> OIDCMetadataInfo {
         // Check for the .well-known/openid-configuration
         if !url.path.hasSuffix(".well-known/openid-configuration") {
@@ -208,7 +207,6 @@ public class OAuthProvider {
     ///   - authorizationCode: The authorization code received from the authorization server.
     ///   - codeVerifier: The PKCE code verifier used to redeem the authorization code.
     ///   - scope: The scope of the access request.
-    ///   - completion: The closure to invoke when the code authorize completes.
     public func authorize(issuer url: URL, redirectUrl: URL? = nil, authorizationCode: String, codeVerifier: String? = nil, scope: [String]? = nil) async throws -> TokenInfo {
         // Create the parameters to encode into the body.
         var parameters: [String: Any] = ["grant_type": "authorization_code",
@@ -252,10 +250,9 @@ public class OAuthProvider {
     /// The resource owner password credentials (i.e., username and password) can be used directly as an authorization grant to obtain an access token.
     /// - Parameters:
     ///   - url: The `URL` for the OpenID Connect service provider issuer.
-    ///   - userName: The resource owner username.
+    ///   - username: The resource owner username.
     ///   - password: The resource owner password.
     ///   - scope: The scope of the access request.
-    ///   - completion: The closure to invoke when the username password authorization completes.
     public func authorize(issuer url: URL, username: String, password: String, scope: [String]? = nil) async throws -> TokenInfo {
         // Create the parameters to encode into the body.
             var parameters: [String: Any] = ["grant_type": "password",
@@ -295,10 +292,9 @@ public class OAuthProvider {
     ///
     /// - Parameters:
     ///   - url: The `URL` for the OpenID Connect service provider issuer.
-    ///   - clientId: The client identifier issued to the client during the registration process.
-    ///   - clientSecret: The client secret.
+    ///   - refreshToken: The refresh token to acquire a new access token.
     ///   - scope: The scope of the access request.  The requested scope must not include any scope not originally granted by the resource owner, and if omitted is treated as equal to the scope originally granted by the resource owner.
-    ///   - completion: The closure to invoke when the discovery completes.
+    ///
     public func refresh(issuer url: URL, refreshToken: String, scope: [String]? = nil) async throws -> TokenInfo {
         // Create the parameters to encode into the body.
             var parameters: [String: Any] = ["grant_type": "refresh_token",

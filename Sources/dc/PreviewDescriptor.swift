@@ -22,7 +22,7 @@ public protocol PreviewDescriptor: Identifiable {
     /// The JSON representation of the preview data based on a credentail defination or proof request.
     var jsonRepresentation: Data? { get }
     
-    /// The document type that is used to support a custom visual representation of the ``attributes``.
+    /// The document type that is used to support a custom visual representation of the  attributes.
     var documentTypes: [String] { get }
 }
 
