@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v2
       - uses: swift-actions/setup-swift@v1
         with:
-          swift-version: "5.7"
+          swift-version: "5.9"
       - name: Checkout swift-docc repo
         uses: actions/checkout@v2
         with:
