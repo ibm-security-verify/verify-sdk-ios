@@ -34,7 +34,7 @@ jobs:
           mkdir -p .build/symbol-graphs && \
           xcodebuild \
           -scheme "IBM Security Verify-Package" \
-          -destination "OS=18.1,name=iPhone 15 Pro Max" \
+          -destination "generic/platform=iOS" \
           -derivedDataPath ".build/symbol-graphs"
       - name: Generate docc
         run: |
