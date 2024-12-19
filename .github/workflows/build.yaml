@@ -43,12 +43,14 @@ jobs:
           -destination "generic/platform=iOS" \
           -derivedDataPath $DERIVED_DATA_DIR
           
-      - name: Generate docc
+      - name: Merging target docarchives
         run: |
           cp -r ../.build/derived-data/Build/Intermediates.noindex/*.build/Debug-iphoneos/*.build/symbol-graph/ $SYMBOL_GRAPHS_DIR 
           echo '## Copy .docarchives'
-          echo | find $SYMBOL_GRAPHS_DIR -type d -name '*.json'
-        
+          echo | find $SYMBOL_GRAPHS_DIR -name '*.json'
+          
+      - name: Generating single docarchive
+        run: |
           cd swift-docc
           swift build
 
@@ -58,12 +60,14 @@ jobs:
           git clone https://github.com/apple/swift-docc-render-artifact.git
           export DOCC_HTML_DIR="/Users/runner/work/verify-sdk-ios/verify-sdk-ios/swift-docc/swift-docc-render-artifact/dist"
           
+          echo '## Converting docc'
           xcrun docc convert $DOCC_SOURCE_DIR \
             --fallback-display-name iOS-SDK \
             --fallback-bundle-identifier com.ibm.verify-ios-sdk \
             --fallback-bundle-version 1.0.0 \
             --additional-symbol-graph-dir $SYMBOL_GRAPHS_DIR
 
+          echo '## Processing archive'
           xcrun docc process-archive transform-for-static-hosting --hosting-base-path ios/ $DOCC_SOURCE_DIR/.docc-build
 
       - name: Push to I/O repo
