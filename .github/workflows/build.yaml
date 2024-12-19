@@ -45,9 +45,8 @@ jobs:
           
       - name: Merging target docarchives
         run: |
-          cp -r ../.build/derived-data/Build/Intermediates.noindex/*.build/Debug-iphoneos/*.build/symbol-graph/ $SYMBOL_GRAPHS_DIR 
           echo '## Copy .docarchives'
-          echo | find $SYMBOL_GRAPHS_DIR -name '*.json'
+          cp -r ../.build/derived-data/Build/Intermediates.noindex/*.build/Debug-iphoneos/*.build/symbol-graph/ $SYMBOL_GRAPHS_DIR 
           
       - name: Generating single docarchive
         run: |
