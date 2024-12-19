@@ -37,12 +37,14 @@ jobs:
           SYMBOL_GRAPHS_DIR=../.build/symbol-graphs
           DERIVED_DATA_DIR=../.build/derived-data
           
-          mkdir -p .build/symbol-graphs && \
+          mkdir -p $SYMBOL_GRAPHS_DIR && \
           xcodebuild docbuild \
           -scheme "IBM Security Verify-Package" \
           -destination "generic/platform=iOS" \
-          -derivedDataPath $DERIVED_DATA_DIR \
-          DOCC_HOSTING_BASE_PATH='/ios'
+          -derivedDataPath $DERIVED_DATA_DIR
+          
+          cp -r ${DERIVED_DATA_DIR}/Build/Intermediates.noindex/*.build/Debug-iphoneos/*.build/symbol-graph/ ${SYMBOL_GRAPHS_DIR} 
+          
       - name: Generate docc
         run: |
           cd swift-docc
