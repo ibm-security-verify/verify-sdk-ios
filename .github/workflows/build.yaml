@@ -63,7 +63,7 @@ jobs:
             --fallback-display-name iOS-SDK \
             --fallback-bundle-identifier com.ibm.verify-ios-sdk \
             --fallback-bundle-version 1.0.0 \
-            --additional-symbol-graph-dir $SYMBOL_GRAPHS_DIR
+            --additional-symbol-graph-dir ../.build/symbol-graphs
             
          
       - name: Push to I/O repo
