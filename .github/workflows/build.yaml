@@ -66,9 +66,6 @@ jobs:
             --fallback-bundle-version 1.0.0 \
             --additional-symbol-graph-dir $SYMBOL_GRAPHS_DIR
 
-          echo '## Processing archive'
-          # xcrun docc process-archive transform-for-static-hosting --hosting-base-path ios/ $DOCC_SOURCE_DIR/.docc-build
-
       - name: Push to I/O repo
         run: |
           git clone https://github.com/ibm-security-verify/ibm-security-verify.github.io.git
