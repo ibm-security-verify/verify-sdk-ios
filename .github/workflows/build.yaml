@@ -20,8 +20,14 @@ jobs:
     steps:
       - name: Git checkout
         uses: actions/checkout@v2
-      - name: Setup Pages
-        uses: actions/configure-pages@v2
+      - uses: swift-actions/setup-swift@v1
+        with:
+          swift-version: "5.9"
+      - name: Checkout swift-docc repo
+        uses: actions/checkout@v2
+        with:
+          repository: apple/swift-docc
+          path: swift-docc
       - name: Select Xcode 16.0
         uses: maxim-lobanov/setup-xcode@v1
         with:
@@ -39,25 +45,26 @@ jobs:
           
       - name: Generate docc
         run: |
-          cp -r ../.build/derived-data/Build/Intermediates.noindex/*.build/Debug-iphoneos/*.build/symbol-graph/ ../.build/symbol-graphs
+          cp -r ../.build/derived-data/Build/Intermediates.noindex/*.build/Debug-iphoneos/*.build/symbol-graph/ $SYMBOL_GRAPHS_DIR 
           echo '## Copy .docarchives'
-          find ../.build/symbol-graphs -type d -name '*.json' | echo {}
+          echo $(find $SYMBOL_GRAPHS_DIR -type d -name '*.json')
         
           cd swift-docc
           swift build
 
           DOCC_SOURCE_DIR=../.build/iOS-SDK.docc
           mkdir $DOCC_SOURCE_DIR
- 
-          $(xcrun --find docc) convert $DOCC_SOURCE_DIR \
+
+          git clone https://github.com/apple/swift-docc-render-artifact.git
+          export DOCC_HTML_DIR="/Users/runner/work/verify-sdk-ios/verify-sdk-ios/swift-docc/swift-docc-render-artifact/dist"
+          
+          xcrun docc convert $DOCC_SOURCE_DIR \
             --fallback-display-name iOS-SDK \
-            --fallback-bundle-identifier com.ibm.iOS-SDK \
+            --fallback-bundle-identifier com.ibm.verify-ios-sdk \
             --fallback-bundle-version 1.0.0 \
             --additional-symbol-graph-dir $SYMBOL_GRAPHS_DIR
 
-          $(xcrun --find docc) process-archive transform-for-static-hosting \
-            $DOCC_SOURCE_DIR/.docc-build \
-            --hosting-base-path ios/ 
+          xcrun docc process-archive transform-for-static-hosting --hosting-base-path ios/ $DOCC_SOURCE_DIR/.docc-build
 
       - name: Push to I/O repo
         run: |
