@@ -47,7 +47,7 @@ jobs:
         run: |
           cp -r ../.build/derived-data/Build/Intermediates.noindex/*.build/Debug-iphoneos/*.build/symbol-graph/ $SYMBOL_GRAPHS_DIR 
           echo '## Copy .docarchives'
-          echo $(find $SYMBOL_GRAPHS_DIR -type d -name '*.json')
+          echo | find $SYMBOL_GRAPHS_DIR -type d -name '*.json'
         
           cd swift-docc
           swift build
