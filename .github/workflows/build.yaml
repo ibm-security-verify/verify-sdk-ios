@@ -56,8 +56,7 @@ jobs:
           mkdir $DOCC_SOURCE_DIR
 
           git clone https://github.com/apple/swift-docc-render-artifact.git
-          export DOCC_HTML_DIR="/Users/runner/work/verify-sdk-ios/verify-sdk-ios/swift-docc/swift-docc-render-artifact/dist"
-          
+            
           echo '## Converting docc'
           $(xcrun --find docc) convert $DOCC_SOURCE_DIR \
             --fallback-display-name iOS-SDK \
