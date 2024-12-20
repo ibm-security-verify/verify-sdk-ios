@@ -12,7 +12,7 @@ on:
       
 jobs:
   build_and_deploy:
-    name: Build and deploy
+    name: Build and Deploy
     env:
       SYMBOL_GRAPHS_DIR: .build/symbol-graphs
       DERIVED_DATA_DIR: .build/derived-data
@@ -50,9 +50,9 @@ jobs:
         run: |
           cp -r $DERIVED_DATA_DIR/Build/Intermediates.noindex/*.build/Debug-iphoneos/*.build/symbol-graph/ $SYMBOL_GRAPHS_DIR
           
-      - name: Generating Documentation
+      - name: Generating Symbol Conversaion
         run: |
-          mkdir -p $DOCC_SOURCE_DIR
+          mkdir -p ../$DOCC_SOURCE_DIR
 
           git clone https://github.com/apple/swift-docc-render-artifact.git
           export DOCC_HTML_DIR=$(dirname $(xcrun --find docc))/../share/docc/render
@@ -62,7 +62,9 @@ jobs:
             --fallback-bundle-identifier com.ibm.verify-ios-sdk \
             --fallback-bundle-version 1.0.0 \
             --additional-symbol-graph-dir ../$SYMBOL_GRAPHS_DIR
-           
+        
+      - name: Generating Documentation
+        run: |
           $(xcrun --find docc) process-archive transform-for-static-hosting --hosting-base-path ios/ ../$DOCC_SOURCE_DIR/.docc-build
 
          
