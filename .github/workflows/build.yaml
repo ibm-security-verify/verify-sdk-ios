@@ -72,7 +72,7 @@ jobs:
           cd ..
           rm -r ibm-security-verify.github.io/ios/*
           mkdir -p ibm-security-verify.github.io/ios/
-          cp -R ./$SYMBOL_GRAPHS_DIR/.docc-build/. ibm-security-verify.github.io/ios
+          cp -R ../$SYMBOL_GRAPHS_DIR/.docc-build/. ibm-security-verify.github.io/ios
           cd ibm-security-verify.github.io
           git add .
           git commit -m "[GitHub Actions] Auto-Documentation Update"
