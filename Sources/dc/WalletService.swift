@@ -109,7 +109,7 @@ public protocol WalletServiceDescriptor {
     func deleteCredential(with identifier: String) async throws
 }
 
-/// The `WalletService` enables device wallets to invitation, connection, prrof request operations to obtain and issue a credential.
+/// The `WalletService` enables device wallets to perform operations to process invitations for proof request and credentials.
 public class WalletService: WalletServiceDescriptor {
     public weak var delegate: (any WalletServiceDelegate)?
     public var accessToken: String

@@ -63,6 +63,12 @@ jobs:
             --fallback-bundle-version 1.0.0 \
             --additional-symbol-graph-dir ../$SYMBOL_GRAPHS_DIR
         
+          echo "Symbols directory $$SYMBOL_GRAPHS_DIR
+          echo "docc container $$DOC_CONTAINER
+          
+    - name: Generate Documentation
+      run: |
+        $(xcrun --find docc) process-archive transform-for-static-hosting $DOC_CONTAINER/.docc-build --hosting-base-path ios/  
          
       - name: Push Github Pages
         run: |
