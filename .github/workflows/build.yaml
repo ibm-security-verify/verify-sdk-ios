@@ -8,35 +8,36 @@ on:
     - main
     - develop
     tags:
-      - 'v*'
+      - 'v*
 
 jobs:
   build_and_deploy:
     name: Build and deploy
+    env:
+      SYMBOL_GRAPHS_DIR: .build/symbol-graphs
+      DERIVED_DATA_DIR: .build/derived-data
+      DOCC_SOURCE_DIR: .build/ios-sdk.docc
     runs-on: macos-latest
     outputs:
-      github_sha: ${{github.sha}}
+      github_sha: ${{ github.sha }}
       event_before: ${{ github.event.before }}
     steps:
-      - name: Git checkout
+      - name: Checkout Swift
         uses: actions/checkout@v2
       - uses: swift-actions/setup-swift@v1
         with:
           swift-version: "5.9"
-      - name: Checkout swift-docc repo
+      - name: Checkout Swift-docc
         uses: actions/checkout@v2
         with:
           repository: apple/swift-docc
           path: swift-docc
-      - name: Select Xcode 16.0
+      - name: Setup Xcode 16.0
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '16.0.0'
-      - name: Generate Symbol Graphs
+      - name: Generate Target Symbol Graphs
         run: |
-          SYMBOL_GRAPHS_DIR=../.build/symbol-graphs
-          DERIVED_DATA_DIR=../.build/derived-data
-          
           swift package resolve
           
           mkdir -p $SYMBOL_GRAPHS_DIR && \
@@ -45,25 +46,25 @@ jobs:
           -destination "generic/platform=iOS" \
           -derivedDataPath $DERIVED_DATA_DIR
           
-      - name: Merging target docarchives
+      - name: Merging Target Symbol Graphs
         run: |
-          echo '## Copy .docarchives'
-          cp -r ../.build/derived-data/Build/Intermediates.noindex/*.build/Debug-iphoneos/*.build/symbol-graph/ $SYMBOL_GRAPHS_DIR 
+          cp -r $DERIVED_DATA_DIR/Build/Intermediates.noindex/*.build/Debug-iphoneos/*.build/symbol-graph/ $SYMBOL_GRAPHS_DIR
           
-      - name: Generating single docarchive
+      - name: Generating Documentation
         run: |
-          DOCC_SOURCE_DIR=../.build/iOS-SDK.docc
-          mkdir $DOCC_SOURCE_DIR
+          mkdir -p $DOCC_SOURCE_DIR
 
           git clone https://github.com/apple/swift-docc-render-artifact.git
-            
-          echo '## Converting docc'
-          $(xcrun --find docc) convert $DOCC_SOURCE_DIR \
-            --fallback-display-name iOS-SDK \
+          export DOCC_HTML_DIR="$(dirname $(xcrun --find docc))/../share/docc/render"
+                      
+          $(xcrun --find docc) convert ../$DOCC_SOURCE_DIR \
+            --fallback-display-name "IBM Security Verify iOS SDK" \
             --fallback-bundle-identifier com.ibm.verify-ios-sdk \
             --fallback-bundle-version 1.0.0 \
-            --additional-symbol-graph-dir ../.build/symbol-graphs
-            
+            --additional-symbol-graph-dir ../$SYMBOL_GRAPHS_DIR
+           
+          $(xcrun --find docc) process-archive transform-for-static-hosting --hosting-base-path ios/ ../$DOCC_SOURCE_DIR/.docc-build
+
          
       - name: Push to I/O repo
         run: |
