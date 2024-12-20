@@ -12,7 +12,7 @@ on:
       
 jobs:
   build_and_deploy:
-    name: Build and deploy
+    name: Build and Deploy
     env:
       SYMBOL_GRAPHS_DIR: .build/symbol-graphs
       DERIVED_DATA_DIR: .build/derived-data
@@ -52,7 +52,7 @@ jobs:
           
       - name: Generating Documentation
         run: |
-          mkdir -p $DOCC_SOURCE_DIR
+          mkdir -p ../$DOCC_SOURCE_DIR
 
           git clone https://github.com/apple/swift-docc-render-artifact.git
           export DOCC_HTML_DIR=$(dirname $(xcrun --find docc))/../share/docc/render
