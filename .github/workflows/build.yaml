@@ -50,7 +50,7 @@ jobs:
         run: |
           cp -r $DERIVED_DATA_DIR/Build/Intermediates.noindex/*.build/Debug-iphoneos/*.build/symbol-graph/ $SYMBOL_GRAPHS_DIR
           
-      - name: Generating Symbol Conversaion
+      - name: Generate Symbol Conversaion
         run: |
           mkdir -p ../$DOCC_SOURCE_DIR
 
@@ -72,7 +72,7 @@ jobs:
           cd ..
           rm -r ibm-security-verify.github.io/ios/*
           mkdir -p ibm-security-verify.github.io/ios/
-          cp -R ./.build/iOS-SDK.docc/.docc-build/. ibm-security-verify.github.io/ios
+          cp -R ./$SYMBOL_GRAPHS_DIR/.docc-build/. ibm-security-verify.github.io/ios
           cd ibm-security-verify.github.io
           git add .
           git commit -m "[GitHub Actions] Auto-Documentation Update"
