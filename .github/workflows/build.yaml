@@ -14,9 +14,9 @@ jobs:
   build_and_deploy:
     name: Build and Deploy
     env:
-      SYMBOL_GRAPHS_DIR: .build/symbol-graphs
-      DERIVED_DATA_DIR: .build/derived-data
-      DOCC_SOURCE_DIR: .build/ios-sdk.docc
+      SYMBOL_GRAPHS_DIR: symbol-graphs
+      DERIVED_DATA_DIR: derived-data
+      DOCC_SOURCE_DIR: ios-sdk.docc
     runs-on: macos-latest
     outputs:
       github_sha: ${{ github.sha }}
@@ -52,23 +52,23 @@ jobs:
           
       - name: Generate Symbol Conversaion
         run: |
-          mkdir -p ../${{ env.DOCC_SOURCE_DIR }}
+          mkdir -p ${{ env.DOCC_SOURCE_DIR }}
 
           git clone https://github.com/apple/swift-docc-render-artifact.git
           export DOCC_HTML_DIR=$(dirname $(xcrun --find docc))/../share/docc/render
                       
-          $(xcrun --find docc) convert ../${{ env.DOCC_SOURCE_DIR }} \
+          $(xcrun --find docc) convert ${{ env.DOCC_SOURCE_DIR }} \
             --fallback-display-name "IBM Security Verify iOS SDK" \
-            --fallback-bundle-identifier com.ibm.verify-ios-sdk \
+            --fallback-bundle-identifier com.ibm.verify.ios.sdk \
             --fallback-bundle-version 1.0.0 \
-            --additional-symbol-graph-dir ../${{ env.SYMBOL_GRAPHS_DIR }}
+            --additional-symbol-graph-dir ${{ env.SYMBOL_GRAPHS_DIR }}
         
           echo "Symbols directory ${{ env.SYMBOL_GRAPHS_DIR }}"
           echo "docc container ${{ env.DOCC_SOURCE_DIR }}"
           
       - name: Generate Documentation
         run: |
-          $(xcrun --find docc) process-archive transform-for-static-hosting ${{ env.DOCC_SOURCE_DIR }}/.docc-build --hosting-base-path ios/
+          $(xcrun --find docc) process-archive transform-for-static-hosting ${{ env.DOCC_SOURCE_DIR }}/.docc-build --hosting-base-path /ios
          
       - name: Push Github Pages
         run: |
@@ -78,7 +78,7 @@ jobs:
           cd ..
           rm -r ibm-security-verify.github.io/ios/*
           mkdir -p ibm-security-verify.github.io/ios/
-          cp -R ../$(( env.SYMBOL_GRAPHS_DIR }}/.docc-build/. ibm-security-verify.github.io/ios
+          cp -R $(( env.SYMBOL_GRAPHS_DIR }}/.docc-build/. ibm-security-verify.github.io/ios
           cd ibm-security-verify.github.io
           git add .
           git commit -m "[GitHub Actions] Auto-Documentation Update"
