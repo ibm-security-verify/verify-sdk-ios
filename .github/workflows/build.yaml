@@ -64,11 +64,11 @@ jobs:
             --additional-symbol-graph-dir ../${{ env.SYMBOL_GRAPHS_DIR }}
         
           echo "Symbols directory ${{ env.SYMBOL_GRAPHS_DIR }}"
-          echo "docc container ${{ env.DOC_CONTAINER }}"
+          echo "docc container ${{ env.DOCC_SOURCE_DIR }}"
           
       - name: Generate Documentation
         run: |
-          $(xcrun --find docc) process-archive transform-for-static-hosting ${{ env.DOC_CONTAINER }}/.docc-build --hosting-base-path ios/
+          $(xcrun --find docc) process-archive transform-for-static-hosting ${{ env.DOCC_SOURCE_DIR }}/.docc-build --hosting-base-path ios/
          
       - name: Push Github Pages
         run: |
