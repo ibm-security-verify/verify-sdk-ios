@@ -38,12 +38,11 @@ public protocol MFAServiceDescriptor: Actor {
     /// When a `transactionID` is supplied, information relating to that transaction identifier is returned while in a PENDING state.  Otherwise the next transaction is returned.
     /// - Parameters:
     ///   - transactionID: The transaction verification identifier.
-    ///   - returns: The ``NextTransactionInfo`` representing the transaction and the number of pending transactions associated with the authenticator.
+    /// - Returns: The ``NextTransactionInfo`` representing the transaction and the number of pending transactions associated with the authenticator.
     func nextTransaction(with transactionID: String?) async throws -> NextTransactionInfo
     
     /// Complete a second factor authentication challenge associated with a registered authenticator.
     /// - Parameters:
-    ///   - postbackUri: The location of the endpoint to complete the transaction operation.
     ///   - userAction: The enumerated type of user actions that can be performed to complete a transaction.
     ///   - signedData: The base64 encoded value using the private key associated with the factor enrollment.
     func completeTransaction(action userAction: UserAction, signedData: String) async throws
@@ -69,7 +68,6 @@ extension MFAServiceDescriptor {
     
     /// Complete a second factor authentication challenge associated with a registered authenticator.
     /// - Parameters:
-    ///   - postbackUri: The location of the endpoint to complete the transaction operation.
     ///   - userAction: The enumerated type of user actions that can be performed to complete a transaction.
     ///   - factor: The enrolled factor associated with transaction.
     ///
@@ -175,7 +173,6 @@ public class MFAServiceController {
         if let publicKeyCertificate = authenticator.publicKeyCertificate, let pinnedCertificate = PinnedCertificateDelegate(with: publicKeyCertificate) {
             certificateTrust = pinnedCertificate
         }
-        
         
         if let authenticator = authenticator as? OnPremiseAuthenticator {
             // If we created a certificate trust, then ignore the self-signed flag.

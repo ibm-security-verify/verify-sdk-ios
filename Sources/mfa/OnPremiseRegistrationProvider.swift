@@ -90,7 +90,7 @@ public class OnPremiseRegistrationProvider: MFARegistrationDescriptor {
             additionalData.forEach {
                 if parameters.index(forKey: $0.key) == nil && index <= 10 {
                     parameters.updateValue($0.value, forKey: $0.key)
-                    index+=1
+                    index += 1
                 }
             }
         }
@@ -121,7 +121,7 @@ public class OnPremiseRegistrationProvider: MFARegistrationDescriptor {
             if !skipTotpEnrollment {
                 let totpResource = HTTPResource<TOTPFactorInfo>(url: factor.uri, headers: ["Authorization": self.token.authorizationHeader]) { data, response in
                     
-                    guard let data = data else {
+                    guard let data = data, !data.isEmpty else {
                         return Result.failure(OnPremiseRegistrationError.dataInitializationFailed)
                     }
                     
@@ -227,7 +227,7 @@ public class OnPremiseRegistrationProvider: MFARegistrationDescriptor {
         }
     }
 
-    public func finalize() async throws -> Authenticator {
+    public func finalize() async throws -> OnPremiseAuthenticator {
         return OnPremiseAuthenticator(refreshUri: self.metadata.registrationUri,
                                       transactionUri: self.metadata.transactionUri,
                                       theme: self.metadata.theme,

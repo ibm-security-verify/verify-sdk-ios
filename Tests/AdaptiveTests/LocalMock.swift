@@ -67,7 +67,7 @@ class LocalMockAdaptive : AdaptiveDelegate {
         mock.performGeneration(factor: factor) { result in
             
             switch factor{
-            case .emailotp, .timeotp, .smsotp:
+            case .emailotp, .totp, .smsotp:
                 completion(.success(OtpGenerateResult(result)))
             case .questions:
                 completion(.success(KnowledgeQuestionGenerateResult([QuestionInfo(questionKey: "firstHouseStreet", question: "What was the street name of the first house you ever lived in?"), QuestionInfo(questionKey: "bestFriend", question: "What is the first name of your best friend?"), QuestionInfo(questionKey: "mothersMaidenName", question: "What is your mothers maiden name?")])))
@@ -180,7 +180,7 @@ class LocalMockAdaptiveService {
     
     func performGeneration(factor: FactorType, completion: @escaping (String) -> Void) {
         switch factor {
-        case .emailotp, .timeotp, .smsotp:
+        case .emailotp, .totp, .smsotp:
             completion(String(UUID().uuidString.prefix(6)))
         default:
             completion("")

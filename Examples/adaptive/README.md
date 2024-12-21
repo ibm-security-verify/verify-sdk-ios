@@ -14,7 +14,7 @@ The resource links in the prerequisites explain and demonstrate how you create a
 
 - Generate and download the Trusteer SDK via IBM Security Verify admin portal for the application.
 
-> See [On-board a native application](https://docs.verify.ibm.com/verify/docs/on-boarding-a-native-application)
+> See [On-board a native application](https://docs.verify.ibm.com/verify/docs/adaptive-access-sdk-adaptive-sdk-for-ios)
 
 ## Configure the app
 

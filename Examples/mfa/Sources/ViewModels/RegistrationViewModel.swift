@@ -34,10 +34,8 @@ class RegistrationViewModel: ObservableObject {
 
                 // Create the key-pair using default SHA512 hash.
                 let key = RSA.Signing.PrivateKey()
-                let publicKey = key.publicKey
-
+                
                 // Sign the data with the private key.
-                let value = factor.dataToSign.data(using: .utf8)!
                 let signature = try sign(privateKey: key, factor: factor)
 
                 // Add to the Keychain.

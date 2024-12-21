@@ -17,10 +17,10 @@ class StringExtensionTests: XCTestCase {
     /// Tests a string can not be url encoded.
     func testUrlNotEncoded() throws {
         // Given
-        let value = String(bytes: [0xD8, 0x00] as [UInt8], encoding: .utf16BigEndian)!
+        let value = String(bytes: [0xD8, 0x00] as [UInt8], encoding: .utf16BigEndian)
         
         // Where
-        let result = value.urlFormEncodedString
+        let result = value?.urlFormEncodedString
         
         // Then
         XCTAssertEqual(result, value)

@@ -1,4 +1,4 @@
-// swift-tools-version: 5.7
+// swift-tools-version: 5.9
 
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
@@ -27,10 +27,14 @@ let package = Package(
         .library(
             name: "MFA",
             targets: ["MFA"]),
+        .library(
+            name: "DC",
+            targets: ["DC"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
+        //.package(url: "https://github.com/swiftlang/swift-docc-plugin", from: "1.1.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -110,6 +114,25 @@ let package = Package(
             name: "MFATests",
             dependencies: ["MFA", "Core", "Authentication"],
             path: "Tests/MFATests",
+            resources: [
+                .copy("Files")
+            ],
+            linkerSettings: [
+              .linkedFramework(
+                "XCTest",
+                .when(platforms: [.iOS])),
+            ]),
+        .target(
+            name: "DC",
+            dependencies: ["Core", "Authentication"],
+            path: "Sources/dc",
+            resources: [
+                .copy("README.md")
+            ]),
+        .testTarget(
+            name: "DCTests",
+            dependencies: ["DC", "Core", "Authentication"],
+            path: "Tests/DCTests",
             resources: [
                 .copy("Files")
             ],

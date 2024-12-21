@@ -62,7 +62,7 @@ class RemoteMockAdaptiveTests: XCTestCase {
         switch result {
             case .success(let assessmentResult):
                 if let enrolment = assessmentResult as? RequiresAssessmentResult {
-                    if enrolment.factors.contains(where: ({$0.type == .timeotp })) {
+                    if enrolment.factors.contains(where: ({$0.type == .totp })) {
                         XCTAssertTrue(1 == 1, "Assessment factor is one-time passcode.")
                     }
                     else if enrolment.factors.contains(where: {($0.type == .password)}) {
