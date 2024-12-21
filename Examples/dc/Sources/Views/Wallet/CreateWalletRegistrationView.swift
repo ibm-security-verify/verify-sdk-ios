@@ -7,8 +7,8 @@ struct CreateWalletRegistrationView: View {
     @Environment(Model.self) private var model
     @FocusState private var accountNameIsFocused: Bool
     @State private var accountName = String()
-    @State private var username = "user_1"
-    @State private var password = "secret"
+    @State private var username = ""
+    @State private var password = ""
     
     let json: String
         

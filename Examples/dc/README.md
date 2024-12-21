@@ -4,48 +4,39 @@ The digital credentials sample app is an end-to-end mobile app that uses feature
 
 ## Getting started
 
-  The resource links in the prerequisites explain and demonstrate how you create a new tenant application and configure the security settings to enable multi-factor authentication to use in the sample app.
-
-### Prerequisites
-
-- Getting started
-
-> See [Before you begin](https://docs.verify.ibm.com/verify/docs/guides)
-
-- Registering the app
-
-> See [Inline MFA enrollment](https://docs.verify.ibm.com/verify/docs/inline-mfa-enrollment)
+IBM Verify Identity Access enables businesses, governments, and individuals to issue, manage, and verify digital credentials with the Digital Credentials feature.
+[IBM Verify Identity Access Digital Credentials configuration](https://www.ibm.com/docs/en/sva/11.0.0?topic=configuring-verify-identity-access-digital-credentials-configuration)
 
 ## Before running the app
 
-1. Sign into your tenant
-2. Click your initials in the top-right corner of the My Apps landing page
-3. Click **Profile & Settings**
-4. Click **Security** tab
-5. Click **Add new method +**
-6. Click **Add device** next to "IBM Security Verify App"
-7. Follow the prompts to when a QR code appears
+Your IBM Verify Identity Access (ISVA) administrator will provide you with username and password and the endpoint to start the wallet provisioning process.
 
 ## Running the app
 ### Update the project settings
 1. After opening the project in Xcode, change the **Team** selection under **Signing & Capabilities** in the **Target** list
 2. Connect your iOS mobile device or use the Xcode simulator
 
-### Register and enroll the app
+### Creating a wallet
 1. Press ⌘R to run the project
-2. Tap **Get Started** (you'll be prompted to allow the app to access the camera on the device)
+2. Tap **Create Wallet** (you'll be prompted to allow the app to access the camera on the device)
 3. Scan the code that appears in the browser from the pervious section
-4. Enter an account nickname, then tap **Continue**
-5. Depending on your tenants' configuration of "Authentication factors", you'll be prompted to allow the app to access Touch ID or Face ID on the device
+4. Enter an account name, a username and password, then tap **Continue**
+5. Tap **Done**. Details about the wallet are displayed.
 
-### Testing MFA
-1. Switch to the browser where you scanned the QR code - your device should now be registered
-2. Expand the device under "IBM Security Verify"
-3. Click the ⋮ symbol to the right of a "Method" i.e "Touch approval"
-4. Select **Test Method**
-5. Switch to the MFA app and tap **Check Transaction**
-6. The transaction sheet will appear, tap **Approve** or **Deny** 
-7. The status of the transaction will appear in the browser.
+### Accepting a credential
+1. Tap the **Credentials** tab.
+2. Tap the **Create Wallet** to launch the camera to scan the QR code
+3. The credential issuer details are displayed, tap **Continue**. 
+4. Details about the credentual are displayed, tap **Add to wallet**
+5. Tap **Done**. The list of existing credential are displayed.
+
+### Verifying a credential
+1. Tap the **Verifications** tab.
+2. Tap the **Verify Credential** to launch the camera to scan the QR code
+3. The verifier details are displayed, tap **Continue**. 
+4. Details about the verification request are displayed, tap **Preview Identity Details**
+5. A list of identity attribute claims about the credential are displayed. This is what is provided to the verifier., tap **Allow Verification**
+5. Tap **Done**. The list of existing verification are displayed.  Tap **Refresh** to retrieve all past verifications.
 
 ## License
 This package contains code licensed under the MIT License (the "License"). You may view the License in the [LICENSE](../../LICENSE) file within this package.

@@ -26,16 +26,22 @@ import Authentication
     let clientId = "onpremise_vcholders"
     
     /// The available verifications to preview.
+    ///
+    /// - remark: Change the key to represent the `input_descriptors`
     let verificationPreviews: [String: any View] = ["AustralianBorn-1733101773.9349709": ResidentProofRequestView(),
                                                  "au.gov.servicesaustralia.medicare.card": MedicareProofRequestView(),
                                                  "Whs71TiiEmFuwmMKsW4c4Y:3:CL:22:TAG1": EmployeeProofRequestView()]
     
     /// The available credentials to preview.
+    ///
+    /// - remark: Change the key to represent the `cred_def_id`.
     let credentialPreviews: [String: any View] = ["PermanentResidentCard": ResidentCredentialOfferView(),
                                                  "au.gov.servicesaustralia.medicare.card": MedicareCredentialOfferView(),
                                                  "Whs71TiiEmFuwmMKsW4c4Y:3:CL:22:TAG1": EmployeeCredentialOfferView()]
     
     /// The available credentials to preview.
+    ///
+    /// - remark: Change the key to represent the `cred_def_id`.
     let availableCredentials: [String: any View] = ["PermanentResidentCard": ResidentCredentialCardView(),
                                                     "au.gov.servicesaustralia.medicare.card": MedicareCredentialCardView(),
                                                     "Whs71TiiEmFuwmMKsW4c4Y:3:CL:22:TAG1": EmployeeCredentialCardView()]
