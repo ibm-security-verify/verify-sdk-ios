@@ -39,36 +39,36 @@ jobs:
       - name: Generate Target Symbol Graphs
         run: |
           swift package resolve
-          
-          mkdir -p $SYMBOL_GRAPHS_DIR && \
+
+          mkdir -p ${{ env.SYMBOL_GRAPHS_DIR }} && \
           xcodebuild docbuild \
           -scheme "IBM Security Verify-Package" \
           -destination "generic/platform=iOS" \
-          -derivedDataPath $DERIVED_DATA_DIR
+          -derivedDataPath ${{ env.DERIVED_DATA_DIR }}
           
       - name: Merging Target Symbol Graphs
         run: |
-          cp -r $DERIVED_DATA_DIR/Build/Intermediates.noindex/*.build/Debug-iphoneos/*.build/symbol-graph/ $SYMBOL_GRAPHS_DIR
+          cp -r ${{ env.DERIVED_DATA_DIR }}/Build/Intermediates.noindex/*.build/Debug-iphoneos/*.build/symbol-graph/ ${{ env.SYMBOL_GRAPHS_DIR }}
           
       - name: Generate Symbol Conversaion
         run: |
-          mkdir -p ../$DOCC_SOURCE_DIR
+          mkdir -p ../${{ env.DOCC_SOURCE_DIR }}
 
           git clone https://github.com/apple/swift-docc-render-artifact.git
           export DOCC_HTML_DIR=$(dirname $(xcrun --find docc))/../share/docc/render
                       
-          $(xcrun --find docc) convert ../$DOCC_SOURCE_DIR \
+          $(xcrun --find docc) convert ../${{ env.DOCC_SOURCE_DIR }} \
             --fallback-display-name "IBM Security Verify iOS SDK" \
             --fallback-bundle-identifier com.ibm.verify-ios-sdk \
             --fallback-bundle-version 1.0.0 \
-            --additional-symbol-graph-dir ../$SYMBOL_GRAPHS_DIR
+            --additional-symbol-graph-dir ../${{ env.SYMBOL_GRAPHS_DIR }}
         
-          echo "Symbols directory $$SYMBOL_GRAPHS_DIR
-          echo "docc container $$DOC_CONTAINER
+          echo "Symbols directory ${{ env.SYMBOL_GRAPHS_DIR }}"
+          echo "docc container ${{ env.DOC_CONTAINER }}"
           
       - name: Generate Documentation
         run: |
-          $(xcrun --find docc) process-archive transform-for-static-hosting $DOC_CONTAINER/.docc-build --hosting-base-path ios/
+          $(xcrun --find docc) process-archive transform-for-static-hosting ${{ env.DOC_CONTAINER }}/.docc-build --hosting-base-path ios/
          
       - name: Push Github Pages
         run: |
@@ -78,7 +78,7 @@ jobs:
           cd ..
           rm -r ibm-security-verify.github.io/ios/*
           mkdir -p ibm-security-verify.github.io/ios/
-          cp -R ../$SYMBOL_GRAPHS_DIR/.docc-build/. ibm-security-verify.github.io/ios
+          cp -R ../$(( env.SYMBOL_GRAPHS_DIR }}/.docc-build/. ibm-security-verify.github.io/ios
           cd ibm-security-verify.github.io
           git add .
           git commit -m "[GitHub Actions] Auto-Documentation Update"
